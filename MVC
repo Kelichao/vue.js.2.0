@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>MVC</title>
+</head>
+<body>
+<select id="drinkSelect">
+    <option value="coffee">coffee</option>
+    <option value="milk">milk</option>
+    <option value="juice">juice</option>
+</select>
+<p id="theColorOfDrink"></p>
+
+
+<script type="text/javascript">
+
+
+
+
+
+//Controller
+var show = {
+    start:function(){
+        document.getElementById("drinkSelect").onchange = show.view.onchange;
+    },
+    set:function(drinkName){
+        show.model.setDrink(drinkName);
+    }
+};
+
+//Model
+show.model = {
+    colorOfDrink:{
+        "coffee":"brown",
+        "milk":"white",
+        "juice":"orange"
+    },
+    selectedDrink:null,
+    setDrink:function(drinkName){
+        show.model.selectedDrink = drinkName;
+        show.model.onchange();
+    },
+    onchange:function(){
+        show.view.update();
+    },
+    getDrinkColor:function(){
+        return show.model.colorOfDrink[show.model.selectedDrink];
+    }
+};
+
+//View
+show.view = {
+    onchange:function(){
+        show.set(document.getElementById("drinkSelect").value);
+    },
+    update:function(){
+        document.getElementById("theColorOfDrink").innerHTML = show.model.getDrinkColor();
+    }
+};
+
+show.start();
+</script>
+</body>
+</html>
