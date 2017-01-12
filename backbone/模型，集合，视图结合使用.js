@@ -1,4 +1,4 @@
-<script type="text/javascript">
+
       // $.ajax({
       //   url:"/thsft/iFindService/IStrategy/subject/ajax-get-organ-members",
       //   type:"post",
@@ -163,4 +163,4 @@
         // $("#ccc").click(function(){
         //     alert(213)
         // })
-    </script>
+
