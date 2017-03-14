@@ -15,7 +15,9 @@
 ```
  $ cnpm install -g vue-cli
 ```
+
 > 初始化项目，并输入一系列参数
+
 ```
 $ vue init webpack my-first-vue-project
 ```
