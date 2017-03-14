@@ -20,6 +20,7 @@
 $ vue init webpack my-first-vue-project
 ```
 > 会生成一个文件夹
+
 ![image](https://cloud.githubusercontent.com/assets/18028533/21955629/168dc196-daaa-11e6-9413-bb2b05fb0305.png)
 
 ![image](https://cloud.githubusercontent.com/assets/18028533/21955656/8065219a-daaa-11e6-8b3b-005c4823f001.png)
