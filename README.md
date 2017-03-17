@@ -40,22 +40,3 @@ cnpm run dev
 ![image](https://cloud.githubusercontent.com/assets/18028533/21955748/230290b2-daac-11e6-84a7-4e285de948b0.png)
 
 
-vue注意点
-
-
-//vue.watch函数
-
-//<li class="u-info" v-if="(market == 2) && ()">  导致不渲染，而且无提示
-// v-model:stockType> 导致不渲染，而且无提示
-// vue  tab切换
-
-//<template v-if="(marketType == 2)">里面的语句不可以用if
-// template中的v-if 不能使用在普通标签里面使用，仍然要template
-// 组件中的模板只会有一个闭合的大标签
-//  props: ["title", "stockName", "stockCode", "inputNum", "changedPrice"]不要用大写
-// v-bind:stock-name="stockName"
-
-// local有Bug
-
-// toFixed会转化成字符串，要重新parseFloat
-// 看下filters
