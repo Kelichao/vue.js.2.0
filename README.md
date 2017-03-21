@@ -1,5 +1,6 @@
 # 一、前端MVVM框架VUE概要
 > 由于前端所做的业务越来越复杂，现在越来越多的单页应用，渐渐的前端MVC框架确实对我们前端开发者来讲是有必要深入学习的，MVVM可以让我们从dom操作中完全解脱，只需要操作数据即可自动渲染dom，可以说是非常高效。
+
 [什么是MVC](https://github.com/Kelichao/vue.js.2.0/issues/2)
 
 [kit中的mvc架构](https://github.com/Kelichao/kit.js/issues/3)
