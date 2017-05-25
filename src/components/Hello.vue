@@ -23,17 +23,19 @@
 
 <script>
 export default {
-  name: 'hello',
+  name: 'hello', /* 这个name暂时不知道用啥用，根据官方文档说的是方便排错的 */
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App' /* 这个name暂时不知道用啥用，根据官方文档说的是方便排错的 */
     }
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
+/*  scoped的意思是这里的样式只对当前页面有效不会影响其他页面，还有可以设置lang="scss"就是支持css预编译，也就是支持sass或者less  */
 h1, h2 {
   font-weight: normal;
 }
