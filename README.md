@@ -41,7 +41,10 @@ $ npm install
 $ npm start
 
 # 开发环境
-$ npm dev
+$ npm run dev
+
+# 输出生产代码
+$ npm run build
 ```
 
 
