@@ -1,3 +1,5 @@
+## 目录结构
+
 ```
 |-- build                            // 项目构建(webpack)相关代码
 |   |-- build.js                     // 生产环境构建代码
@@ -29,3 +31,41 @@
 |-- package.json                     // 项目基本信息
 ```
 
+## 添加路由
+1. 在`\src\router\index.js`文件中添加代码
+
+```js
+
+import Hello from '@/components/Hello'
+import Index from '@/components/Index'
+import aaa from '@/components/aaa'// 新添加的路由页面
+
+const routes = [
+    { path: '/', component: Hello },
+    { path: '/aaa', component: aaa },// 新添加的路由配置
+    { path: '/index', component: Index }
+]
+
+export default routes
+```
+
+2. 在目录`\src\components`中添加aaa.vue这个文件，内容填写为
+
+```html
+<template>
+  <div>
+    我是aaa的内容
+  </div>
+</template>
+
+<script>
+/*此处添加js*/
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+
+<style scoped>
+/*此处添加样式*/
+</style>
+
+```
