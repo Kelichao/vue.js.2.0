@@ -1,3 +1,20 @@
+# 环境搭建
+```bash
+# 安装依赖
+$ npm install
+
+# 启动热服务
+$ npm start
+
+# 开发环境
+$ npm run dev
+
+# 输出生产代码
+$ npm run build
+
+# 生产环境代码测试
+$ npm run build:test
+```
 
 
 ## 目录结构
@@ -31,20 +48,6 @@
 |-- favicon.ico 
 |-- index.html                       // 入口页面，容器
 |-- package.json                     // 项目基本信息
-```
-# 环境搭建
-```bash
-# 安装依赖
-$ npm install
-
-# 启动热服务
-$ npm start
-
-# 开发环境
-$ npm run dev
-
-# 输出生产代码
-$ npm run build
 ```
 
 
