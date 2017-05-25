@@ -1,6 +1,6 @@
 <template>
   <div>
-    我是index的内容
+    我是aaa的内容
   </div>
 </template>
 

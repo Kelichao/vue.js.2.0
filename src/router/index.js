@@ -1,9 +1,11 @@
 
-import Hello from '@/components/Hello'/* 英文Hello.vue模版，并赋值给变量Hello,这里是“@”相当于“../” */
+import Hello from '@/components/Hello'
 import Index from '@/components/Index'
+import aaa from '@/components/aaa'// 新添加的路由页面
 
 const routes = [
     { path: '/', component: Hello },
+    { path: '/aaa', component: aaa },// 新添加的路由配置
     { path: '/index', component: Index }
 ]
 
