@@ -1,3 +1,5 @@
+
+
 ## 目录结构
 
 ```
@@ -30,6 +32,18 @@
 |-- index.html                       // 入口页面，容器
 |-- package.json                     // 项目基本信息
 ```
+# 环境搭建
+```bash
+# 安装依赖
+$ npm install
+
+# 启动热服务
+$ npm start
+
+# 开发环境
+$ npm dev
+```
+
 
 ## 添加路由
 1. 在`\src\router\index.js`文件中添加代码
@@ -59,7 +73,10 @@ export default routes
 </template>
 
 <script>
-/*此处添加js*/
+/*此处添加js，这个export不能省略*/
+export default {
+  name: 'aaa'
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
