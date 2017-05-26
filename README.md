@@ -35,12 +35,14 @@ $ npm run build:test
 |   |-- prod.env.js                  // 生产环境变量
 |   |-- test.env.js                  // 测试环境变量
 |-- src                              // 源码目录
-|   |-- components                     // vue公共组件
-|   |-- store                          // vuex的状态管理
-|   |-- App.vue                        // 页面入口文件
-|   |-- main.js                        // 程序入口文件，加载各种公共组件
+|   |-- components                   // vue公共组件,子模板  
+|   |-- store                        // vuex的状态管理
+|   |-- assets                       // 图标等资源
+|   |-- router                       // 路由配置项
+|   |-- App.vue                      // 父模板，页面入口文件
+|   |-- main.js                      // 程序入口文件，加载各种公共组件
 |-- static                           // 静态文件，比如一些图片，json数据等
-|   |-- data                           // 群聊分析得到的数据用于数据可视化
+|   |-- data                         // 群聊分析得到的数据用于数据可视化
 |-- .babelrc                         // ES6语法编译配置
 |-- .editorconfig                    // 定义代码格式
 |-- .gitignore                       // git上传需要忽略的文件格式
