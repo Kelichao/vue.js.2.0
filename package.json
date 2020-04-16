@@ -4,12 +4,17 @@
   "author": "yi.shyang@ele.me",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --hot --env.dev --open",
+    "start": "webpack-dev-server --inline --hot --env.dev --open",
+    "dev": "webpack-dev-server --inline --hot --env.dev",
     "build": "rimraf dist && webpack -p --progress --hide-modules"
   },
   "dependencies": {
     "element-ui": "^2.3.4",
-    "vue": "^2.5.16"
+    "jquery": "^3.5.0",
+    "kit-pro": "^1.0.1",
+    "underscore": "^1.10.2",
+    "vue": "^2.5.16",
+    "vue-router": "^3.1.6"
   },
   "engines": {
     "node": ">=6"
