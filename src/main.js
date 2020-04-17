@@ -8,9 +8,10 @@ import jquery from "jquery"
 import _ from "underscore"
 import Hello from './view/Hello.vue'  //引入根目录下的Hello.vue组件
 
-// 全局变量
+// 定义全局变量
 window.kit = kit;
 window.jquery = jquery;
+window._ = _;
 
 
 // 2. 定义路由
