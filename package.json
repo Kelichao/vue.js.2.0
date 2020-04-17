@@ -1,7 +1,7 @@
 {
   "name": "element-starter",
   "description": "A Vue.js project",
-  "author": "yi.shyang@ele.me",
+  "author": "kelichao",
   "private": true,
   "scripts": {
     "start": "webpack-dev-server --inline --hot --env.dev --open",
@@ -14,7 +14,8 @@
     "kit-pro": "^1.0.1",
     "underscore": "^1.10.2",
     "vue": "^2.5.16",
-    "vue-router": "^3.1.6"
+    "vue-router": "^3.1.6",
+    "vuex": "^3.1.3"
   },
   "engines": {
     "node": ">=6"
