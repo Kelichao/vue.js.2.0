@@ -1,19 +1,20 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue'/* 这里是引入vue文件 */
-import App from './App'/* 这里是引入同目录下的App.vue模块 */
-import vueRouter from 'vue-router'
-import routes from './router'/* 这里是引入vue的路由 */
+import Vue from 'vue'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+import App from './App.vue'
+import VueRouter from 'vue-router'
+import global from "./global"// 全局调用
+import Vuex from 'vuex'
+import path from "./router/path.js"
 
-Vue.config.productionTip = false
-Vue.use(vueRouter)
-console.log(routes)
-const router = new vueRouter({
-  routes
-})
-/* eslint-disable no-new */
+// 插件
+Vue.use(VueRouter)
+Vue.use(ElementUI)
+
 new Vue({
-  el: '#app',/* 定义作用范围就是index.html里的id为app的范围内 */
-  router,
+  router: path,
+  el: '#app',
   render: h => h(App)
 })
+
+// router.push('foo')
