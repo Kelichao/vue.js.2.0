@@ -10,38 +10,21 @@
       <!-- <router-link> 默认会被渲染成一个 `<a>` 标签 -->
       <router-link to="/foo">路由页面现身</router-link>
       <router-link to="/bar">路由页面消失</router-link>
-
+      <router-link to="/vuex">vuex</router-link>
       <!-- 路由出口 -->
       <!-- 路由匹配到的组件将渲染在这里 -->
       <router-view></router-view>
     </div>
 
-    <!-- vuex -->
-    <div>
-      <el-button @click="commit">commit</el-button>
-      <el-button @click="getters">getters</el-button>
-      <el-button @click="dispatch">dispatch</el-button>
-    </div>
-    <div>count: {{count}}</div>
+   
   </div>
 </template>
 
 <script>
-import {mapState} from "vuex";
+
 export default {
-  computed: mapState({
-    count: "count"
-  }),
   methods: {
-    getters() {
-      this.$store.getters.big;
-    },
-    commit() {
-      this.$store.commit("increment");
-    },
-    dispatch() {
-      this.$store.dispatch("increment");
-    },
+
     startHacking() {
       this.$notify({
         title: "It works!",

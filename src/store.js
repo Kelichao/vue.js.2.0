@@ -9,7 +9,7 @@ window.store = new Vuex.Store({
     state: {
         count: 0
     },
-    // 做一些计算输出
+    // 做一些计算输出,注意，如果count不改变，只会触发一次,所以，这玩意，应该放在mtations里面
     getters: {  
         big(state) {
            return console.log(state.count + 5);
@@ -18,16 +18,16 @@ window.store = new Vuex.Store({
     // 唯一更改数据的方法
     mutations: {
         increment: function (state) {
-            setTimeout(() => {
+            //setTimeout(() => {
                 state.count++;
-            },1000)
-            
+            // },1000)
+            // console.log(state.count)
         },
         decrement: function (state) {
             state.count--;
         }
     },
-    // Action 类似于 mutation，不同在于：Action 提交的是 mutation，而不是直接变更状态。Action 可以包含任意异步操作。
+    // Action 类似于 mutation，不同在于：Action 提交的是多个mutation，而不是直接变更状态。Action 可以包含任意异步操作，复杂操作。
     actions: {
         increment (context) {
           context.commit('increment')

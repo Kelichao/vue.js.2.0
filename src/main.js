@@ -5,6 +5,7 @@ import App from './App.vue'
 import VueRouter from 'vue-router'
 import global from "./global"// 全局调用
 import Vuex from 'vuex'
+import VueI18n from 'vue-i18n'
 import router from "./router.js"
 import store from "./store.js"
 
