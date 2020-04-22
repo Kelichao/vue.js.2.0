@@ -1,13 +1,16 @@
 import VueRouter from 'vue-router'
 import Hello from '~/view/Hello.vue'  //引入根目录下的Hello.vue组件
-import vuex from '~/view/vuex.vue'  
+import vuex from '~/view/vuex.vue'
 import Vue from 'vue'
 // 2. 定义路由
 const router = new VueRouter({
-  routes:[
-    { path: '/foo', component: Hello },
-    { path: '/bar'},
-    {path: "/vuex", component: vuex}
+  routes: [
+    { path: '/foo', component: Hello ,
+    meta: { keepAlive: true }},
+    { path: '/bar',meta: { keepAlive: true } },
+    { path: "/vuex", component: vuex, 
+    meta: { keepAlive: true },//当前的.vue文件需要缓存
+  }
   ]
 })
 

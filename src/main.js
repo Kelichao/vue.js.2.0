@@ -11,6 +11,8 @@ import store from "./store.js"
 
 
 Vue.use(ElementUI)
+console.log(aaa)
+var aaa = 1213
 
 
 new Vue({
@@ -20,3 +22,10 @@ new Vue({
   render: h => h(App)
 })
 
+
+function A(){
+  
+}
+
+A.prototype.b = {a:123}
+window.a = new A()
