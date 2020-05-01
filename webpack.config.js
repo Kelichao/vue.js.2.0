@@ -4,13 +4,16 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const url = require('url')
 const publicPath = '' 
 
+var date = new Date()
+
+
 module.exports = (options = {}) => ({
   entry: {
     vendor: './src/vendor',
     index: './src/main.js'
   },
   output: {
-    path: resolve(__dirname, 'dist'),
+    path: resolve(__dirname, `dist/${date.getMonth()}-${date.getDay()}-${date.getHours()}.${date.getMinutes()}/`),
     filename: options.dev ? '[name].js' : '[name].js?[chunkhash]',
     chunkFilename: '[id].js?[chunkhash]',
     publicPath: options.dev ? '/assets/' : publicPath
@@ -45,7 +48,8 @@ module.exports = (options = {}) => ({
       names: ['vendor', 'manifest']
     }),
     new HtmlWebpackPlugin({
-      template: 'src/index.html'
+      template: 'src/index.html',
+      favicon: resolve('src/assets/favicon.ico'),
     })
   ],
   resolve: {
