@@ -5,16 +5,27 @@ import App from './App.vue'
 import VueRouter from 'vue-router'
 import global from "./global"// 全局调用
 import Vuex from 'vuex'
-import path from "./router/path.js"
+import VueI18n from 'vue-i18n'
+import router from "./router.js"
+import store from "./store.js"
 
-// 插件
-Vue.use(VueRouter)
+
 Vue.use(ElementUI)
+console.log(aaa)
+var aaa = 1213
+
 
 new Vue({
-  router: path,
+  router,// 路由
+  store,// vuex
   el: '#app',
   render: h => h(App)
 })
 
-// router.push('foo')
+
+function A(){
+  
+}
+
+A.prototype.b = {a:123}
+window.a = new A()

@@ -1,23 +1,23 @@
 <template>
   <div>
-    
     <div>
       <el-button @click="startHacking">我是通过路由引导的页面</el-button>
-    </div>
-    <div>
-
+      <input v-model=data>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  methods: {
-    startHacking () {
-      
+  data() {
+    return {
+      data:""
     }
+  },
+  methods: {
+    startHacking() {}
   }
-}
+};
 </script>
 
 <style>
