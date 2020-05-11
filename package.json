@@ -4,7 +4,7 @@
   "author": "kelichao",
   "private": true,
   "scripts": {
-    "start": "webpack-dev-server --inline --hot --env.dev --open",
+    "start": "webpack-dev-server --inline --host 172.16.10.150 --hot --env.dev --open",
     "dev": "webpack-dev-server --inline --hot --env.dev",
     "build": "rimraf dist && webpack -p --progress --hide-modules"
   },
@@ -28,6 +28,7 @@
     "css-loader": "^0.27.0",
     "file-loader": "^0.10.1",
     "html-webpack-plugin": "^2.24.1",
+    "less-loader": "^6.0.0",
     "postcss-loader": "^1.3.3",
     "rimraf": "^2.5.4",
     "style-loader": "^0.13.2",

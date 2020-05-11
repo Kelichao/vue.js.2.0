@@ -1,0 +1,466 @@
+/*
+ * @css reset
+ * @author: kelichao;
+ * @update: 2016-12-20
+ * @update: 2017-01-29
+ */
+/* 注:div,span是没有margin,padding的 */
+body,button,dd,dl,dt,fieldset,form,
+h1,h2,h3,h4,h5,h6,hr,input,legend,
+li,ol,p,pre,td,textarea,th,ul {margin: 0;padding:0;outline:none;}
+
+h1,h2,h3,h4,h5,h6 {font-size:100%}
+body,button,input,select,textarea {font-size:0.8rem;}
+address,cite,dfn,em,var,i{font-style:normal;}
+strong {font-weight:normal;}
+small {font-size:12px}
+ol,ul,li {list-style:none}
+a{text-decoration:none}
+a:hover{text-decoration:none}
+legend{color:#000}
+button,input,select,textarea{font-size:100%}
+table {border-collapse:collapse;border-spacing:0;}
+
+/* --------------------single CSS start----------------------- */
+* {
+    padding:0px;
+    margin:0px;
+    font-size: 14px;
+}
+
+::-webkit-scrollbar { width:10px;border-radius:5px;height:10px;}/*滚动条整体部分*/
+::-webkit-scrollbar-track { background-color:#eaeff4;width:10px; }/*滚动条轨道*/
+::-webkit-scrollbar-thumb { background-color: rgb(180, 189, 202);width:10px;height:10px; border-radius:10px;}/*滚动条内的小方块*/
+::-webkit-scrollbar-thumb:hover {background-color:#aeb4bd;}
+
+/* display */
+.hide{display:none;}
+.f-di{display:inline;}
+.f-db{display:block;}
+.f-dib{display:inline-block;}
+
+/* height */
+.f-h14{height:14px;}
+.f-h16{height:16px;}
+.f-h18{height:18px;}
+.f-h20{height:20px;}
+.f-h22{height:22px;}
+.f-h24{height:24px;}
+.f-h30{height:30px;}
+.f-h40{height:40px;}
+.f-h45{height:45px;}
+
+.f-h5p{height:5%;}
+.f-h10p{height:10%;}
+.f-h15p{height:15%;}
+.f-h20p{height:20%;}
+.f-h30p{height:30%;}
+.f-h40p{height:40%;}
+.f-h50p{height:50%;}
+.f-h60p{height:60%;}
+.f-h70p{height:70%;}
+.f-h80p{height:80%;}
+.f-h90p{height:90%;}
+.f-h100p{height:100%;}
+
+.f-w5p{width:5%;}
+.f-w7p{width:7%;}
+.f-w10p{width:10%;}
+.f-w15p{width:15%;}
+.f-w18p{width:18%;}
+.f-w20p{width:20%;}
+.f-w25p{width:25%;}
+.f-w29p{width:29%;}
+.f-w30p{width:30%;}
+.f-w33p{width: 33.3%}
+.f-w36p{width:36%;}
+.f-w38p{width:38%;}
+.f-w39p{width:39%;}
+.f-w40p{width:40%;}
+.f-w50p{width:50%;}
+.f-w60p{width:60%;}
+.f-w70p{width:70%;}
+.f-w80p{width:80%;}
+.f-w85p{width:85%;}
+.f-w88p{width:88%;}
+.f-w90p{width:90%;}
+.f-w100p{width:100%;}
+
+/* line-height */
+.f-lh14{line-height:14px;}
+.f-lh16{line-height:16px;}
+.f-lh18{line-height:18px;}
+.f-lh20{line-height:20px;}
+.f-lh22{line-height:22px;}
+.f-lh24{line-height:24px;}
+
+/* font-size */
+.f-fs0{font-size:0;}
+.f-fs10{font-size:10px;}
+.f-fs12{font-size:12px;}
+.f-fs13{font-size:13px;}
+.f-fs14{font-size:14px;}
+.f-fs16{font-size:16px;}
+.f-fs16i{font-size:16px !important;}
+.f-fs18{font-size:18px;}
+.f-fs20{font-size:20px;}
+.f-fs24{font-size:24px;}
+
+/* font-color */
+.f-cw{color:white;}
+.f-cb{color:black;}
+.f-cr{color:red;}
+.error {color: #ef5362;}
+
+/* font-style */
+.f-fwn{font-weight:normal; font-style:normal;}
+.f-fwb{font-weight:bold;}
+.f-fsi{font-style:italic;}
+
+/* text-align */
+.f-tac{text-align:center;}
+.f-tar{text-align:right;}
+.f-tal{text-align:left;}
+
+/* text-decoration */
+.f-tdu{text-decoration:underline;}
+.f-bn{border:none;}
+
+/* css3过渡动画效果 */
+.f-trans3{-webkit-transition:all 0.3s;transition:all 0.3s;}
+.f-trans5{-webkit-transition:all 0.5s;transition:all 0.5s;}
+.f-trans8{-webkit-transition:all 0.8s;transition:all 0.8s;}
+.f-trans10{-webkit-transition:all 1s;transition:all 1s;}
+
+/* 单行文字溢出虚点显 示*/
+.f-ell{text-overflow:ellipsis;white-space:nowrap;overflow:hidden;}
+
+/* 浮动 */
+.f-fl{float:left}
+.f-fr{float:right}
+
+/* 鼠标手势 */
+.f-cp{cursor:pointer;}
+.f-cd{cursor:default;}
+.f-cna{cursor:not-allowed;}
+
+/* position */
+.f-pr{position:relative}
+.f-pa{position:absolute}
+.f-pf{position:fixed;}
+
+/*用于absolute或者fixed定位或者浮动,任意类型元素的水平居中(要求：1.宽度必须要有)*/
+.pauto{left:0;right:0;margin-left:auto;margin-right:auto;position:absolute;/*父元素需要相对定位*/}
+
+/*任意类型元素的水平垂直居中(要求：1.宽度必须要有)*/
+.pautoall{left:0;right:0;top:0;bottom:0;margin:auto;position:absolute;/*父元素需要相对定位*/}
+
+/* 块元素水平居中(要求 1.无定位 2.设定宽度 3.必须是display:block) */
+.auto{margin-left:auto;margin-right:auto;display:block;}
+
+/* 块元素水平垂直居中(要求 1.无定位 2.设定宽度 3.必须是display:block) */
+.auto{margin:auto;display:block;}
+
+/* 容器内部子元素水平垂直居中 */
+/*存放<img>的容器设置如下*/
+.autocont{ 
+	/*将内部元素按照单元格显示，因此可以垂直居中*/
+	/*需要与vertical配合*/
+    display:table-cell; 
+    text-align:center;
+    vertical-align:middle;
+}
+
+/*清除浮动*/
+.fix:after{content:"";display:block;height:0;clear:both;visibility:hidden;}
+
+/*在IE6/7中通过zoom:1可以触发hasLayout。*/
+.fix{zoom:1;}
+
+/* vertical-align */
+.f-vam{vertical-align:middle;}
+.f-vab{vertical-align:bottom;}
+.f-vat{vertical-align:top;}
+.f-vatb{vertical-align:text-bottom;}
+
+/* visibility */
+.f-vh{visibility:hidden;}
+.f-vv{visibility:visible;}
+
+/* zoom */
+.f-z{*zoom:1;}
+
+/* 按钮禁用，如果有disabled则return */
+.disabled{color:#acacac;border-color:#acacac;text-shadow:1px 1px #fff;outline:0;cursor:default;pointer-events:none;}
+.disabled:hover{text-decoration:none;}
+
+/*增加了margin*/
+.f-m1{margin:1px;}
+.f-ml1{margin-left:1px;}
+.f-mr1{margin-right:1px;}
+.f-mt1{margin-top:1px;}
+.f-mb1{margin-top:1px;}
+
+.f-m2{margin:2px;}
+.f-ml2{margin-left:2px;}
+.f-ml20{margin-left:20px;}
+.f-mr20{margin-right:20px;}
+.f-mr2{margin-right:2px;}
+.f-mt2{margin-top:2px;}
+.f-mb2{margin-top:2px;}
+
+.f-m3{margin:3px;}
+.f-ml3{margin-left:3px;}
+.f-mr3{margin-right:3px;}
+.f-mt3{margin-top:3px;}
+.f-mb3{margin-top:3px;}
+
+.f-m5{margin:5px;}
+.f-ml5{margin-left:5px;}
+.f-mr5{margin-right:5px;}
+.f-mt5{margin-top:5px;}
+.f-mb5{margin-bottom:5px;}
+
+.f-m7{margin:7px;}
+.f-ml7{margin-left:7px;}
+.f-mr7{margin-right:7px;}
+.f-mt7{margin-top:7px;}
+.f-mb7{margin-bottom:7px;}
+
+.f-m10{margin:10px;}
+.f-ml10{margin-left:10px;}
+.f-mr10{margin-right:10px;}
+.f-mr15{margin-right:15px;}
+.f-ml15{margin-left:15px;}
+.f-mt10{margin-top:10px;}
+.f-mt15{margin-top:15px;}
+.f-mt20{margin-top:20px;}
+.f-mb10{margin-bottom:10px;}
+.f-mb20{margin-bottom:20px;}
+
+/*增加了padding*/
+.f-p1{padding:1px;}
+.f-pl1{padding-left:1px;}
+.f-pr1{padding-right:1px;}
+.f-pt1{padding-top:1px;}
+.f-pb1{padding-top:1px;}
+
+.f-p2{padding:2px;}
+.f-pl2{padding-left:2px;}
+.f-pr2{padding-right:2px;}
+.f-pt2{padding-top:2px;}
+.f-pb2{padding-top:2px;}
+
+.f-p3{padding:3px;}
+.f-pl3{padding-left:3px;}
+.f-pr3{padding-right:3px;}
+.f-pt3{padding-top:3px;}
+.f-pb3{padding-top:3px;}
+
+.f-p5{padding:5px;}
+.f-pl5{padding-left:5px;}
+.f-pr5{padding-right:5px;}
+.f-pt5{padding-top:5px;}
+.f-pb5{padding-top:5px;}
+
+.f-p7{padding:7px;}
+.f-pl7{padding-left:7px;}
+.f-pr7{padding-right:7px;}
+.f-pt7{padding-top:7px;}
+.f-pb7{padding-top:7px;}
+
+.f-p10{padding:10px;}
+.f-p15{padding:15px;}
+.f-pl10{padding-left:10px;}
+.f-pl20{padding-left:20px;}
+.f-pr10{padding-right:10px;}
+.f-pt10{padding-top:10px;}
+.f-ptn {padding-top:0;}
+.f-pb10{padding-top:10px;}
+
+.f-ofh{overflow: hidden;}
+.f-ofa{overflow: auto;}
+.f-ofv{overflow: visible;}
+/* ------------------- single CSS end------------------ */
+
+
+/* font-style */
+.f-fwn{font-weight:normal; font-style:normal;}
+.f-fwb{font-weight:bold;}
+.f-fwbi{font-weight:bold !important;}
+.f-fsi{font-style:italic;}
+
+/* text-align */
+.f-center{text-align:center;}
+.f-tar{text-align:right;}
+.f-tal{text-align:left;}
+
+/* text-decoration */
+.f-tdu{text-decoration:underline;}
+
+/* css3过渡动画效果 */
+.f-trans3{-webkit-transition:all 0.3s;transition:all 0.3s;}
+.f-trans5{-webkit-transition:all 0.5s;transition:all 0.5s;}
+.f-trans8{-webkit-transition:all 0.8s;transition:all 0.8s;}
+.f-trans10{-webkit-transition:all 1s;transition:all 1s;}
+
+/* 单行文字溢出虚点显 示*/
+.f-ell{text-overflow:ellipsis;white-space:nowrap;overflow:hidden;}
+
+/* 浮动 */
+.f-fl{float:left}
+.f-fr{float:right}
+
+/* 鼠标手势 */
+.f-cp{cursor:pointer;}
+.f-cd{cursor:default;}
+.f-cdi{cursor:default !important;}
+.f-cna{cursor:not-allowed;}
+
+/* position */
+.f-pr{position:relative}
+.f-pa{position:absolute} 
+.f-pf{position:fixed;}
+
+.f-br0{border-radius:0px}
+.f-br1{border-radius:1px}
+.f-br2{border-radius:2px}
+.f-br3{border-radius:3px}
+
+.f-bw0{border-width:0px;}
+.f-bw1{border-width:1px;}
+.f-bw2{border-width:2px;}
+.f-bw3{border-width:3px;}
+
+.f-oa{
+    overflow: auto;
+}
+.f-btd {
+    border-top:1px dashed;
+}
+
+
+.img-container {
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain; 
+}
+
+
+.f-df{
+    display: flex;/* flex布局 */
+}
+
+.f-fww {
+    flex-wrap:wrap; /*换行规则*/
+}
+
+.f-bw {
+    background: white;
+}
+
+.f-aic {
+    align-items:center;/*纵向上的对齐方式*/
+}
+
+
+.f-jcc {
+    justify-content: center;/*横向上的对齐方式*/
+}
+
+.f-jcs {
+    justify-content: flex-start;/*横向上的对齐方式*/
+}
+
+.f-jce {
+    justify-content: flex-end;/*横向上的对齐方式*/
+}
+
+
+
+.f-f1{
+    flex:1;
+}
+
+.f-f2{
+    flex:2;
+}
+
+.f-f3{
+    flex:3;
+}
+
+.f-f4 {
+    flex: 4;
+}
+
+.f-f5 {
+    flex: 5;
+}
+
+.f-f6 {
+    flex: 6;
+}
+
+.f-fdc {
+    flex-direction:column;/* 方向 */
+}
+.f-fdr {
+    flex-direction:row;
+}
+
+/* 需要块级元素,这玩意，得写在style里面，不然无效 */
+.ellipsis-text{
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+/*需要块级元素*/
+.ell {
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+
+/* 二行文字溢出 */
+.f-ell2 {
+    word-wrap: break-word;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* 三行文字溢出 */
+.f-ell3 {
+    word-wrap: break-word;
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* 四行文字溢出 */
+.f-ell4 {
+    word-wrap: break-word;
+    -webkit-line-clamp: 4;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* 小圆点 */
+.status-point {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }

@@ -8,13 +8,16 @@ import Vuex from 'vuex'
 // import VueI18n from 'vue-i18n' 
 import router from "./router.js"
 import store from "./store.js"
-
+import './css/common.css';
+import './style/theme/index.css';
 
 Vue.use(ElementUI)
-console.log(aaa)
-var aaa = 1213
-
-
+// console.log(aaa)
+// var aaa = 1213
+// php
+// http://dev.oa.zcabc.com/api/v1/micro/web/
+// http://dev.oa.zcabc.com/java/
+// api/v1/boot
 new Vue({
   router,// 路由
   store,// vuex
