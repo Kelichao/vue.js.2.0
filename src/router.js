@@ -7,7 +7,7 @@ import Vue from 'vue'
 const router = new VueRouter({
   routes: [
     {
-      path: '/foo', component: Hello,
+      path: '/hello', component: Hello,
       meta: { keepAlive: true }
     },
     { path: '/bar', meta: { keepAlive: true } },

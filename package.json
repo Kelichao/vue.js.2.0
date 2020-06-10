@@ -4,7 +4,7 @@
   "author": "kelichao",
   "private": true,
   "scripts": {
-    "start": "webpack-dev-server --inline --host 172.16.10.150 --hot --env.dev --open",
+    "start": "webpack-dev-server --inline --host localhost --hot --env.dev --open",
     "dev": "webpack-dev-server --inline --hot --env.dev",
     "build": "rimraf dist && webpack -p --progress --hide-modules"
   },

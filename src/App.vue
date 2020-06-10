@@ -13,15 +13,16 @@
           :key="item.title"
           :label="item.title"
           :name="item.name"
-        ><span slot="label"><i :class="item.icon"></i>{{item.title}}</span></el-tab-pane>
+        ><span slot="label">{{item.title}}</span></el-tab-pane>
       </el-tabs>
     </header>
 
     <!-- 路由出口 -->
     <!-- 路由匹配到的组件将渲染在这里 -->
     <div class="body">
+    <router-view class="f-h100p"></router-view>
     <keep-alive>
-      <router-view class="f-h100p"></router-view>
+      
     </keep-alive>
     </div>
   </div>
@@ -36,11 +37,10 @@ export default {
         {
           title: "个人门户",
           name: "person",
-          icon: "el-icon-my-export",
         },
         {
           title: "公司门户",
-          name: "2",
+          name: "hello",
           closable: true,
         }
       ],
@@ -49,7 +49,8 @@ export default {
   },
   methods: {
     handleClick(tab, event) {
-      console.log(this.$router.push(tab.name))
+    this.$router.push(tab.name)
+     // console.log()
     },
     startHacking() {
       this.$notify({
@@ -142,10 +143,6 @@ export default {
   display: none;
 }
 
-.el-icon-my-export {
-  background: url(./icon/个人门户.svg) 0px 0px no-repeat;
-  background-size: cover;
-}
 
 .el-icon-my-export:before {
   content: "\66ff";
