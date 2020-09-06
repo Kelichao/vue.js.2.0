@@ -6,7 +6,8 @@
   "scripts": {
     "start": "webpack-dev-server --inline --host localhost --hot --env.dev --open",
     "dev": "webpack-dev-server --inline --hot --env.dev",
-    "build": "rimraf dist && webpack -p --progress --hide-modules"
+    "build:test": "rimraf dist && webpack --TYPE=production -p --progress --hide-modules",
+    "build:production": "rimraf dist && webpack --TYPE=production -p --progress --hide-modules"
   },
   "dependencies": {
     "element-ui": "^2.3.4",

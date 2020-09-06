@@ -10,6 +10,7 @@ import router from "./router.js"
 import store from "./store.js"
 import './css/common.css';
 import './style/theme/index.css';
+console.warn("当前模式",process.env.TYPE)
 
 Vue.use(ElementUI)
 // console.log(aaa)

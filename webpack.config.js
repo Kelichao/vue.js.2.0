@@ -2,10 +2,11 @@ const resolve = require('path').resolve
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const url = require('url')
+const { Console } = require('console')
 const publicPath = '' 
 
 var date = new Date()
-
+// console.log(process.env.TYPE)
 
 module.exports = (options = {}) => ({
   entry: {
@@ -50,7 +51,14 @@ module.exports = (options = {}) => ({
     new HtmlWebpackPlugin({
       template: 'src/index.html',
       favicon: resolve('src/assets/favicon.ico'),
-    })
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        aaa:123,
+          // NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+          TYPE: JSON.stringify(process.env.TYPE)
+      }
+  }),
   ],
   resolve: {
     alias: {
@@ -59,8 +67,11 @@ module.exports = (options = {}) => ({
     extensions: ['.js', '.vue', '.json', '.css']
   },
   devServer: {
-    host: '127.0.0.1',
+    // host: '127.0.0.1',
     port: 8010,
+    disableHostCheck:true,
+    public:"localhost:8010",
+    host:'0.0.0.0',
     proxy: {
       '/api/': {
         target: 'http://127.0.0.1:8080',
