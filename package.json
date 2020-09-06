@@ -4,10 +4,10 @@
   "author": "kelichao",
   "private": true,
   "scripts": {
-    "start": "webpack-dev-server --inline --host localhost --hot --env.dev --open",
+    "start": "cross-env NODE_ENV=development  webpack-dev-server --inline  --host localhost --hot --env.dev --open",
     "dev": "webpack-dev-server --inline --hot --env.dev",
-    "build:test": "rimraf dist && webpack --TYPE=production -p --progress --hide-modules",
-    "build:production": "rimraf dist && webpack --TYPE=production -p --progress --hide-modules"
+    "build:test": "cross-env NODE_ENV=development webpack -p --progress --hide-modules",
+    "build:production": "cross-env NODE_ENV=production webpack -p --progress --hide-modules"
   },
   "dependencies": {
     "element-ui": "^2.3.4",
@@ -26,6 +26,7 @@
     "babel-core": "^6.24.1",
     "babel-loader": "^6.4.0",
     "babel-preset-vue-app": "^1.2.0",
+    "cross-env": "^7.0.2",
     "css-loader": "^0.27.0",
     "file-loader": "^0.10.1",
     "html-webpack-plugin": "^2.24.1",

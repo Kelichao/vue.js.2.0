@@ -4,17 +4,17 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const url = require('url')
 const { Console } = require('console')
 const publicPath = '' 
-
+const config = require("./config.js")
 var date = new Date()
-// console.log(process.env.TYPE)
-
+console.log(process.env.NODE_ENV)  // development
+console.log(config)
 module.exports = (options = {}) => ({
   entry: {
     vendor: './src/vendor',
     index: './src/main.js'
   },
   output: {
-    path: resolve(__dirname, `dist/${date.getMonth()}-${date.getDay()}-${date.getHours()}.${date.getMinutes()}/`),
+    path: resolve(__dirname, `dist/${process.env.NODE_ENV}_${date.getMonth()}-${date.getDay()}-${date.getHours()}.${date.getMinutes()}/`),
     filename: options.dev ? '[name].js' : '[name].js?[chunkhash]',
     chunkFilename: '[id].js?[chunkhash]',
     publicPath: options.dev ? '/assets/' : publicPath
@@ -56,7 +56,7 @@ module.exports = (options = {}) => ({
       'process.env': {
         aaa:123,
           // NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-          TYPE: JSON.stringify(process.env.TYPE)
+          TYPE: JSON.stringify(process.env.NODE_ENV)
       }
   }),
   ],
