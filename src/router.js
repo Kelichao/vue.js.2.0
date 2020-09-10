@@ -2,7 +2,9 @@ import VueRouter from 'vue-router'
 import Hello from '~/view/Hello.vue'  //引入根目录下的Hello.vue组件
 import vuex from '~/view/vuex.vue'
 import person from '~/view/person.vue'  
+import shuiku from '~/view/shuiku.vue'  
 import Vue from 'vue'
+
 // 2. 定义路由
 const router = new VueRouter({
   routes: [
@@ -15,6 +17,9 @@ const router = new VueRouter({
     {
       path: "/vuex", component: vuex,
       meta: { keepAlive: true },//当前的.vue文件需要缓存
+    },
+    {
+      path: "/shuiku", component: shuiku,
     }
   ]
 })

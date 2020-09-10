@@ -42,6 +42,11 @@ export default {
           title: "公司门户",
           name: "hello",
           closable: true,
+        },
+        {
+          title: "XX水库",
+          name: "shuiku",
+          closable: true,
         }
       ],
       tabIndex: 2
@@ -96,12 +101,12 @@ export default {
   background: #f0f0f0;
   height: 100%;
   box-sizing: border-box;
-  padding: 10px;
+  /* padding: 10px; */
   height: 100%;
 }
 
 .body {
-  height: calc(100% - 44px);
+  height: calc(100%);
     /* min-height: 800px; */
 } 
 
@@ -151,5 +156,11 @@ export default {
 
 .el-tabs__nav .el-tabs__item:nth-child(1) .el-icon-close{
     display: none;
+}
+
+.head {
+  position: absolute;
+  opacity: 0.3;
+  z-index: 100000;
 }
 </style>

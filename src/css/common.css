@@ -20,12 +20,12 @@ a:hover{text-decoration:none}
 legend{color:#000}
 button,input,select,textarea{font-size:100%}
 table {border-collapse:collapse;border-spacing:0;}
-
+span,label {display: inline-block;}
 /* --------------------single CSS start----------------------- */
 * {
     padding:0px;
     margin:0px;
-    font-size: 14px;
+    /* font-size: 14px; */
 }
 
 ::-webkit-scrollbar { width:10px;border-radius:5px;height:10px;}/*滚动条整体部分*/
@@ -318,9 +318,15 @@ table {border-collapse:collapse;border-spacing:0;}
 .f-pb9{padding-bottom:9px;}
 
 .f-p10{padding:10px;}
+.f-p11{padding:11px;}
+.f-p12{padding:12px;}
+.f-p13{padding:13px;}
+.f-p14{padding:14px;}
 .f-p15{padding:15px;}
+.f-p16{padding:16px;}
 .f-pl10{padding-left:10px;}
 .f-pl20{padding-left:20px;}
+.f-pl30{padding-left:30px;}
 .f-pr10{padding-right:10px;}
 .f-pt10{padding-top:10px;}
 .f-ptn {padding-top:0;}

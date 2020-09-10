@@ -2,11 +2,13 @@ import kit from "kit-pro"
 import jquery from "jquery"
 import _ from "underscore"
 import { Message, MessageBox } from 'element-ui';
+import * as echarts from 'echarts';
 // 定义全局变量
 window.kit = kit;
 window.jquery = jquery;
 window.$ = jquery;
 window._ = _;
+window.echarts = echarts;
 // console.log(ElementUI)
 window.util = {
     javaAjax(url,data,callback) {

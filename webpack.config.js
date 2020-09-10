@@ -7,7 +7,7 @@ const publicPath = ''
 const config = require("./config.js")
 var date = new Date()
 console.log(process.env.NODE_ENV)  // development
-console.log(config)
+// console.log(config)
 module.exports = (options = {}) => ({
   entry: {
     vendor: './src/vendor',
@@ -33,6 +33,14 @@ module.exports = (options = {}) => ({
         test: /\.css$/,
         use: ['style-loader', 'css-loader', 'postcss-loader']
       },
+
+      {
+ 
+        test: /\.less$/,
+     
+        loader: "style-loader!css-loader!less-loader",
+     
+    },
       {
         test: /\.(png|jpg|jpeg|gif|eot|ttf|woff|woff2|svg|svgz)(\?.+)?$/,
         use: [{
@@ -56,7 +64,8 @@ module.exports = (options = {}) => ({
       'process.env': {
         aaa:123,
           // NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-          TYPE: JSON.stringify(process.env.NODE_ENV)
+          TYPE: JSON.stringify(process.env.NODE_ENV),
+          config: JSON.stringify(config[process.env.NODE_ENV])
       }
   }),
   ],
