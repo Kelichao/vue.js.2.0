@@ -11,7 +11,7 @@ import store from "./store.js"
 import './css/common.css';
 import './style/theme/index.css';
 console.warn("当前模式",process.env.TYPE)
-window.$config = process.env.config;
+
 Vue.use(ElementUI)
 // console.log(aaa)
 // var aaa = 1213

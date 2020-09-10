@@ -16,6 +16,7 @@
     "kit-pro": "^1.0.3",
     "less": "3.9",
     "less-loader": "5.0.0",
+    "moment": "^2.27.0",
     "underscore": "^1.10.2",
     "vue": "^2.5.16",
     "vue-router": "^3.1.6",

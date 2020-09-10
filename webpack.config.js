@@ -3,7 +3,7 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const url = require('url')
 const { Console } = require('console')
-const publicPath = '' 
+const publicPath = ''
 const config = require("./config.js")
 var date = new Date()
 console.log(process.env.NODE_ENV)  // development
@@ -21,35 +21,35 @@ module.exports = (options = {}) => ({
   },
   module: {
     rules: [{
-        test: /\.vue$/,
-        use: ['vue-loader']
-      },
-      {
-        test: /\.js$/,
-        use: ['babel-loader'],
-        exclude: /node_modules/
-      },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader', 'postcss-loader']
-      },
-
-      {
- 
-        test: /\.less$/,
-     
-        loader: "style-loader!css-loader!less-loader",
-     
+      test: /\.vue$/,
+      use: ['vue-loader']
     },
-      {
-        test: /\.(png|jpg|jpeg|gif|eot|ttf|woff|woff2|svg|svgz)(\?.+)?$/,
-        use: [{
-          loader: 'url-loader',
-          options: {
-            limit: 10000
-          }
-        }]
-      }
+    {
+      test: /\.js$/,
+      use: ['babel-loader'],
+      exclude: /node_modules/
+    },
+    {
+      test: /\.css$/,
+      use: ['style-loader', 'css-loader', 'postcss-loader']
+    },
+
+    {
+
+      test: /\.less$/,
+
+      loader: "style-loader!css-loader!less-loader",
+
+    },
+    {
+      test: /\.(png|jpg|jpeg|gif|eot|ttf|woff|woff2|svg|svgz)(\?.+)?$/,
+      use: [{
+        loader: 'url-loader',
+        options: {
+          limit: 10000
+        }
+      }]
+    }
     ]
   },
   plugins: [
@@ -62,12 +62,12 @@ module.exports = (options = {}) => ({
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        aaa:123,
-          // NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-          TYPE: JSON.stringify(process.env.NODE_ENV),
-          config: JSON.stringify(config[process.env.NODE_ENV])
+        aaa: 123,
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+        TYPE: JSON.stringify(process.env.NODE_ENV),
+        config: JSON.stringify(config)
       }
-  }),
+    }),
   ],
   resolve: {
     alias: {
@@ -78,9 +78,9 @@ module.exports = (options = {}) => ({
   devServer: {
     // host: '127.0.0.1',
     port: 8010,
-    disableHostCheck:true,
-    public:"localhost:8010",
-    host:'0.0.0.0',
+    disableHostCheck: true,
+    public: "localhost:8010",
+    host: '0.0.0.0',
     proxy: {
       '/api/': {
         target: 'http://127.0.0.1:8080',

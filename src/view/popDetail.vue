@@ -66,7 +66,7 @@
       <label
         style="color:rgba(48, 49, 51, 1);font-weight:bold;margin-left:10px;padding-bottom:5px;display:inline-block"
       >预测数据</label>
-      <span style="color:rgba(0, 145, 255, 1);float:right;margin-right:16px;">2019-11-06 17:00</span>
+      <span style="color:rgba(0, 145, 255, 1);float:right;margin-right:16px;">{{moment(data.dateTime).format("YYYY-MM-DD hh:mm")}}</span>
     </div>
 
     <el-table size="mini" :data="tableData" style="width: 100%" max-height="250">
@@ -105,9 +105,13 @@ export default {
     siteName: {
       type: String,
     },
+    data: {
+      type: Object
+    }
   },
   data() {
     return {
+      moment:moment,
       tableData: [
         {
           date: "2016",
@@ -145,6 +149,7 @@ export default {
     };
   },
   mounted() {
+    this.getSiteDetail()
     setTimeout(() => {
       echarts.init(document.getElementById("main2")).setOption({
         xAxis: {
@@ -171,7 +176,19 @@ export default {
       });
     });
   },
-  methods: {},
+  methods: {
+        // 站点详情
+    getSiteDetail() {
+      $.get({
+        url: $$.url + "/wms/wms/outside/v1/map/site-data.do",
+        data: {
+          dateType: this.data.dateType,
+          siteId: "2c90827271c3757f0171c4b793e70006", // 站点ID
+          dateTime: this.data.dateTime,
+        },
+      });
+    },
+  },
 };
 </script>
 <style>

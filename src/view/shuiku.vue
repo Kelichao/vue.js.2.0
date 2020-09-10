@@ -1,111 +1,122 @@
 <template>
-  <div class="main">
-    <div class="header">
+  <div>
+    <div class="header" v-show="!hideMenus">
       <h1 class="h1">釜山水库水质预测</h1>
     </div>
+    <div class="main">
+      <div class="left">
+        <h1 class="f-fs16">釜山水库水质预测</h1>
+        <div class="f-df f-p16">
+          <div class="f-f1">
+            <h2
+              class="f-trans8"
+              :style="{background:colorObj[totalInfo.levelId]}"
+            >{{totalInfo.level}}</h2>
+            <span class="f-df f-jcsb f-mb2">
+              <span class>I-III类占比</span>
+              <span>{{okRant}}%</span>
+            </span>
+            <el-progress :percentage="okRant" :show-text="false"></el-progress>
 
-    <div class="left">
-      <h1 class="f-fs16">釜山水库水质预测</h1>
-      <div class="f-df f-p16">
-        <div class="f-f1">
-          <h2 class="f-trans5" :style={background:colorObj[totalInfo.levelId]}>{{totalInfo.level}}</h2>
-          <span class="f-df f-jcsb f-mb2">
-            <span class>I-III类占比</span>
-            <span>{{okRant}}%</span>
-          </span>
-          <el-progress :percentage="okRant" :show-text="false"></el-progress>
-
-          <span class="f-df f-jcsb f-mt10 f-mb2">
-            <span>劣V类占比</span>
-            <span>{{badRant}}%</span>
-          </span>
-          <el-progress :percentage="badRant" status="exception" :show-text="false"></el-progress>
+            <span class="f-df f-jcsb f-mt10 f-mb2">
+              <span>劣V类占比</span>
+              <span>{{badRant}}%</span>
+            </span>
+            <el-progress :percentage="badRant" status="exception" :show-text="false"></el-progress>
+          </div>
+          <div class="f-pl30 f-pr10">
+            <el-progress
+              :width="92"
+              :stroke-width="12"
+              type="circle"
+              :percentage="totalInfo.over_rate"
+              color="rgba(245, 108, 108, 1)"
+            ></el-progress>
+          </div>
+          <div class="info">{{factorName}}断面超标率</div>
         </div>
-        <div class="f-pl30 f-pr10">
-          <el-progress
-            :width="92"
-            :stroke-width="12"
-            type="circle"
-            :percentage="totalInfo.over_rate"
-            color="rgba(245, 108, 108, 1)"
-          ></el-progress>
+        <div style="margin-bottom:22px;">
+          <el-table size="mini" :data="siteInfos" style="width: 100%" max-height="280">
+            <el-table-column type="index" label="序号"></el-table-column>
+            <el-table-column prop="stationName" label="站点名称"></el-table-column>
+            <el-table-column prop="coefficient" label="单因子综合指数"></el-table-column>
+            <el-table-column prop="value" label="浓度"></el-table-column>
+            <el-table-column prop="level" label="水质类别">
+              <template slot-scope="scope">
+                <span
+                  class="tb_sp f-trans8"
+                  :style="{background:colorObj[scope.row.levelId]}"
+                >{{scope.row.level}}</span>
+              </template>
+            </el-table-column>
+          </el-table>
         </div>
-        <div class="info">{{factorName}}断面超标率</div>
       </div>
-      <div style="margin-bottom:22px;">
-        <el-table size="mini" :data="stationArray" style="width: 100%" max-height="280">
-          <el-table-column type="index" label="序号"></el-table-column>
-          <el-table-column prop="stationName" label="站点名称"></el-table-column>
-          <el-table-column prop="coefficient" label="单因子综合指数"></el-table-column>
-          <el-table-column prop="value" label="浓度"></el-table-column>
-          <el-table-column prop="level" label="水质类别">
-            <template slot-scope="scope">
-              <span class="tb_sp">{{scope.row.level}}</span>
-            </template>
-          </el-table-column>
-        </el-table>
+
+      <div class="center">
+        <!-- <el-radio border @change="changeYz(item)" v-model="factorCode" :label="item"  v-for="(item,index) in yz" :key="index">{{item.name}}</el-radio> -->
+
+        <el-radio-group :disabled=disabledFlag @change="changeYz" v-model="factorCode" size="mini" class="f-ml10">
+          <el-radio-button
+            :label="item.columnCode"
+            v-for="(item,index) in yz"
+            :key="index"
+          >{{item.name}}</el-radio-button>
+        </el-radio-group>
       </div>
-    </div>
 
-    <div class="center">
-      <!-- <el-radio border @change="changeYz(item)" v-model="factorCode" :label="item"  v-for="(item,index) in yz" :key="index">{{item.name}}</el-radio> -->
+      <div class="right">数据更新时间：{{moment(dateTime).format("YYYY-MM-DD HH:mm")}}</div>
 
-      <el-radio-group @change="changeYz" v-model="factorCode" size="mini" class="f-ml10">
-        <el-radio-button
-          :label="item.columnCode"
-          v-for="(item,index) in yz"
-          :key="index"
-        >{{item.name}}</el-radio-button>
-      </el-radio-group>
-    </div>
+      <div class="bottom">
+        <img src="../assets/color.png" />
+      </div>
 
-    <div class="right">数据更新时间：2019-11-06 17:00</div>
+      <div class="mapPanel">
+        <div id="mapDiv"></div>
+      </div>
 
-    <div class="bottom">
-      <img src="../assets/color.png" />
-    </div>
+      <footer class="foot f-df f-aic">
+        <el-radio-group :disabled=disabledFlag @change="changeDateType" v-model="dateType" size="mini" class="f-ml10">
+          <el-radio-button label="1440">日</el-radio-button>
+          <el-radio-button label="60">小时</el-radio-button>
+        </el-radio-group>
 
-    <div class="mapPanel">
-      <div id="mapDiv"></div>
-    </div>
+        <el-date-picker
+        :disabled=disabledFlag 
+          size="mini"
+          class="f-ml8"
+          v-model="value1"
+          type="datetimerange"
+          style="width:324px;"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期"
+          @change="changeDate(); getWhole();createTimeArray();"
+        ></el-date-picker>
 
-    <footer class="foot f-df f-aic">
-      <el-radio-group @change="changeDateType" v-model="dateType" size="mini" class="f-ml10">
-        <el-radio-button label="60">日</el-radio-button>
-        <el-radio-button label="1440">小时</el-radio-button>
-      </el-radio-group>
-
-      <el-date-picker
-        size="mini"
-        class="f-ml8"
-        v-model="value1"
-        type="datetimerange"
-        style="width:324px;"
-        start-placeholder="开始日期"
-        end-placeholder="结束日期"
-      ></el-date-picker>
-
-      <el-button
-        style="height:26px;width:42px;margin-left: 12px;"
-        icon="el-icon-caret-right"
-        size="mini"
-        type="primary"
-      ></el-button>
-      <div class="icon f-ml10">
-        <!-- <span>122</span>
+        <el-button
+          style="height:26px;width:42px;margin-left: 12px;"
+          icon="el-icon-caret-right"
+          size="mini"
+          :disabled="disabledFlag"
+          @click="startFuture"
+          type="primary"
+        ></el-button>
+        <div class="icon f-ml10">
+          <!-- <span>122</span>
         <span>1</span>
         <span>1</span>
-        <span>1</span>-->
-        <!-- <el-scrollbar>
+          <span>1</span>-->
+          <!-- <el-scrollbar>
           
-        </el-scrollbar>-->
-        <div>
-          <el-radio-group v-model="radio3" size="mini">
-            <el-radio-button :label="index" v-for="index in 6" :key="index"></el-radio-button>
-          </el-radio-group>
+          </el-scrollbar>-->
+          <div>
+            <el-radio-group v-model="radio3" size="mini">
+              <el-radio-button :label="index" v-for="index in timeArray" :key="index"></el-radio-button>
+            </el-radio-group>
+          </div>
         </div>
-      </div>
-    </footer>
+      </footer>
+    </div>
   </div>
 </template>
 
@@ -113,24 +124,22 @@
 import popDetail from "./popDetail";
 import Vue from "vue";
 import L from "leaflet";
-//  http://yapi.fpi-inc.site/project/795/interface/api/cat_5986
-// 图片覆盖
-// L.imageOverlay(<String> imageUrl, <LatLngBounds> bounds, <ImageOverlay options> options?)
 
-// 陈强:
-// http://112.29.71.165:8066/city-interpolation-server/public/interpolate/api/v1.0/show-interpolation/nh3n_2020090416.png
-
-// 陈强:
-// @陈强 现场访问路径：http://172.16.2.241:8080/city-interpolation-server/public/interpolate/api/v1.0/show-interpolation/nh3n_2020090416.png 参数为：因子(nh3n,tp,tn)，时间戳：小时数据为：yyyymmddhh，日数据为：yyyymmdd，目前有今天未来三天的模拟数据，还有今天9点以后未来6小时数据。你去设置外网映射吧。
+//：http://172.16.2.241:8080/city-interpolation-server/public/interpolate/api/v1.0/show-interpolation/nh3n_2020090416.png 参数为：因子(nh3n,tp,tn)，时间戳：小时数据为：yyyymmddhh，日数据为：yyyymmdd，目前有今天未来三天的模拟数据，还有今天9点以后未来6小时数据。你去设置外网映射吧。
+// hideMenus=true
 
 // 生命周期
 export default {
   name: "operation-map",
   data() {
     return {
+      disabledFlag: false,
+      timeArray: [],
+      hideMenus: eval(this.$route.query.hideMenus),
       yz: [],
-      stationArray: [],
-      radio3: "上海",
+      moment: moment,
+      siteInfos: [],
+      radio3: "",
       factorCode: "",
       factorName: "",
       map: null,
@@ -141,42 +150,47 @@ export default {
       hour: {
         length: 24,
       },
-      value1: "",
+      value1: [new Date(), moment(new Date()).add(6, "days")._d],
       dateType: "60",
       data: "",
       aaa: "",
-      totalInfo:{},
+      dateTime: "",
+      totalInfo: {},
       colorObj: {
         1: "#827cc2",
-        2:"#4c4c52",
-        3:"#008000",
-        4:"#ffdd00",
-        5:"#FFA500",
-        6:"#FF0000",
-      }
+        2: "#4c4c52",
+        3: "#008000",
+        4: "#ffdd00",
+        5: "#FFA500",
+        6: "#FF0000",
+      },
     };
   },
   mounted() {
     console.log(this.$el);
+    this.changeDate();
+    this.createTimeArray();
     this.initMap();
-    this.getInzi().then(() => {
-      // this.getMapDetail();
-    });
+    this.getInzi();
   },
   computed: {
     okRant() {
-      var arr = this.stationArray.filter((value) => {
+      var arr = this.siteInfos.filter((value) => {
         return value.levelId <= 3;
       });
       // console.log(arr)
-      return Number(((arr.length / this.stationArray.length) * 100).toFixed()) || 0;
+      return (
+        Number(((arr.length / this.siteInfos.length) * 100).toFixed()) || 0
+      );
     },
     badRant() {
-      var arr = this.stationArray.filter((value) => {
+      var arr = this.siteInfos.filter((value) => {
         return value.levelId == 5;
       });
 
-      return Number(((arr.length / this.stationArray.length) * 100).toFixed()) || 0;
+      return (
+        Number(((arr.length / this.siteInfos.length) * 100).toFixed()) || 0
+      );
     },
   },
   watch: {
@@ -188,49 +202,142 @@ export default {
     },
   },
   methods: {
+    startFuture() {
+      this.disabledFlag = true;
+      var index = 0;
+
+      var st = setInterval(() => {
+        this.radio3 = this.timeArray[index];
+        if (this.dateType = "60") {
+          this.getWhole(moment(this.dateTime).add(index, "hours").format("x"));
+        } else {
+           this.getWhole(moment(this.dateTime).add(index, "days").format("x"));
+        }
+ 
+        index++;
+
+        if (index == this.timeArray.length) {
+          this.disabledFlag = false;
+          
+          clearInterval(st);
+          setTimeout(() => {
+            this.radio3 = "";
+          },1500)
+        }
+      }, 1500);
+    },
+    createTimeArray() {
+      if (!this.dateTime) {
+        return;
+      }
+      if (this.dateType == "60") {
+        this.timeArray = [
+          moment(this.dateTime).add(1, "hours").format("HH"),
+          moment(this.dateTime).add(2, "hours").format("HH"),
+          moment(this.dateTime).add(3, "hours").format("HH"),
+          moment(this.dateTime).add(4, "hours").format("HH"),
+          moment(this.dateTime).add(5, "hours").format("HH"),
+          moment(this.dateTime).add(6, "hours").format("HH"),
+        ];
+      } else {
+        this.timeArray = [
+          moment(this.dateTime).add(1, "days").format("DD"),
+          moment(this.dateTime).add(2, "days").format("DD"),
+          moment(this.dateTime).add(3, "days").format("DD"),
+        ];
+      }
+    },
+    changeDate() {
+      this.dateTime = Date.parse(this.value1[0]);
+    },
     changeDateType() {
+      this.createTimeArray()
       this.getWhole();
     },
     changeYz(data) {
       // console.log(data);
-      var now = _.findWhere(this.yz, {columnCode: data})
-      this.factorName = now.name.replace(/[ ]/g,"");;
-
+      var now = _.findWhere(this.yz, { columnCode: data });
+      this.factorName = now.name.replace(/[ ]/g, "");
+      this.stdCode = now.stdCode;
       this.getWhole();
     },
-    // 地图整体水质查询
-    getWhole() {
+    getHistoryData() {
+      // 小时的时候是过去24小时，天的时候是过去7天
       $.get({
-        url: $config.url + "/wms/wms/outside/v1//map/total-data.do",
+        url: $$.url + "/wms/wms/outside/v1/map/site-history-data.do",
+        data: {
+          siteId: "2c90827271c3757f0171c4b793e70006",
+          beginTime: this.value1[0].valueOf(),
+          endTime: this.value1[1].valueOf(),
+          dateType: this.dateType,
+          factorCode: this.factorCode,
+        },
+      }).then(() => {
+        console.log(11);
+      });
+    },
+    getImage() {
+      if (this.imageLayer && this.map.hasLayer(this.imageLayer)) {
+        this.map.removeLayer(this.imageLayer);
+      }
+      // nh3n_2020090416.png
+      var url =
+        $$.imageUrl +
+        `${this.stdCode}_${moment(this.dateTime).format("YYYYMMDDHH")}.png`;
+
+      // console.log(CheckImgExists(url));
+      $.get(url)
+        .then(() => {
+          // 图片覆盖
+          this.imageLayer = L.imageOverlay(
+            url,
+            [
+              [32.693551958, 118.623246452],
+              [32.693551958, 118.716952308],
+              [32.663720011, 118.716952308],
+              [32.663720011, 118.623246452],
+            ],
+            { opacity: 1 }
+          ).addTo(this.map);
+        })
+        .catch(() => {
+          console.log(url);
+          this.$message("图片不存在");
+        });
+    },
+    // 地图整体水质查询
+    getWhole(time) {
+      $.get({
+        url: $$.url + "/wms/wms/outside/v1/map/total-data.do",
         data: {
           dateType: this.dateType,
-          dateTime: "1599494400000",
+          dateTime: time || this.dateTime,
           factorCode: this.factorCode,
-          // dateTime=1599494400000
         },
-      }).then((resp) => {
-        this.stationArray = resp.siteInfos;
-        this.totalInfo = resp.totalInfo
-      });
+      })
+        .then((resp) => {
+          this.siteInfos = resp.siteInfos;
+          this.totalInfo = resp.totalInfo;
+        })
+        .then(() => {
+          this.getImage();
+          this.drawPoints(this.siteInfos);
+        })
+        .catch(() => {
+          this.siteInfos = [];
+          this.totalInfo = [];
+          this.$message("站点数据不存在");
+          this.getImage();
+        });
     },
     getInzi() {
       return $.ajax({
         type: "get",
-        url: $config.url + "/wms/wms/outside/v1/interpolation/factors.do",
+        url: $$.url + "/wms/wms/outside/v1/interpolation/factors.do",
       }).then((resp) => {
         this.yz = resp;
         this.factorCode = _.first(this.yz).columnCode;
-        this.changeYz(this.factorCode)
-      });
-    },
-    getMapDetail() {
-      $.get({
-        url: $config.url + "/wms/wms/outside/v1/map/site-data.do",
-        data: {
-          dateType: "1440",
-          siteId: "2c90827271c3757f0171c4b793e70006", // 站点ID
-          dateTime: "1599494400000",
-        },
+        this.changeYz(this.factorCode);
       });
     },
     startHacking: function () {
@@ -256,13 +363,6 @@ export default {
           subdomains: "1234",
         }
       ).addTo(this.map);
-
-      this.drawPoints([
-        {
-          longitude: "118.675367",
-          latitude: "32.677995",
-        },
-      ]);
     },
 
     //添加点位
@@ -291,6 +391,7 @@ export default {
         return feature;
       });
 
+      // 画html
       L.geoJSON(pointsJson, {
         pointToLayer: function (geoJsonPoint, latlng) {
           if (latlng.lat !== 0 && latlng.lng !== 0) {
@@ -304,8 +405,7 @@ export default {
     pointToLayerFunc(geoJsonPoint, latlng) {
       return L.marker(latlng, {
         icon: L.divIcon({
-          html: `<div style="position:relative;width:20px;height:20px;background:red">
-                            </div>`,
+          html: `<div class="my_water"></div>`,
           className: "",
           iconAnchor: [30, 30],
         }),
@@ -313,13 +413,15 @@ export default {
     },
     //弹框
     pipePopUpFunc(feature, layer) {
+      console.log(feature);
       layer.bindPopup(
         () => {
           let popUp = Vue.extend(popDetail);
           let popContent = new popUp({
             propsData: {
-              siteName: "123131232",
+              siteName: feature.properties.id,
               url: "",
+              data: this,
             },
           });
           return popContent.$mount().$el;
@@ -352,6 +454,9 @@ export default {
   width: 100%;
   height: 40px;
   background: rgba(64, 158, 255, 1);
+  h1 {
+    padding-top: 5px;
+  }
 }
 
 .mapPanel {
@@ -359,7 +464,7 @@ export default {
 }
 
 .foot {
-  position: fixed;
+  position: absolute;
   height: 32px;
   bottom: 0;
   left: 0;
@@ -379,7 +484,7 @@ export default {
   right: 60px;
   height: 28px;
   position: absolute;
-  top: 56px;
+  top: 16px;
   z-index: 1000;
   background: white;
   line-height: 29px;
@@ -394,7 +499,7 @@ export default {
   position: absolute;
   z-index: 1000;
   background: white;
-  top: 40px;
+  top: 0px;
   box-shadow: 0 0 20px rgba(4, 61, 62, 0.2);
 
   h1 {
@@ -434,7 +539,7 @@ export default {
   z-index: 1000;
   position: absolute;
   left: 45%;
-  top: 56px;
+  top: 16px;
 }
 
 .icon span {
@@ -476,5 +581,17 @@ export default {
   border-radius: 10px;
   /* width: 48px; */
   padding: 0 6px;
+}
+</style>
+
+<style>
+.my_water {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  background-image: url("../assets/water.png");
+  background-size: cover;
+  border-radius: 2px;
 }
 </style>

@@ -1,7 +1,7 @@
 <template  class="f-h100p">
   <div id="app" class="f-h100p main">
     <!-- <img src="./assets/logo.png" />-->
-    <header class="f-fs14 head">
+    <header class="f-fs14 head"  v-show="!hideMenus">
 
 
       <!-- <div style="margin-bottom: 20px;">
@@ -32,6 +32,7 @@
 export default {
   data() {
     return {
+      hideMenus: eval(this.$route.query.hideMenus),
       editableTabsValue: "person",
       editableTabs: [
         {
