@@ -261,21 +261,7 @@ export default {
       this.stdCode = now.stdCode;
       this.getWhole();
     },
-    getHistoryData() {
-      // 小时的时候是过去24小时，天的时候是过去7天
-      $.get({
-        url: $$.url + "/wms/wms/outside/v1/map/site-history-data.do",
-        data: {
-          siteId: "2c90827271c3757f0171c4b793e70006",
-          beginTime: this.value1[0].valueOf(),
-          endTime: this.value1[1].valueOf(),
-          dateType: this.dateType,
-          factorCode: this.factorCode,
-        },
-      }).then(() => {
-        console.log(11);
-      });
-    },
+
     getImage() {
       if (this.imageLayer && this.map.hasLayer(this.imageLayer)) {
         this.map.removeLayer(this.imageLayer);
@@ -413,13 +399,13 @@ export default {
     },
     //弹框
     pipePopUpFunc(feature, layer) {
-      console.log(feature);
+      // console.log(feature);
       layer.bindPopup(
         () => {
           let popUp = Vue.extend(popDetail);
           let popContent = new popUp({
             propsData: {
-              siteName: feature.properties.id,
+              id: feature.properties.id,
               url: "",
               data: this,
             },

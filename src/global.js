@@ -1,5 +1,6 @@
 import {kit} from "./tool/kit"
 import jquery from "jquery"
+import config from "./config"
 import moment from "moment"
 import _ from "underscore"
 import { Message, MessageBox } from 'element-ui';
@@ -11,9 +12,9 @@ window.jquery = jquery;
 window.$ = jquery;
 window._ = _;
 window.echarts = echarts;
-window.$$ = process.env.config[process.env.NODE_ENV];
+window.$$ = config[process.env.NODE_ENV];
 
-console.log(process.env.config,process.env.NODE_ENV)
+console.log(config,process.env.NODE_ENV)
 // console.log(ElementUI)
 
 window.util = {
