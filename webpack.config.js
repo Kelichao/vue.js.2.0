@@ -4,14 +4,16 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const url = require('url')
 const { Console } = require('console')
 const publicPath = ''
-const config = require("./config.js")
+
 var date = new Date()
 console.log(process.env.NODE_ENV)  // development
-// console.log(config)
+
 module.exports = (options = {}) => ({
+
   entry: {
     vendor: './src/vendor',
-    index: './src/main.js'
+    index: './src/main.js',
+    env: "./src/env.js"
   },
   output: {
     path: resolve(__dirname, `dist/${process.env.NODE_ENV}_${date.getMonth()}-${date.getDay()}-${date.getHours()}.${date.getMinutes()}/`),
@@ -54,7 +56,7 @@ module.exports = (options = {}) => ({
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
-      names: ['vendor', 'manifest']
+      names: ['vendor', 'manifest',"env"]
     }),
     new HtmlWebpackPlugin({
       template: 'src/index.html',
@@ -65,7 +67,7 @@ module.exports = (options = {}) => ({
         aaa: 123,
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
         TYPE: JSON.stringify(process.env.NODE_ENV),
-        config: JSON.stringify(config)
+        // config: JSON.stringify(config)
       }
     }),
   ],

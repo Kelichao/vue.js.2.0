@@ -1,6 +1,6 @@
 import {kit} from "./tool/kit"
 import jquery from "jquery"
-import config from "./config"
+import config from "./env"
 import moment from "moment"
 import _ from "underscore"
 import { Message, MessageBox } from 'element-ui';
