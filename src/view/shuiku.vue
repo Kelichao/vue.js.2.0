@@ -46,6 +46,7 @@
                 <span
                   class="tb_sp f-trans8"
                   :style="{background:colorObj[scope.row.levelId]}"
+                  @click="stationClick(scope.row)"
                 >{{scope.row.level}}</span>
               </template>
             </el-table-column>
@@ -110,7 +111,7 @@
           
           </el-scrollbar>-->
           <div>
-            <el-radio-group v-model="radio3" size="mini">
+            <el-radio-group v-model="radio3" size="mini" @change="changeDateLine">
               <el-radio-button :label="index" v-for="index in timeArray" :key="index"></el-radio-button>
             </el-radio-group>
           </div>
@@ -202,19 +203,29 @@ export default {
     },
   },
   methods: {
+    changeDateLine(time) {
+      // console.log(time)
+      if (this.dateType == "60") {
+        // debugger
+        this.getWhole(moment(this.dateTime).hours(time).valueOf('x'))
+      } else {
+        this.getWhole(moment(this.dateTime).date(time).valueOf('x'))
+      }
+    },
     startFuture() {
       this.disabledFlag = true;
       var index = 0;
 
       var st = setInterval(() => {
+
         this.radio3 = this.timeArray[index];
-        if (this.dateType == "60") {
-          this.getWhole(moment(this.dateTime).add(index, "hours").format("x"));
-        } else {
-           this.getWhole(moment(this.dateTime).add(index, "days").format("x"));
-        }
- 
         index++;
+
+        if (this.dateType == "60") {
+          this.getWhole(moment(this.dateTime).add(index, "hours").valueOf('x'));
+        } else {
+           this.getWhole(moment(this.dateTime).add(index, "days").valueOf('x'));
+        }
 
         if (index == this.timeArray.length) {
           this.disabledFlag = false;
@@ -258,6 +269,7 @@ export default {
       //  Date.parse(this.value1[0]);
     },
     changeDateType() {
+      this.radio3 = "";
       this.createTimeArray()
       this.getWhole();
     },
@@ -295,11 +307,12 @@ export default {
         })
         .catch(() => {
           console.log(url);
-          this.$message("图片不存在");
+          console.warn("图片不存在");
         });
     },
     // 地图整体水质查询
     getWhole(time) {
+      console.info("当前时间：" + moment(time || this.dateTime).format('LLLL'))
       $.get({
         url: $$.url + "/wms/wms/outside/v1/map/total-data.do",
         data: {
@@ -417,7 +430,6 @@ export default {
           let popContent = new popUp({
             propsData: {
               id: feature.properties.id,
-              url: "",
               data: this,
             },
           });
@@ -430,6 +442,32 @@ export default {
           offset: [-20, -30],
         }
       );
+    },
+    //弹框
+    stationClick(point) {
+      // console.log(L.popup().options.__proto__.maxWidth = 320)
+      console.log('====>', L.popup().options)
+
+      L.popup(  
+          {
+          maxWidth: 320,
+          direction: "top",
+          // className: styles.myTooltip
+          offset: [-20, -30],
+        })
+      .setLatLng([point.latitude, point.longitude])
+      .setContent(
+        () => {
+          let popUp = Vue.extend(popDetail);
+          let popContent = new popUp({
+            propsData: {
+              id: point.id,
+              data: this,
+            },
+          });
+          return popContent.$mount().$el;
+        })
+      .openOn(this.map)
     },
   },
 };
@@ -590,5 +628,28 @@ export default {
   background-image: url("../assets/water.png");
   background-size: cover;
   border-radius: 2px;
+}
+
+</style>
+<style>
+/* .popContent
+    width 300PX
+    height 300PX
+    .title
+        padding 8PX
+        font-size 14PX
+    */
+.popContent {
+  width: 320px;
+}
+.leaflet-popup-content {
+  margin: 0;
+}
+.leaflet-popup-content-wrapper {
+  padding: 0;
+}
+.leaflet-container a.leaflet-popup-close-button {
+  top: 5px;
+  /* right: -11px; */
 }
 </style>
