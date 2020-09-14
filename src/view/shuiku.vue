@@ -36,7 +36,7 @@
           <div class="info">{{factorName}}断面超标率</div>
         </div>
         <div style="margin-bottom:22px;">
-          <el-table size="mini" :data="siteInfos" style="width: 100%" max-height="280">
+          <el-table size="mini" @row-click=stationClick :data="siteInfos" style="width: 100%" max-height="280">
             <el-table-column type="index" label="序号"></el-table-column>
             <el-table-column prop="stationName" label="站点名称"></el-table-column>
             <el-table-column prop="coefficient" label="单因子综合指数"></el-table-column>
@@ -46,7 +46,6 @@
                 <span
                   class="tb_sp f-trans8"
                   :style="{background:colorObj[scope.row.levelId]}"
-                  @click="stationClick(scope.row)"
                 >{{scope.row.level}}</span>
               </template>
             </el-table-column>

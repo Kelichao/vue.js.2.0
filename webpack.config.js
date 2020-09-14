@@ -5,7 +5,9 @@ const url = require('url')
 const { Console } = require('console')
 const publicPath = ''
 
-var date = new Date()
+var time = new Date();
+var fileName = (time.getMonth() + 1)  + "-" +  time.getDate() + "_" + time.getHours() + "." + time.getMinutes()
+
 console.log(process.env.NODE_ENV)  // development
 
 module.exports = (options = {}) => ({
@@ -16,7 +18,7 @@ module.exports = (options = {}) => ({
     env: "./src/env.js"
   },
   output: {
-    path: resolve(__dirname, `dist/${process.env.NODE_ENV}_${date.getMonth()}-${date.getDay()}-${date.getHours()}.${date.getMinutes()}/`),
+    path: resolve(__dirname, `dist/` + process.env.NODE_ENV +"_" + fileName),
     filename: options.dev ? '[name].js' : '[name].js?[chunkhash]',
     chunkFilename: '[id].js?[chunkhash]',
     publicPath: options.dev ? '/assets/' : publicPath
