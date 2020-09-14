@@ -15,7 +15,7 @@ npm run build:production
 
 # 编写可维护的Javascript代码
 
--@author: kelichao
+- @author: kelichao
 
 - [欢迎来提issue进行改进](https://github.com/Kelichao/work.expressive)
 

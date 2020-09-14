@@ -310,7 +310,7 @@ export default {
 }
 
 .item .sp {
-  background: rgb(238, 142, 0);
+  /* background: rgb(238, 142, 0); */
   height: 20px;
   line-height: 20px;
   width: 40px;

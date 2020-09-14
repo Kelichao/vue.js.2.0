@@ -157,12 +157,12 @@ export default {
       dateTime: "",
       totalInfo: {},
       colorObj: {
-        1: "#827cc2",
-        2: "#4c4c52",
-        3: "#008000",
-        4: "#ffdd00",
-        5: "#FFA500",
-        6: "#FF0000",
+        1: "#1976D2",
+        2: "#03A9F4",
+        3: "#85C940",
+        4: "#D9CD4C",
+        5: "#EF8E00",
+        6: "#E12234",
       },
     };
   },
@@ -208,7 +208,7 @@ export default {
 
       var st = setInterval(() => {
         this.radio3 = this.timeArray[index];
-        if (this.dateType = "60") {
+        if (this.dateType == "60") {
           this.getWhole(moment(this.dateTime).add(index, "hours").format("x"));
         } else {
            this.getWhole(moment(this.dateTime).add(index, "days").format("x"));
@@ -248,7 +248,14 @@ export default {
       }
     },
     changeDate() {
-      this.dateTime = Date.parse(this.value1[0]);
+      if (this.dateType == 60){
+        // debugger
+         this.dateTime = moment(this.value1[0]).seconds(0).minutes(0).valueOf('x')
+      } else {
+        this.dateTime = moment(this.value1[0]).seconds(0).minutes(0).hours(0).valueOf('x')
+      }
+     
+      //  Date.parse(this.value1[0]);
     },
     changeDateType() {
       this.createTimeArray()
@@ -340,8 +347,12 @@ export default {
         [90, 360],
       ]);
 
+      // 底图类型
       L.tileLayer(
-        "//webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}",
+        "http://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineCommunity/MapServer/tile/{z}/{y}/{x}",
+        // "http://cache1.arcgisonline.cn/ArcGIS/rest/services/ChinaOnlineCommunity/MapServer",
+        // "http://cache1.arcgisonline.cn/arcgis/rest/services/ChinaOnlineCommunity/MapServer?f=jsapi"
+        // "http://cache1.arcgisonline.cn/arcgis/rest/services/ChinaOnlineCommunity/MapServer",
         {
           maxZoom: 20,
           maxNativeZoom: 18,
@@ -558,7 +569,7 @@ export default {
 }
 
 .tb_sp {
-  background: rgb(238, 142, 0);
+  // background: rgb(238, 142, 0);
   height: 20px;
   width: 40px;
   line-height: 20px;
