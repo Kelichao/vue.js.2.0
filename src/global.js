@@ -60,4 +60,4 @@ window.util = {
 // moment().add(3, 'days').calendar();       // 下星期日09:48
 // moment().add(10, 'days').calendar();      // 2020/09/20
 window.moment = moment;
-moment.locale = "zh-cn"
+moment.locale('zh-cn');

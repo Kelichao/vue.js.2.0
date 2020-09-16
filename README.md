@@ -6,7 +6,7 @@ npm start
 npm run build:test
 ```
 
-## Build
+## Production
 
 ``` bash
 # build for production with minification

@@ -2,7 +2,10 @@
 <template>
   <div class="popContent">
     <div style="background: rgba(64, 158, 255, 1);height: 32px;">
-      <span class="f-dib f-mt5" style="text-indent:12px;font-size: 16px;color:white;">{{siteInfo.stationName}}</span>
+      <span
+        class="f-dib f-mt5"
+        style="text-indent:12px;font-size: 16px;color:white;"
+      >{{siteInfo.stationName}}</span>
       <span
         v-if="siteInfo.levelId > siteInfo.targetLevelId "
         class="f-dib info"
@@ -16,7 +19,7 @@
             <i>评价水质:</i>
             <label
               class="sp"
-              :style="{background:data.colorObj[siteInfo.levelId]}"
+              :style="{background:father.colorObj[siteInfo.levelId]}"
             >{{siteInfo.level}}</label>
           </span>
         </el-col>
@@ -25,7 +28,7 @@
             <i>目标水质:</i>
             <label
               class="sp"
-              :style="{background:data.colorObj[siteInfo.targetLevelId]}"
+              :style="{background:father.colorObj[siteInfo.targetLevelId]}"
             >{{siteInfo.targetLevel}}</label>
           </span>
         </el-col>
@@ -74,7 +77,7 @@
       >预测数据</label>
       <span
         style="color:rgba(0, 145, 255, 1);float:right;margin-right:16px;"
-      >{{moment(data.dateTime).format("YYYY-MM-DD hh:mm")}}</span>
+      >{{moment(father.dateTime).format("YYYY-MM-DD hh:mm")}}</span>
     </div>
 
     <el-table size="mini" :data="factors" style="width: 100%" max-height="250">
@@ -97,7 +100,7 @@
           placeholder="请选择"
         >
           <el-option
-            v-for="item in data.yz"
+            v-for="item in father.yz"
             :key="item.columnCode"
             :label="item.name"
             :value="item.columnCode"
@@ -119,13 +122,16 @@ export default {
     id: {
       type: String,
     },
-    data: {
+    father: {
       type: Object,
+    },
+    lineSelect: {
+      type: Number,
     },
   },
   data() {
     return {
-      slot:"--",
+      slot: "--",
       siteInfo: {},
       moment: moment,
       factors: [],
@@ -133,17 +139,29 @@ export default {
     };
   },
   watch: {
-    aaa: {
+    "$store.state.time": {
       handler() {
-        console.log(1111);
-      },
-      immediate: false,
+        console.log(1111)
+        this.getHistoryData();
+      }
     },
+    // lineSelect: {
+    //   handler() {
+    //     console.log(1111);
+    //   },
+    //   // deep:true,
+    //   // immediate: false,
+    // },
   },
   mounted() {
     this.getSiteDetail();
-    this.nowSelect = _.first(this.data.yz).columnCode;
+    this.nowSelect = _.first(this.father.yz).columnCode;
     this.getHistoryData();
+  },
+  computed: {
+    totalTime() {
+      return this.father.lineSelect || this.father.dateTime;
+    },
   },
   methods: {
     change() {
@@ -151,20 +169,24 @@ export default {
     },
     getHistoryData() {
       // 小时的时候是过去24小时，天的时候是过去7天
-      if (this.data.dateType == "60") {
-         var beginTime = moment(this.data.dateTime).subtract(24, "hours").format("x")
-         this.slot ="24小时"
+      if (this.father.dateType == "60") {
+        var beginTime = moment(this.father.dateTime)
+          .subtract(24, "hours")
+          .format("x");
+        this.slot = "24小时";
       } else {
-        var beginTime = moment(this.data.dateTime).subtract(7, "days").format("x");
-        this.slot ="7天"
+        var beginTime = moment(this.father.dateTime)
+          .subtract(7, "days")
+          .format("x");
+        this.slot = "7天";
       }
       $.get({
         url: $$.url + "/wms/wms/outside/v1/map/site-history-data.do",
         data: {
           siteId: this.id,
           beginTime: beginTime,
-          endTime: this.data.dateTime,
-          dateType: this.data.dateType,
+          endTime: this.father.dateTime,
+          dateType: this.father.dateType,
           factorCode: this.nowSelect,
         },
       }).then((resp) => {
@@ -180,9 +202,11 @@ export default {
         })
         .value();
 
-      var real = _.pluck(resp.realObj,"value")
-      var yc = _.pluck(resp.ycObj,"value")
-      var stand = _.map(time,function() {return resp.standardVal})
+      var real = _.pluck(resp.realObj, "value");
+      var yc = _.pluck(resp.ycObj, "value");
+      var stand = _.map(time, function () {
+        return resp.standardVal;
+      });
       // debugger
       setTimeout(() => {
         echarts.init(document.getElementById("main2")).setOption({
@@ -209,24 +233,24 @@ export default {
             bottom: "5%",
             containLabel: true,
           },
-           legend: {
-              data: ['实测值', '预测值', '标准值']
+          legend: {
+            data: ["实测值", "预测值", "标准值"],
           },
           series: [
             {
-               name: '实测值',
+              name: "实测值",
               data: real,
               type: "line",
               smooth: true,
             },
-             {
-                name: '预测值',
+            {
+              name: "预测值",
               data: yc,
               type: "line",
               smooth: true,
             },
-             {
-                name: '标准值',
+            {
+              name: "标准值",
               data: stand,
               type: "line",
               smooth: true,
@@ -237,12 +261,13 @@ export default {
     },
     // 站点详情
     getSiteDetail() {
+      console.info("当前时间：" + moment(this.totalTime).format("LLLL"));
       $.get({
         url: $$.url + "/wms/wms/outside/v1/map/site-data.do",
         data: {
-          dateType: this.data.dateType,
+          dateType: this.father.dateType,
           siteId: this.id, // 站点ID
-          dateTime: this.data.dateTime,
+          dateTime: this.totalTime,
         },
       }).then((resp) => {
         this.siteInfo = resp.siteInfo;

@@ -101,17 +101,14 @@
           @click="startFuture"
           type="primary"
         ></el-button>
+
         <div class="icon f-ml10">
-          <!-- <span>122</span>
-        <span>1</span>
-        <span>1</span>
-          <span>1</span>-->
-          <!-- <el-scrollbar>
-          
-          </el-scrollbar>-->
           <div>
-            <el-radio-group v-model="radio3" size="mini" @change="changeDateLine">
-              <el-radio-button :label="index" v-for="index in timeArray" :key="index"></el-radio-button>
+            <el-radio-group  v-if="dateType == 60" v-model="lineSelect" size="mini" @change="changeDateLine">
+              <el-radio-button :label="index" v-for="index in timeArray" :key="index">{{index | filterHour}}</el-radio-button>
+           </el-radio-group>
+            <el-radio-group  v-else v-model="lineSelect" size="mini" @change="changeDateLine">
+              <el-radio-button :label="index" v-for="index in timeArray" :key="index">{{index | filterDay}}</el-radio-button>
             </el-radio-group>
           </div>
         </div>
@@ -139,7 +136,7 @@ export default {
       yz: [],
       moment: moment,
       siteInfos: [],
-      radio3: "",
+      lineSelect: "",
       factorCode: "",
       factorName: "",
       map: null,
@@ -174,6 +171,9 @@ export default {
     this.getInzi();
   },
   computed: {
+    // totalTime() {
+    //   return this.lineSelect || this.dateTime;
+    // },
     okRant() {
       var arr = this.siteInfos.filter((value) => {
         return value.levelId <= 3;
@@ -193,7 +193,26 @@ export default {
       );
     },
   },
+  filters: {
+    filterHour: (value) => {
+      if (!value) return ''
+        value = moment(value).format("HH")
+
+      return value
+    },
+    filterDay:(value) => {
+      if (!value) return ''
+        value = moment(value).format("DD")
+           return value
+    }
+},
   watch: {
+//  "$store.state.time": {
+//       handler() {
+//         console.log(1111)
+//         // this.getHistoryData();
+//       }
+//     },
     aaa: {
       handler() {
         console.log(1111);
@@ -203,12 +222,14 @@ export default {
   },
   methods: {
     changeDateLine(time) {
+      
+      this.$store.commit("setTime",time);
       // console.log(time)
       if (this.dateType == "60") {
         // debugger
-        this.getWhole(moment(this.dateTime).hours(time).valueOf('x'))
+        this.getWhole(time)
       } else {
-        this.getWhole(moment(this.dateTime).date(time).valueOf('x'))
+        this.getWhole(time)
       }
     },
     startFuture() {
@@ -216,22 +237,22 @@ export default {
       var index = 0;
 
       var st = setInterval(() => {
-
-        this.radio3 = this.timeArray[index];
-        index++;
-
+        
+        this.lineSelect = this.timeArray[index];
         if (this.dateType == "60") {
-          this.getWhole(moment(this.dateTime).add(index, "hours").valueOf('x'));
+          this.getWhole(this.lineSelect);
         } else {
-           this.getWhole(moment(this.dateTime).add(index, "days").valueOf('x'));
+           this.getWhole(this.lineSelect);
         }
+        index++;
 
         if (index == this.timeArray.length) {
           this.disabledFlag = false;
           
           clearInterval(st);
           setTimeout(() => {
-            this.radio3 = "";
+            this.lineSelect = "";
+            this.getWhole();
           },1500)
         }
       }, 1500);
@@ -242,18 +263,18 @@ export default {
       }
       if (this.dateType == "60") {
         this.timeArray = [
-          moment(this.dateTime).add(1, "hours").format("HH"),
-          moment(this.dateTime).add(2, "hours").format("HH"),
-          moment(this.dateTime).add(3, "hours").format("HH"),
-          moment(this.dateTime).add(4, "hours").format("HH"),
-          moment(this.dateTime).add(5, "hours").format("HH"),
-          moment(this.dateTime).add(6, "hours").format("HH"),
+          moment(this.dateTime).add(1, "hours").valueOf(),
+          moment(this.dateTime).add(2, "hours").valueOf(),
+          moment(this.dateTime).add(3, "hours").valueOf(),
+          moment(this.dateTime).add(4, "hours").valueOf(),
+          moment(this.dateTime).add(5, "hours").valueOf(),
+          moment(this.dateTime).add(6, "hours").valueOf(),
         ];
       } else {
         this.timeArray = [
-          moment(this.dateTime).add(1, "days").format("DD"),
-          moment(this.dateTime).add(2, "days").format("DD"),
-          moment(this.dateTime).add(3, "days").format("DD"),
+          moment(this.dateTime).add(1, "days").valueOf(),
+          moment(this.dateTime).add(2, "days").valueOf(),
+          moment(this.dateTime).add(3, "days").valueOf(),
         ];
       }
     },
@@ -265,10 +286,10 @@ export default {
         this.dateTime = moment(this.value1[0]).seconds(0).minutes(0).hours(0).valueOf('x')
       }
      
-      //  Date.parse(this.value1[0]);
+     this.lineSelect = "";
     },
     changeDateType() {
-      this.radio3 = "";
+      this.lineSelect = "";
       this.createTimeArray()
       this.getWhole();
     },
@@ -276,19 +297,25 @@ export default {
       // console.log(data);
       var now = _.findWhere(this.yz, { columnCode: data });
       this.factorName = now.name.replace(/[ ]/g, "");
-      this.stdCode = now.stdCode;
-      this.getWhole();
+      this.stdCode = now.stdCode.toLowerCase();
+      this.getWhole(this.lineSelect);
     },
 
-    getImage() {
+    getImage(time) {
+
       if (this.imageLayer && this.map.hasLayer(this.imageLayer)) {
         this.map.removeLayer(this.imageLayer);
       }
+
       // nh3n_2020090416.png
       var url =
         $$.imageUrl +
-        `${this.stdCode}_${moment(this.dateTime).format("YYYYMMDDHH")}.png`;
-
+        `${this.stdCode}_${
+          this.dateType == 60 ? 
+             moment(time || this.dateTime).format("YYYYMMDDHH"):
+             moment(time || this.dateTime).format("YYYYMMDD")}.png`;
+      //     debugger
+      // moment(time).format("YYYYMMDDHH") || moment(this.dateTime).format("YYYYMMDDHH")
       // console.log(CheckImgExists(url));
       $.get(url)
         .then(() => {
@@ -325,14 +352,14 @@ export default {
           this.totalInfo = resp.totalInfo;
         })
         .then(() => {
-          this.getImage();
+          this.getImage(time);
           this.drawPoints(this.siteInfos);
         })
         .catch(() => {
           this.siteInfos = [];
           this.totalInfo = [];
           this.$message("站点数据不存在");
-          this.getImage();
+          this.getImage(time);
         });
     },
     getInzi() {
@@ -362,9 +389,6 @@ export default {
       // 底图类型
       L.tileLayer(
         "http://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineCommunity/MapServer/tile/{z}/{y}/{x}",
-        // "http://cache1.arcgisonline.cn/ArcGIS/rest/services/ChinaOnlineCommunity/MapServer",
-        // "http://cache1.arcgisonline.cn/arcgis/rest/services/ChinaOnlineCommunity/MapServer?f=jsapi"
-        // "http://cache1.arcgisonline.cn/arcgis/rest/services/ChinaOnlineCommunity/MapServer",
         {
           maxZoom: 20,
           maxNativeZoom: 18,
@@ -429,7 +453,7 @@ export default {
           let popContent = new popUp({
             propsData: {
               id: feature.properties.id,
-              data: this,
+              father: this,
             },
           });
           return popContent.$mount().$el;
@@ -461,7 +485,8 @@ export default {
           let popContent = new popUp({
             propsData: {
               id: point.id,
-              data: this,
+              father: this,
+              lineSelect: this.lineSelect
             },
           });
           return popContent.$mount().$el;
@@ -629,26 +654,4 @@ export default {
   border-radius: 2px;
 }
 
-</style>
-<style>
-/* .popContent
-    width 300PX
-    height 300PX
-    .title
-        padding 8PX
-        font-size 14PX
-    */
-.popContent {
-  width: 320px;
-}
-.leaflet-popup-content {
-  margin: 0;
-}
-.leaflet-popup-content-wrapper {
-  padding: 0;
-}
-.leaflet-container a.leaflet-popup-close-button {
-  top: 5px;
-  /* right: -11px; */
-}
 </style>

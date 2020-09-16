@@ -7,7 +7,8 @@ Vue.use(Vuex) // 如果在模块化构建系统中，请确保在开头调用了
 window.store = new Vuex.Store({
     // 数据仓库
     state: {
-        count: 0
+        count: 0,
+        time:""
     },
     // 做一些计算输出,注意，如果count不改变，只会触发一次,所以，这玩意，应该放在mtations里面
     getters: {  
@@ -17,6 +18,10 @@ window.store = new Vuex.Store({
     },
     // 唯一更改数据的方法
     mutations: {
+        setTime(state,aaa) {
+            // console.log(aaa)
+            state.time = aaa;
+        },
         increment: function (state) {
             //setTimeout(() => {
                 state.count++;

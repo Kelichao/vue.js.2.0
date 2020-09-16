@@ -8,7 +8,7 @@ export default {
     imageUrl: "http://112.29.71.165:8066/city-interpolation-server/public/interpolate/api/v1.0/show-interpolation/"
   },
   production:{
-    url:"http://112.29.71.165:8087/ ",
+    url:"http://112.29.71.165:8087/",
     imageUrl: "http://112.29.71.165:8066/city-interpolation-server/public/interpolate/api/v1.0/show-interpolation/"
   }
 }

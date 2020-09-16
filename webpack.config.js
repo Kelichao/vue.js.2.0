@@ -69,7 +69,7 @@ module.exports = (options = {}) => ({
         aaa: 123,
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
         TYPE: JSON.stringify(process.env.NODE_ENV),
-        // config: JSON.stringify(config)
+        // DATE: JSON.stringify(new Date())
       }
     }),
   ],
