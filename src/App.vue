@@ -42,12 +42,15 @@ export default {
         {
           title: "公司门户",
           name: "hello",
-          closable: true,
         },
         {
           title: "XX水库",
           name: "shuiku",
           closable: true,
+        },
+        {
+          title: "编辑信息",
+          name: "edit",
         }
       ],
       tabIndex: 2

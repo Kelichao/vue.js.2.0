@@ -3,6 +3,7 @@ import Hello from '~/view/Hello.vue'  //引入根目录下的Hello.vue组件
 import vuex from '~/view/vuex.vue'
 import person from '~/view/person.vue'  
 import shuiku from '~/view/shuiku.vue'  
+import edit from '~/view/edit.vue'  
 import Vue from 'vue'
 
 // 2. 定义路由
@@ -20,6 +21,9 @@ const router = new VueRouter({
     },
     {
       path: "/shuiku", component: shuiku,
+    },
+    {
+      path: "/edit", component: edit,
     }
   ]
 })
