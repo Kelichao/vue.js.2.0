@@ -982,8 +982,10 @@
 	// 渲染图表 echarts2
 	kit.chartRender = function(option, total) {
 		var proChart = null;
-
-		if(total instanceof jQuery || total instanceof Zepto) {
+		
+		if((typeof jQuery !=="undefined" && total instanceof jQuery) || 
+			(typeof Zepto !=="undefined" && total instanceof Zepto) || 
+			(typeof $ !=="undefined" && total instanceof $)) {
 			total = total.get(0);
 		}
 
