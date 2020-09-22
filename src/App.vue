@@ -51,6 +51,10 @@ export default {
         {
           title: "编辑信息",
           name: "edit",
+        },
+        {
+          title: "轮播图",
+          name: "lunbotu",
         }
       ],
       tabIndex: 2

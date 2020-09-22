@@ -4,6 +4,8 @@ import vuex from '~/view/vuex.vue'
 import person from '~/view/person.vue'  
 import shuiku from '~/view/shuiku.vue'  
 import edit from '~/view/edit.vue'  
+import lunbotu from '~/view/lunbotu.vue'  
+
 import Vue from 'vue'
 
 // 2. 定义路由
@@ -24,6 +26,9 @@ const router = new VueRouter({
     },
     {
       path: "/edit", component: edit,
+    },
+    {
+      path: "/lunbotu", component: lunbotu,
     }
   ]
 })

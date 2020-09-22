@@ -7,11 +7,11 @@ import { Message, MessageBox } from 'element-ui';
 import * as echarts from 'echarts';
 
 // 定义全局变量
-window.kit = kit;
-window.jquery = jquery;
-window.$ = jquery;
-window._ = _;
-window.echarts = echarts;
+// window.kit = kit;
+// window.jquery = jquery;
+// window.$ = jquery;
+// window._ = _;
+// window.echarts = echarts;
 window.$$ = config[process.env.NODE_ENV];
 
 console.log(config,process.env.NODE_ENV)
