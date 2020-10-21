@@ -26,6 +26,8 @@
 <script>
 // import Swiper from "swiper";
 import {Swiper} from "~/assets/swiper-bundle.min.js";
+// https://github.com/surmon-china/vue-awesome-swiper  // 在vue中使用swiper
+// var swiper = require ("../assets/swiper-bundle.min.js")
 window.Swiper = Swiper;
 // 生命周期
 export default {

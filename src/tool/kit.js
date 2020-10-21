@@ -254,23 +254,26 @@
 	    return obj;
 	};
 
-	
-	// address为需要解析成对象的地址串
-	// key为需要取得的键值
+	/**
+	 * 将参数字符串转化成JSON对象。
+	 * @param {*} key 为需要取得的键值
+	 * @param {*} address 地址串，不填则为location.search
+	 * exp: kit.locaSearch("fsd","?sfsd=3423&we=234&fsd=324");  =>   324
+	 *      kit.locaSearch("","?sfsd=3423&we=234&fsd=324");     =>  {sfsd:3423,we:234,fsd:324}
+	 */
 	kit.locaSearch = function(key, address){
 
 		address = address || location.search;
 		var total = _strToObject(key, address, "&", true);
-	    
-	    // 测试用例kit.locaSearch("fsd","?sfsd=3423&we=234&fsd=324");
-	    return total;
+		
+		
+		return total;
 	};
 	
 	/*
 	* 获取路由的参数，比较奇特
 	* 2020.9.1添加
 	*/
-	
 	kit.getQueryString = function(name) {
 		let href = decodeURI(window.location.href)
 		let v1 = []
@@ -288,8 +291,17 @@
 		}
 	  };
 
-	// cookie对象获取函数
-	// aaa=123;bbb=456;ccc=678
+	/**
+	 * 把cookie字符串转化为对象获取函数
+	 * @param {*} key 
+	 * @param {*} string 
+	 * aaa=123;bbb=456;ccc=678  
+	 * =>  {
+	 *   a:123,
+	 *   bbb:456,
+	 *   ccc=678
+	 * }
+	 */
 	kit.cookie = function(key,string) {
 
 		var cookie = string || window.document.cookie,
@@ -305,26 +317,28 @@
 		return total;
 	};
 
-	/*
-		// 对象要求：属性中有对象，且该内部对象有简单类型。
+
+	/**
+	 * description：用递归方法拷贝深层次对象,得到全新对象
+	 * @param {*} context 
+	 * @param {*} res 
+	 * 
+	 * // 对象要求：属性中有对象，且该内部对象有简单类型。
 		var person = {
 			name: "Bob",
 			sing:{
 				"name":"发如雪"
 			}
 		};
-
 		var x =kit.mixin(person);
 		person.sing.name = "";
 		console.log(x);
-	*/
-
-	// 用递归方法拷贝深层次对象,得到全新对象
-	var _recursive = function(cont, res) {
+	 */
+	var _recursive = function(context, res) {
 
 		//这里增加了数组处理，暂时还不清楚函数体如何进行复制。
 		var arg = arguments.callee,
-			object = (cont instanceof Array) ? [] : {};
+			object = (context instanceof Array) ? [] : {};
 
 		// 继承原先的对象键值对
 		kit.forEach(res, function(value, key) {
@@ -332,14 +346,14 @@
 		});
 
 		// 遍历中间值的键值对
-		kit.forEach(cont, function(value, key) {
+		kit.forEach(context, function(value, key) {
 			// 如果键值对的属性是一个引用对象
-			if (kit.isObject(cont[key]) || kit.isArray(cont[key])) {
-				object[key] = arg(cont[key], res[key]);
+			if (kit.isObject(context[key]) || kit.isArray(context[key])) {
+				object[key] = arg(context[key], res[key]);
 
 			// 如果是一个简单对象，则直接赋值
 			} else {
-				object[key] = cont[key];
+				object[key] = context[key];
 			}
 		});
 		return object;
@@ -401,30 +415,91 @@
 		return document.querySelectorAll(class1);
 	};
 
-	// 判断手机平台iphone(ipad)或gphone
-	kit.mobileType = function () {
-		var type;
-		//获取语言
-		var language = (navigator.browserLanguage || navigator.language).toLowerCase();
-		// 区分函数
-		var _dist = function() {
+	/**
+	 * 1.对象键值对的改写，赋值
+	 * data = {
+			object: {
+				title:123,
+				title1:456
+			},
+			in: ["title","title1"],
+			out: ["name","name1"]
+		}
+		=》 {title: 123, title1: 456, name: 123, name1: 456}
+		
+		2.数组模式
+		data = {
+			context: [{
+				title:123,
+				title1:456
+			},{
+				title:777,
+				title1:456 
+			}],
+			in: ["title","title1"],
+			out: ["name","name1"]
+		}
+		=》
+		[{title: 123, title1: 456, name: 123, name1: 456},
+		{title: 777, title1: 456, name: 777, name1: 456}]
+	 * @param {*} data 
+	 */
+	function changeKeyNames(data) {
+        if (!data.context.length) {
+            data.in.forEach((value,key) => {                
+                data.context[data.out[key]] = data.context[value];
+            })
+        } else {
+            data.context.forEach((item) => {
+                data.in.forEach((value,key) => {                
+                item[data.out[key]] = item[value];
+            })
+            })
+            
+        }
+		return data.context
+	}
+
+	// 判断是否在小程序端
+    kit.inWxWebView = () => {
+        var flag = !!(navigator.userAgent.match(/micromessenger/i) && navigator.userAgent.match(/miniprogram/i) || window.__wxjs_environment === 'miniprogram');
+
+        return flag;
+    };
+
+	/**
+	 * 判断手机平台
+	 * iphone(ipad)
+	 * gphone
+	 * wechat
+	 */
+    kit.mobileType = function () {
+        var type;
+        //获取语言
+        var language = (navigator.browserLanguage || navigator.language).toLowerCase();
+        // 区分函数
+        var _dist = function() {
             // 获取版本号主要字段
             var methods = navigator.userAgent;
+            
             // navigator.appVersion
             return {
                 iPhone: methods.indexOf("iPhone") != -1 || methods.indexOf("Mac") != -1,
-                iPad: methods.indexOf("iPad") != -1
+                iPad: methods.indexOf("iPad") != -1,
+                wechat: kit.inWxWebView(),
             }
         };
 
-	    if (_dist().iPhone || _dist().iPad) {
-	        type = "iphone";
-	    } else {
-	        type = "gphone";
-	    }
+        if  (_dist().wechat){
+            type = "wechat";
+        }else if (_dist().iPhone || _dist().iPad) {
+            type = "iphone";
+        } else {
+            type = "gphone";
+        }
 
-	    return type;
-	};
+        return type;
+    };
 
 	// tab切换逻辑块
 	kit.tabToggle = function(elements, _class, fn, state) {
