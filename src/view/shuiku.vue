@@ -389,6 +389,7 @@ export default {
       // 底图类型
       L.tileLayer(
         "http://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineCommunity/MapServer/tile/{z}/{y}/{x}",
+        // "//webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}",//老地图
         {
           maxZoom: 20,
           maxNativeZoom: 18,

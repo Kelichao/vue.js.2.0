@@ -5,7 +5,7 @@ import person from '~/view/person.vue'
 import shuiku from '~/view/shuiku.vue'  
 import edit from '~/view/edit.vue'  
 import lunbotu from '~/view/lunbotu.vue'  
-
+import maps from '~/view/maps/demo.vue'  
 import Vue from 'vue'
 
 // 2. 定义路由
@@ -29,6 +29,9 @@ const router = new VueRouter({
     },
     {
       path: "/lunbotu", component: lunbotu,
+    },
+    {
+      path: "/maps", component: maps,
     }
   ]
 })
