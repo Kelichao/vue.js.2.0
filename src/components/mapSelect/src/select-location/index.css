@@ -1,0 +1,77 @@
+/*css*/
+.select-location {
+  position: relative;
+  width: 60%;
+  height: 100%;
+}
+.select-location .select-location-con {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+}
+.select-location .select-location-con >>>.select-longitude,
+.select-location .select-location-con >>>.select-latitude {
+  margin-top: 0;
+  margin-right: 0;
+  margin-left: 0;
+  position: relative;
+}
+.select-location .select-location-con .el-input .el-input__inner {
+  height: 28px;
+  font-size: 12px;
+}
+.select-location .map-icon {
+  margin-left: 8px;
+  color: #e12234;
+  font-size: 24px;
+  vertical-align: middle;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  right: -36px;
+  transform: translateY(-50%);
+}
+.select-location .map-box {
+  height: 330px;
+  border: 1px solid #e0e0e0;
+  overflow: hidden;
+}
+.select-location .map-search {
+  position: absolute;
+  right: 32px;
+  top: 60px;
+  z-index: 999;
+  width: 200px;
+}
+.select-location .mapTip {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  margin-left: -180px;
+  width: 360px;
+  height: 28px;
+  background: rgba(0,0,0,0.6);
+  border-radius: 28px;
+  font-size: 0;
+  z-index: 999;
+}
+.select-location .custom-content {
+    z-index: 999;
+    position: absolute;
+}
+.select-location .mapTip .text {
+  display: inline-block;
+  width: 180px;
+  line-height: 28px;
+  text-align: center;
+  font-size: 12px;
+  color: #fff;
+}
+.map-search-list {
+  position: absolute;
+  right: 32px;
+  top: 88px;
+  z-index: 999;
+  width: 200px;
+}

@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import fixed from '~/view/components/fixed'
+import fixed from '~/view/comp/fixed'
 // 生命周期
 export default {
   mounted() {

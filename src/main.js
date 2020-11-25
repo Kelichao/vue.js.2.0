@@ -12,6 +12,7 @@ import './css/common.css';
 import './css/swiper.css';
 import "./assets/leaflet/leaflet.css"
 import './style/theme/index.css';
+
 console.warn("当前模式",process.env.TYPE)
 // console.log(`%c打包时间:  ${process.env.DATE}`, "color:blue;");
 Vue.use(ElementUI)

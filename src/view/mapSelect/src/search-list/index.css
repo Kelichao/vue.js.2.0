@@ -1,0 +1,66 @@
+.box-card >>>.el-card__body {
+  padding: 8px 0 !important;
+}
+.item {
+  border-bottom: 1px solid #ebeef5;
+  cursor: pointer;
+  padding: 0 8px;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  word-break: break-all;
+  color: #606266;
+  display: flex;
+  font-size: 12px;
+  justify-content: space-around;
+}
+.item:hover {
+  background: #f5f7fa;
+}
+.item .yf_label {
+  display: inline-block;
+  width: 150px;
+  line-height: 28px;
+  color: #3385ff;
+}
+.item .yf_label p {
+  margin: 0;
+  line-height: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 2px 0 2px 0;
+}
+.item .yf_label .detail {
+  font-size: 10px;
+  color: #606266;
+}
+.item .yf_icon {
+  display: flex;
+  align-items: center;
+  width: 20px;
+  font-size: 18px;
+  color: #f00;
+}
+.yf_scroll-list >>>.el-scrollbar__wrap {
+  overflow-x: hidden;
+}
+.no-search-data {
+  border-bottom: 1px solid #ebeef5;
+  cursor: pointer;
+  padding: 0 8px;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  word-break: break-all;
+  color: #606266;
+  display: flex;
+  font-size: 12px;
+  justify-content: space-around;
+  background: #fff;
+  margin: 0;
+  line-height: 48px;
+  border-radius: 4px;
+}

@@ -15,7 +15,8 @@ export default {
   beforeMount() {
     console.log(this.$el)
   },
-
+  components: {
+  },
   data() {
     return {
     data:"",

@@ -6,6 +6,7 @@ import shuiku from '~/view/shuiku.vue'
 import edit from '~/view/edit.vue'  
 import lunbotu from '~/view/lunbotu.vue'  
 import maps from '~/view/maps/demo.vue'  
+import mapSelect from '~/view/demo/mapSelect.vue'  
 import Vue from 'vue'
 
 // 2. 定义路由
@@ -32,6 +33,9 @@ const router = new VueRouter({
     },
     {
       path: "/maps", component: maps,
+    },
+    {
+      path: "/mapSelect", component: mapSelect,
     }
   ]
 })

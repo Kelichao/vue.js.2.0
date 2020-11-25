@@ -1,29 +1,39 @@
 <template  class="f-h100p">
   <div id="app" class="f-h100p main">
     <!-- <img src="./assets/logo.png" />-->
-    <header class="f-fs14 head"  v-show="!hideMenus">
-
-
+    <header class="f-fs14 head" v-show="showCD">
       <!-- <div style="margin-bottom: 20px;">
         <el-button size="small" @click="addTab(editableTabsValue)">add tab</el-button>
       </div> -->
-      <el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab" @tab-click="handleClick">
-        <el-tab-pane
-          v-for="(item) in editableTabs"
-          :key="item.title"
-          :label="item.title"
-          :name="item.name"
-        ><span slot="label">{{item.title}}</span></el-tab-pane>
-      </el-tabs>
+
+      <el-button @click="drawer = true" type="primary" style="margin-left: 16px"
+        >打开菜单</el-button
+      >
     </header>
 
     <!-- 路由出口 -->
     <!-- 路由匹配到的组件将渲染在这里 -->
     <div class="body">
-    <router-view class="f-h100p"></router-view>
-    <keep-alive>
-      
-    </keep-alive>
+      <router-view class="f-h100p"></router-view>
+
+      <el-drawer direction="ttb" title="我是标题" :visible.sync="drawer" :with-header="false" size="5%">
+        <el-tabs
+          v-model="editableTabsValue"
+          type="card"
+          @tab-remove="removeTab"
+          @tab-click="handleClick"
+        >
+          <el-tab-pane
+            v-for="item in editableTabs"
+            :key="item.title"
+            :label="item.title"
+            :name="item.name"
+            ><span slot="label">{{ item.title }}</span></el-tab-pane
+          >
+        </el-tabs>
+      </el-drawer>
+
+      <keep-alive> </keep-alive>
     </div>
   </div>
 </template>
@@ -32,6 +42,8 @@
 export default {
   data() {
     return {
+      showCD:process.env.NODE_ENV == "development",  // development
+      drawer: false,
       hideMenus: eval(this.$route.query.hideMenus),
       editableTabsValue: "person",
       editableTabs: [
@@ -55,15 +67,19 @@ export default {
         {
           title: "轮播图",
           name: "lunbotu",
-        }
+        },
+        {
+          title: "地图选择器",
+          name: "mapSelect",
+        },
       ],
-      tabIndex: 2
+      tabIndex: 2,
     };
   },
   methods: {
     handleClick(tab, event) {
-    this.$router.push(tab.name)
-     // console.log()
+      this.$router.push(tab.name);
+      // console.log()
     },
     startHacking() {
       this.$notify({
@@ -71,7 +87,7 @@ export default {
         type: "success",
         message:
           "We've laid the ground work for you. It's time for you to build something epic!",
-        duration: 5000
+        duration: 5000,
       });
     },
     addTab(targetName) {
@@ -79,7 +95,7 @@ export default {
       this.editableTabs.push({
         title: "New Tab",
         name: newTabName,
-        content: "New Tab content"
+        content: "New Tab content",
       });
       this.editableTabsValue = newTabName;
     },
@@ -98,9 +114,9 @@ export default {
       }
 
       this.editableTabsValue = activeName;
-      this.editableTabs = tabs.filter(tab => tab.name !== targetName);
-    }
-  }
+      this.editableTabs = tabs.filter((tab) => tab.name !== targetName);
+    },
+  },
 };
 </script>
 
@@ -115,8 +131,8 @@ export default {
 
 .body {
   height: calc(100%);
-    /* min-height: 800px; */
-} 
+  /* min-height: 800px; */
+}
 
 .el-tabs--card > .el-tabs__header .el-tabs__item {
   border: none;
@@ -142,33 +158,33 @@ export default {
 
 .el-tabs__item {
   height: 30px;
-   width: 125px;
+  width: 125px;
   line-height: 30px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  background: #F5F5F5;
+  background: #f5f5f5;
   margin-right: 4px;
-  border-radius: 6px  6px  0px  0px;
+  border-radius: 6px 6px 0px 0px;
 }
 
 .el-tabs__content {
   display: none;
 }
 
-
 .el-icon-my-export:before {
   content: "\66ff";
   visibility: hidden;
 }
 
-.el-tabs__nav .el-tabs__item:nth-child(1) .el-icon-close{
-    display: none;
+.el-tabs__nav .el-tabs__item:nth-child(1) .el-icon-close {
+  display: none;
 }
 
 .head {
   position: absolute;
-  opacity: 0.3;
+  right:0;
+  opacity: 0.8;
   z-index: 100000;
 }
 </style>
