@@ -2,7 +2,7 @@
 
 ``` bash
 npm start
-# serve with hot reload at localhost:8010
+# serve with hot reload at localhost:8011
 npm run build:test
 ```
 

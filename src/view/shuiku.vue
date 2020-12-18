@@ -1,4 +1,4 @@
-<template>
+z<template>
   <div>
     <div class="header" v-show="!hideMenus">
       <h1 class="h1">釜山水库水质预测</h1>
@@ -39,14 +39,18 @@
           <el-table size="mini" @row-click=stationClick :data="siteInfos" style="width: 100%" max-height="280">
             <el-table-column type="index" label="序号"></el-table-column>
             <el-table-column prop="stationName" label="站点名称"></el-table-column>
-            <el-table-column prop="coefficient" label="单因子综合指数"></el-table-column>
-            <el-table-column prop="value" label="浓度"></el-table-column>
+            <el-table-column label="单因子综合指数">
+              <template slot-scope="scope">{{scope.row.coefficient || "--"}}</template>
+            </el-table-column>
+            <el-table-column label="浓度">
+              <template slot-scope="scope">{{scope.row.value || "--"}}</template>
+            </el-table-column>
             <el-table-column prop="level" label="水质类别">
               <template slot-scope="scope">
                 <span
                   class="tb_sp f-trans8"
                   :style="{background:colorObj[scope.row.levelId]}"
-                >{{scope.row.level}}</span>
+                >{{scope.row.level|| "--"}}</span>
               </template>
             </el-table-column>
           </el-table>
@@ -132,7 +136,7 @@ export default {
     return {
       disabledFlag: false,
       timeArray: [],
-      hideMenus: eval(this.$route.query.hideMenus),
+      hideMenus: true,
       yz: [],
       moment: moment,
       siteInfos: [],
@@ -154,6 +158,7 @@ export default {
       dateTime: "",
       totalInfo: {},
       colorObj: {
+        "":"gray",
         1: "#1976D2",
         2: "#03A9F4",
         3: "#85C940",
@@ -165,6 +170,7 @@ export default {
   },
   mounted() {
     console.log(this.$el);
+    
     this.changeDate();
     this.createTimeArray();
     this.initMap();
@@ -240,7 +246,9 @@ export default {
         
         this.lineSelect = this.timeArray[index];
         if (this.dateType == "60") {
+          var ass =234
           this.getWhole(this.lineSelect);
+          this.ass= a;
         } else {
            this.getWhole(this.lineSelect);
         }
@@ -294,6 +302,7 @@ export default {
       this.getWhole();
     },
     changeYz(data) {
+      this.$store.commit("setYz",data);
       // console.log(data);
       var now = _.findWhere(this.yz, { columnCode: data });
       this.factorName = now.name.replace(/[ ]/g, "");
@@ -369,6 +378,7 @@ export default {
       }).then((resp) => {
         this.yz = resp;
         this.factorCode = _.first(this.yz).columnCode;
+        this.$store.commit("setYz",this.factorCode);
         this.changeYz(this.factorCode);
       });
     },
@@ -386,10 +396,10 @@ export default {
         [90, 360],
       ]);
 
+ 
       // 底图类型
       L.tileLayer(
         "http://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineCommunity/MapServer/tile/{z}/{y}/{x}",
-        // "//webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}",//老地图
         {
           maxZoom: 20,
           maxNativeZoom: 18,
@@ -437,9 +447,10 @@ export default {
     },
     //添加点位
     pointToLayerFunc(geoJsonPoint, latlng) {
+      // console.log(geoJsonPoint,2222)
       return L.marker(latlng, {
         icon: L.divIcon({
-          html: `<div class="my_water"></div>`,
+          html: `<div class="my_water water_${geoJsonPoint.properties.levelId}" title="${geoJsonPoint.properties.level}"></div>`,
           className: "",
           iconAnchor: [30, 30],
         }),
@@ -447,6 +458,7 @@ export default {
     },
     //弹框
     pipePopUpFunc(feature, layer) {
+    
       // console.log(feature);
       layer.bindPopup(
         () => {
@@ -455,8 +467,14 @@ export default {
             propsData: {
               id: feature.properties.id,
               father: this,
+              factorCode: this.factorCode
             },
           });
+          // 
+            setTimeout(() => {
+                 this.map.panTo([feature.geometry.coordinates[1] + 0.015, feature.geometry.coordinates[0] - 0.01])
+              // this.map.panTo([32.67384, 118.64516])
+            },200)
           return popContent.$mount().$el;
         },
         {
@@ -471,7 +489,7 @@ export default {
     stationClick(point) {
       // console.log(L.popup().options.__proto__.maxWidth = 320)
       console.log('====>', L.popup().options)
-
+      
       L.popup(  
           {
           maxWidth: 320,
@@ -487,12 +505,18 @@ export default {
             propsData: {
               id: point.id,
               father: this,
-              lineSelect: this.lineSelect
+              lineSelect: this.lineSelect,
+             
             },
           });
           return popContent.$mount().$el;
         })
       .openOn(this.map)
+
+       setTimeout(() => {
+              this.map.panTo([point.latitude + 0.015, point.longitude - 0.01])
+          // this.map.panTo([32.67384, 118.64516])
+        },200)
     },
   },
 };
@@ -644,15 +668,37 @@ export default {
 }
 </style>
 
-<style>
+<style  lang="less">
 .my_water {
   position: relative;
   width: 20px;
   height: 20px;
-  background-color: red;
-  background-image: url("../assets/water.png");
+  // background-color: red;
+  
   background-size: cover;
   border-radius: 2px;
 }
+
+.water_1 {
+  background-image: url("../assets/I.png");
+}
+
+.water_2 {
+  background-image: url("../assets/II.png");
+}
+.water_3 {
+  background-image: url("../assets/III.png");
+}
+.water_4 {
+  background-image: url("../assets/IV.png");
+}
+.water_5 {
+  background-image: url("../assets/V.png");
+}
+.water_6 {
+  background-image: url("../assets/劣V.png");
+}
+
+
 
 </style>

@@ -20,7 +20,7 @@
             <label
               class="sp"
               :style="{background:father.colorObj[siteInfo.levelId]}"
-            >{{siteInfo.level}}</label>
+            >{{siteInfo.level||"--"}}</label>
           </span>
         </el-col>
         <el-col :span="12">
@@ -29,7 +29,7 @@
             <label
               class="sp"
               :style="{background:father.colorObj[siteInfo.targetLevelId]}"
-            >{{siteInfo.targetLevel}}</label>
+            >{{siteInfo.targetLevel||"--"}}</label>
           </span>
         </el-col>
       </el-row>
@@ -37,13 +37,13 @@
         <el-col :span="12">
           <span>
             <i>所属水系:</i>
-            <label>{{siteInfo.valley}}</label>
+            <label>{{siteInfo.valley||"--"}}</label>
           </span>
         </el-col>
         <el-col :span="12">
           <span>
             <i>所属区域:</i>
-            <label>{{siteInfo.area}}</label>
+            <label>{{siteInfo.area||"--"}}</label>
           </span>
         </el-col>
       </el-row>
@@ -51,7 +51,7 @@
         <el-col :span="12">
           <span>
             <i>控制级别:</i>
-            <label>{{siteInfo.manageLevel}}</label>
+            <label>{{siteInfo.manageLevel||"--"}}</label>
           </span>
         </el-col>
         <el-col :span="12">
@@ -65,7 +65,7 @@
         <el-col :span="24">
           <span>
             <i>主要污染物:</i>
-            <label>{{siteInfo.mainPolluter}}</label>
+            <label>{{siteInfo.mainPolluter ||"--"}}</label>
           </span>
         </el-col>
       </el-row>
@@ -77,12 +77,14 @@
       >预测数据</label>
       <span
         style="color:rgba(0, 145, 255, 1);float:right;margin-right:16px;"
-      >{{moment(father.dateTime).format("YYYY-MM-DD hh:mm")}}</span>
+      >{{moment(father.dateTime).format("YYYY-MM-DD HH:mm")}}</span>
     </div>
 
     <el-table size="mini" :data="factors" style="width: 100%" max-height="250">
       <el-table-column prop="name" width="80" label="监测因子"></el-table-column>
-      <el-table-column prop="value" label="预测值"></el-table-column>
+      <el-table-column label="预测值">
+        <template slot-scope="scope">{{scope.row.value || "--"}}</template>
+      </el-table-column>
       <el-table-column prop="unit" label="单位"></el-table-column>
       <el-table-column prop="standardValue" label="标准值"></el-table-column>
     </el-table>
@@ -128,6 +130,9 @@ export default {
     lineSelect: {
       type: Number,
     },
+    factorCode: {
+      type: String
+    }
   },
   data() {
     return {
@@ -135,16 +140,35 @@ export default {
       siteInfo: {},
       moment: moment,
       factors: [],
-      nowSelect: "",
+      nowSelect: store.state.yz,
     };
   },
   watch: {
+    // 目前看来无效果
     "$store.state.time": {
       handler() {
         console.log(1111)
         this.getHistoryData();
       }
     },
+    // 目前看来无效果
+    "$store.state.yz":{
+      handler(data) {
+        console.log(data,1111)
+        
+      }
+    },
+    "yz": {
+      handler(data) {
+        // console.log(data,2222)
+        // console.log(echarts,344)
+        if (document.getElementById("main2")) {
+          this.nowSelect = data;
+          this.change()
+        }
+        
+      }
+    }
     // lineSelect: {
     //   handler() {
     //     console.log(1111);
@@ -154,14 +178,22 @@ export default {
     // },
   },
   mounted() {
+    // setInterval(() => {
+    //   console.log(this.factorCode)
+    // },1000)
     this.getSiteDetail();
-    this.nowSelect = _.first(this.father.yz).columnCode;
+    // this.nowSelect = _.first(this.father.yz).columnCode;
     this.getHistoryData();
   },
   computed: {
     totalTime() {
       return this.father.lineSelect || this.father.dateTime;
     },
+    // 用于动态监听store的变化
+    yz() {
+      // console.log(this.$store.state.yz)
+       return store.state.yz;
+    }
   },
   methods: {
     change() {
@@ -198,7 +230,7 @@ export default {
       var time = _.chain(resp.ycObj)
         .pluck("time")
         .map((value) => {
-          return moment(value).format("MM-DD HH:MM");
+          return moment(value).format("MM-DD hh:mm");
         })
         .value();
 
@@ -212,12 +244,12 @@ export default {
         echarts.init(document.getElementById("main2")).setOption({
           tooltip: {
             trigger: "axis",
-            axisPointer: {
-              type: "cross",
-              label: {
-                backgroundColor: "#6a7985",
-              },
-            },
+            // axisPointer: {
+            //   type: "cross",
+            //   label: {
+            //     backgroundColor: "#6a7985",
+            //   },
+            // },
           },
           xAxis: {
             type: "category",
