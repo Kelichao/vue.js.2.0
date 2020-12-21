@@ -1,15 +1,17 @@
 ## Develop
 
 ``` bash
+# 启动服务在 localhost:8011
 npm start
-# serve with hot reload at localhost:8011
+
+#进行测试环境打包，打包配置通过test获取，位于config
 npm run build:test
 ```
 
 ## Production
 
 ``` bash
-# build for production with minification
+#进行正式环境打包，打包配置通过production获取，位于config
 npm run build:production
 ```
 
