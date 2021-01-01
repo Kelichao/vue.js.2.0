@@ -59,7 +59,7 @@ export default {
           title: "XX水库",
           name: "shuiku",
           closable: true,
-        },
+        }, 
         {
           title: "编辑信息",
           name: "edit",
