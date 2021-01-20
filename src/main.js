@@ -13,6 +13,10 @@ import './css/swiper.css';
 import "./assets/leaflet/leaflet.css"
 import './style/theme/index.css';
 
+import UmyUi from 'umy-ui'
+import 'umy-ui/lib/theme-chalk/index.css';// 引入样式
+Vue.use(UmyUi);
+
 console.warn("当前模式",process.env.TYPE)
 // console.log(`%c打包时间:  ${process.env.DATE}`, "color:blue;");
 Vue.use(ElementUI)

@@ -52,8 +52,12 @@ export default {
           name: "person",
         },
         {
-          title: "公司门户",
+          title: "tab组件效率demo",
           name: "hello",
+        },
+        {
+          title:"tab组件",
+          name:"tableDemo"
         },
         {
           title: "XX水库",

@@ -8,6 +8,7 @@ import lunbotu from '~/view/lunbotu.vue'
 import maps from '~/view/maps/demo.vue'  
 import mapSelect from '~/view/demo/mapSelect.vue'  
 import Vue from 'vue'
+import tableDemo from '~/view/tableDemo.vue'  
 
 // 2. 定义路由
 const router = new VueRouter({
@@ -36,6 +37,9 @@ const router = new VueRouter({
     },
     {
       path: "/mapSelect", component: mapSelect,
+    },
+    {
+      path: "/tableDemo", component: tableDemo,
     }
   ]
 })
