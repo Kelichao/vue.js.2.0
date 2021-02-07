@@ -4,7 +4,7 @@
       <el-button @click="startHacking">我是通过路由引导的页面2</el-button>
       <input v-model="aaa" />
     </div> -->
-    <div id="main2" style="height: 200px; width: 200px"></div>
+    <!-- <div id="main2" style="height: 200px; width: 200px"></div> -->
 
     <el-table v-if="type==1" :data="tableData" height="500" border style="width: 100%">
       <el-table-column prop="date" label="日期" width="180"> </el-table-column>
@@ -23,9 +23,9 @@
       <u-table-column prop="address" label="地址" width="180"> </u-table-column>
 
     </u-table>
-    <div>
+    <!-- <div>
       <tabs></tabs>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -36,6 +36,7 @@ import tabs from "@/components/tabs/index";
 export default {
     data() {
     return {
+      type:1,
       type:2,
       data: "",
       aaa: "",
