@@ -399,6 +399,8 @@ export default {
  
       // 底图类型
       L.tileLayer(
+        // "http://t1.tianditu.com/DataServer?T=vec_w&x={x}&y={y}&l={z}",
+        // 'http://t1.tianditu.gov.cn/DataServer?T=vec_c&tk=8c6be0890f2afebbfba3bb0c21636cac&x={x}&y={y}&l={z}',// d2a862ecf7d40c6a1aa96fdff18bae22
         "http://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineCommunity/MapServer/tile/{z}/{y}/{x}",
         {
           maxZoom: 20,
