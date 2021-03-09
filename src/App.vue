@@ -2,11 +2,9 @@
   <div id="app" class="f-h100p main">
     <!-- <img src="./assets/logo.png" />-->
     <header class="f-fs14 head" v-show="showCD">
-      <!-- <div style="margin-bottom: 20px;">
-        <el-button size="small" @click="addTab(editableTabsValue)">add tab</el-button>
-      </div> -->
 
-      <el-button @click="drawer = true" type="primary" style="margin-left: 16px"
+
+      <el-button v-if='env.NODE_ENV == "development"' @click="drawer = true" type="primary" style="margin-left: 16px"
         >打开菜单</el-button
       >
     </header>
@@ -16,22 +14,23 @@
     <div class="body">
       <router-view class="f-h100p"></router-view>
 
-      <el-drawer direction="ttb" title="我是标题" :visible.sync="drawer" :with-header="false" size="5%">
-        <el-tabs
-          v-model="editableTabsValue"
-          type="card"
-          @tab-remove="removeTab"
-          @tab-click="handleClick"
-        >
-          <el-tab-pane
+      <el-drawer direction="rtl" class="f-mt20"  title="我是标题" :visible.sync="drawer" :with-header="false" size="20%">
+          <template class="f-mt20" v-for="item in editableTabs">
+                       <el-button type="primary"  @click="handleClick(item)"  :key="item.title">{{item.title}}</el-button>
+                      <el-divider  :key="item.title"></el-divider>
+
+          </template>
+          <!-- <el-button
+            @click="handleClick"
             v-for="item in editableTabs"
             :key="item.title"
             :label="item.title"
-            :name="item.name"
-            ><span slot="label">{{ item.title }}</span></el-tab-pane
-          >
-        </el-tabs>
+            :name="item.path"
+            ><span>{{ item.label }}</span>
+          </el-button> -->
+  
       </el-drawer>
+
 
       <keep-alive> </keep-alive>
     </div>
@@ -46,43 +45,22 @@ export default {
       drawer: false,
       hideMenus: eval(this.$route.query.hideMenus),
       editableTabsValue: "person",
-      editableTabs: [
-        {
-          title: "个人门户",
-          name: "person",
-        },
-        {
-          title: "tab组件效率demo",
-          name: "hello",
-        },
-        {
-          title:"tab组件",
-          name:"tableDemo"
-        },
-        {
-          title: "XX水库",
-          name: "shuiku",
-          closable: true,
-        }, 
-        {
-          title: "编辑信息",
-          name: "edit",
-        },
-        {
-          title: "轮播图",
-          name: "lunbotu",
-        },
-        {
-          title: "地图选择器",
-          name: "mapSelect",
-        },
-      ],
+      editableTabs: window.routerMap,// [],,
+      // [
+      //   {
+      //     title: "个人门户",
+      //     name: "person",
+      //   }],
       tabIndex: 2,
     };
   },
+  mounted() {
+    console.log(this)
+  },
   methods: {
     handleClick(tab, event) {
-      this.$router.push(tab.name);
+      console.log(tab)
+      this.$router.push(tab.path);
       // console.log()
     },
     startHacking() {
@@ -94,15 +72,7 @@ export default {
         duration: 5000,
       });
     },
-    addTab(targetName) {
-      let newTabName = ++this.tabIndex + "";
-      this.editableTabs.push({
-        title: "New Tab",
-        name: newTabName,
-        content: "New Tab content",
-      });
-      this.editableTabsValue = newTabName;
-    },
+
     removeTab(targetName) {
       let tabs = this.editableTabs;
       let activeName = this.editableTabsValue;

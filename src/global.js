@@ -1,42 +1,20 @@
-import {kit} from "./tool/kit"
-import jquery from "jquery"
 import config from "./env"
 import moment from "moment"
-import _ from "underscore"
+import ajax from "@/ajax/index"
 import { Message, MessageBox } from 'element-ui';
 import * as echarts from 'echarts';
+import a from "@/tool/index.js" ;
+
+
 
 // 定义全局变量
-window.kit = kit;
-window.jquery = jquery;
-window.$ = jquery;
-window._ = _;
 window.echarts = echarts;
 window.$$ = config[process.env.NODE_ENV];
 
 console.log(config,process.env.NODE_ENV)
 // console.log(ElementUI)
 
-window.util = {
-    javaAjax(url,data,callback) {
-        return $.ajax({
-          type:"post",
-          data: {userId:1,...data},
-          url: "http://dev.oa.zcabc.com/api/v1/boot/" + url
-        })  
-          .then((resp) => {
-            
-            if (resp.meta.code === 200) {
-                callback(resp.data)
-            }
-          })
-          .catch((e) => {
-            Message({ message: '请求出错', type: "error" });
-            console.error(e)
-          });
-      },
-};
-
+window.util = ajax
 
 // 日期格式化
 // moment().format('MMMM Do YYYY, h:mm:ss a'); // 九月 10日 2020, 9:48:39 上午

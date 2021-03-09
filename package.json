@@ -1,8 +1,9 @@
 {
-  "name": "element-starter",
-  "description": "A Vue.js project",
+  "name": "kjt",
   "author": "kelichao",
-  "private": true,
+  "version": "1.0.1",
+  "main": "src/tool/index.js",
+  "private": false,
   "scripts": {
     "start": "cross-env NODE_ENV=development  webpack-dev-server --inline  --host localhost --hot --env.dev --open",
     "dev": "webpack-dev-server --inline --hot --env.dev",
@@ -35,6 +36,7 @@
     "coordtransform": "^2.1.2",
     "cross-env": "^7.0.2",
     "css-loader": "^0.27.0",
+    "expose-loader": "^2.0.0",
     "file-loader": "^0.10.1",
     "html-webpack-plugin": "^2.24.1",
     "leaflet": "^1.7.1",

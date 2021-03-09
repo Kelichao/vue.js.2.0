@@ -20,12 +20,12 @@ Vue.use(UmyUi);
 console.warn("当前模式",process.env.TYPE)
 // console.log(`%c打包时间:  ${process.env.DATE}`, "color:blue;");
 Vue.use(ElementUI)
-// console.log(aaa)
-// var aaa = 1213
-// php
-// http://dev.oa.zcabc.com/api/v1/micro/web/
-// http://dev.oa.zcabc.com/java/
-// api/v1/boot
+
+// Vue.extend(process)
+
+// 环境变量, 注意,这个process不能整个获取
+Vue.prototype.env = process.env;
+
 new Vue({
   router,// 路由
   store,// vuex
