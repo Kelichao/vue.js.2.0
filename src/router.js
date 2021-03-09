@@ -9,8 +9,16 @@ import maps from '~/view/maps/demo.vue'
 import mapSelect from '~/view/demo/mapSelect.vue'  
 import Vue from 'vue'
 import tableDemo from '~/view/tableDemo.vue'  
+import xizhongdao from '~/view/xizhongdao/index.vue'  
 
 var arr = [
+  {
+    
+    path: '/xizhongdao', 
+    component: xizhongdao,
+    title: "西中岛介绍页",
+    meta: { keepAlive: true }
+  },
   {
     path: '/hello', 
     component: Hello,

@@ -42,7 +42,8 @@ export default {
 };
 </script>
 
-<style>
+<style lang="less" scoped>
+
 #app {
   font-family: Helvetica, sans-serif;
   text-align: center;
