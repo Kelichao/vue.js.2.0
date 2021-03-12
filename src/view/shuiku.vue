@@ -3,7 +3,7 @@ z<template>
     <div class="header" v-show="!hideMenus">
       <h1 class="h1">釜山水库水质预测</h1>
     </div>
-    <div class="main">
+    <div class="container">
       <div class="left">
         <h1 class="f-fs16">釜山水库水质预测</h1>
         <div class="f-df f-p16">
@@ -525,7 +525,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.main {
+.container {
   min-width: 1100px;
   position: relative;
   height: 100%;

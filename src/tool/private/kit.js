@@ -472,6 +472,8 @@
 	 * iphone(ipad)
 	 * gphone
 	 * wechat
+	 * @这个准备停止维护
+	 * @后续使用kit.platformType函数
 	 */
     kit.mobileType = function () {
         var type;
@@ -1596,6 +1598,81 @@
 
 		return str.slice(0, -1);
 	}
+	
+	/**
+	 * 判断平台是PC还是移动端
+	 * pc
+	 * mobile
+	 * @这个准备停止维护
+	 * @后续使用kit.platformType函数
+	 */
+	 kit.platformType = function () {
+        var type;
+        //获取语言
+
+        //平台、设备和操作系统
+        // var system = [
+        //     {name :"pc",  verify:false},
+        //     {name :"mobild",  verify:false},
+        // ];
+
+
+		// var p = navigator.userAgent;
+            
+        //     // navigator.appVersion
+		// 	var pc = 
+        //         	(
+		// 				//
+		// 				navigator.userAgent.indexOf("Win") !== -1 || 
+		// 				// "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.72 Safari/537.36"
+		// 				navigator.userAgent.indexOf("Mac") !== -1 || 
+		// 				navigator.userAgent.indexOf("X11") !== -1 
+		// 				// navigator.userAgent.indexOf("Linux") !== -1 
+		// 			);
+
+		var ua = navigator.userAgent.toLowerCase();
+		if (/mobi/i.test(ua)) {
+			
+
+			// 手机浏览器
+			type="mobile"
+		} else {
+			// 非手机浏览器
+			type="pc"
+		}
+       
+		// var output = kit._.find(system, function(num) {
+		// 	return num.pc = true;
+		// })
+		
+		// if (pc) {
+		// 	type="pc"
+		// } else {
+		// 	type="mobile"
+		// }
+		
+
+        return type;
+    };
+
+
+
+
+
+
+
+/************************************************************************************************
+
+********                  分割线   后面为继承  方法添加写在上方        ********************************
+
+************************************************************************************************/ 
+
+
+
+
+
+
+
 
 	// 为了能使用OOP形式的调用，将kit的所有方法挂载到原型
 	// 去除不是function类型的。
@@ -1690,7 +1767,6 @@
 	  });
 	}
 	
-
 	window.proKit = kit;
 }.call(this));
 

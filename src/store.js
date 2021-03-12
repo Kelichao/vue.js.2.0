@@ -10,6 +10,7 @@ window.store = new Vuex.Store({
         count: 0,
         time:"",
         yz:"",
+        platformType: kit.platformType()// 平台类型
     },
     // 做一些计算输出,注意，如果count不改变，只会触发一次,所以，这玩意，应该放在mtations里面
     getters: {  

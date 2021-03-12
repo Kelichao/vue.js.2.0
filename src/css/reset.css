@@ -1,0 +1,45 @@
+/*
+ * @css reset
+ * @author: kelichao;
+ * @update: 2016-12-20
+ * @update: 2017-01-29
+ */
+/* 注:div,span是没有margin,padding的 */
+body,button,dd,dl,dt,fieldset,form,
+h1,h2,h3,h4,h5,h6,hr,input,legend,
+li,ol,p,pre,td,textarea,th,ul {margin: 0;padding:0;outline:none;}
+
+h1,h2,h3,h4,h5,h6 {font-size:100%}
+body,button,input,select,textarea {font-size:0.8rem;}
+address,cite,dfn,em,var,i{font-style:normal;}
+strong {font-weight:normal;}
+small {font-size:12px}
+ol,ul,li {list-style:none}
+a{text-decoration:none}
+a:hover{text-decoration:none}
+legend{color:#000}
+button,input,select,textarea{font-size:100%}
+table {border-collapse:collapse;border-spacing:0;}
+span,label {display: inline-block;}
+/* --------------------single CSS start----------------------- */
+* {
+    padding:0px;
+    margin:0px;
+    /* font-size: 14px; */
+}
+
+::-webkit-scrollbar { width:10px;border-radius:5px;height:10px;}/*滚动条整体部分*/
+::-webkit-scrollbar-track { background-color:#eaeff4;width:10px; }/*滚动条轨道*/
+::-webkit-scrollbar-thumb { background-color: rgb(180, 189, 202);width:10px;height:10px; border-radius:10px;}/*滚动条内的小方块*/
+::-webkit-scrollbar-thumb:hover {background-color:#aeb4bd;}
+
+/* 这里的width是指实际的页面宽度 */
+/*根元素字体不会小于12px*/
+/* 这里的width是指实际的页面宽度 */
+@media screen and (max-width: 320px) { html{font-size: 16px;} }
+/* 375为iphone6屏幕宽度 (主流宽度)*/
+@media screen and (min-width: 321px) and (max-width: 375px) { html{font-size: 20px;} }
+/*  414为iphone6plus的屏幕宽度 */
+@media screen and (min-width: 376px) and (max-width: 414px) { html{font-size: 22px;} }
+@media screen and (min-width: 415px) and (max-width: 640px) { html{font-size: 24px;} }
+@media screen and (min-width: 641px) { html{font-size: 28px;} }

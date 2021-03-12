@@ -39,6 +39,7 @@
     "expose-loader": "^2.0.0",
     "file-loader": "^0.10.1",
     "html-webpack-plugin": "^2.24.1",
+    "http-server": "^0.12.3",
     "leaflet": "^1.7.1",
     "less": "3.9",
     "less-loader": "5.0.0",

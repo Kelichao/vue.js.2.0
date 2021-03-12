@@ -1,16 +1,17 @@
-import {kit} from "./kit"
-import jquery from "./part/jquery"
-// var jquery = require("@/part/jquery")
+import './private/common.css';
+import {kit} from "./private/kit"
+import ajax from "./private/ajax"
+import jquery from "./public/jquery"
+// var jquery = require("@/public/jquery")
 // import jquery from "jquery"
-var content= require("./part/underscore")
+var content= require("./public/underscore")
 
 // console.log(_,1111)
+// console.log(kit)
 
-console.log(kit)
-
-
+kit._ = content._;
+kit.$ = window.jQuery;
+kit.ajax = ajax;
 window.kit = kit;
-window.kit._ = content._;
 window._ = content._;
-window.kit.$ = window.jQuery;
 window.$ = window.jQuery;

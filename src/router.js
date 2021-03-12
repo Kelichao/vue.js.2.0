@@ -10,6 +10,12 @@ import mapSelect from '~/view/demo/mapSelect.vue'
 import Vue from 'vue'
 import tableDemo from '~/view/tableDemo.vue'  
 import xizhongdao from '~/view/xizhongdao/index.vue'  
+import huanbaoguanli from '~/view/xizhongdao/huanbaoguanli.vue'  
+
+import yingjiguanli from '~/view/xizhongdao/yingjiguanli.vue'  
+import fengbihuaguanli from '~/view/xizhongdao/fengbihuaguanli.vue'  
+import yunyinguanli from '~/view/xizhongdao/yunyinguanli.vue'  
+
 
 var arr = [
   {
@@ -17,6 +23,35 @@ var arr = [
     path: '/xizhongdao', 
     component: xizhongdao,
     title: "西中岛介绍页",
+    meta: { keepAlive: true }
+  },
+  
+  {
+    
+    path: '/huanbaoguanli', 
+    component: huanbaoguanli,
+    title: "环保管理",
+    meta: { keepAlive: true }
+  },
+  {
+    
+    path: '/yingjiguanli', 
+    component: yingjiguanli,
+    title: "应急管理",
+    meta: { keepAlive: true }
+  },
+  {
+    
+    path: '/fengbihuaguanli', 
+    component: fengbihuaguanli,
+    title: "封闭化管理",
+    meta: { keepAlive: true }
+  },
+  {
+    
+    path: '/yunyinguanli', 
+    component: yunyinguanli,
+    title: "运营管理",
     meta: { keepAlive: true }
   },
   {

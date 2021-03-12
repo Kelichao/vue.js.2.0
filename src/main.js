@@ -8,7 +8,8 @@ import Vuex from 'vuex'
 // import VueI18n from 'vue-i18n' 
 import router from "./router.js"
 import store from "./store.js"
-import './css/common.css';
+
+import './css/reset.css';
 import './css/swiper.css';
 import "./assets/leaflet/leaflet.css"
 import './style/theme/index.css';

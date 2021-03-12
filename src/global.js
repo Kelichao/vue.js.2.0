@@ -1,6 +1,6 @@
 import config from "./env"
 import moment from "moment"
-import ajax from "@/ajax/index"
+
 import { Message, MessageBox } from 'element-ui';
 import * as echarts from 'echarts';
 import a from "@/tool/index.js" ;
@@ -14,7 +14,6 @@ window.$$ = config[process.env.NODE_ENV];
 console.log(config,process.env.NODE_ENV)
 // console.log(ElementUI)
 
-window.util = ajax
 
 // 日期格式化
 // moment().format('MMMM Do YYYY, h:mm:ss a'); // 九月 10日 2020, 9:48:39 上午
