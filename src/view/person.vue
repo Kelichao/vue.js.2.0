@@ -11,7 +11,7 @@
             <el-carousel trigger="click" height="114px">
               <el-carousel-item v-for="item in 4" :key="item">
                 <!-- <div style="{ backgroundUrl: 'https://cn.vuejs.org/images/logo.png' }"> -->
-                <img data-v-c3876194 src="../assets/aaa.png" style="height: 100%;width: 100%;" />
+                <img data-v-c3876194 src="../images/assets/aaa.png" style="height: 100%;width: 100%;" />
                 <h3
                   style="position:absolute;top:0"
                   class="https://cn.vuejs.org/images/logo.png"
@@ -35,7 +35,7 @@
             </div>
             <ul class="f-f1 f-df liucheng f-fww">
               <li v-for="item in 8" :key="item">
-                <img src="../assets/bbb.png" />
+                <img src="../images/assets/bbb.png" />
                 <span class="f-cp" style="text-indent: 8px;">常用</span>
               </li>
             </ul>

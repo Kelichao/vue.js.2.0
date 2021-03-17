@@ -7,7 +7,6 @@
       main_mobile: platformType == 'mobile',
     }"
   >
-    <!-- <img src="./assets/logo.png" />-->
     <div class="f-fs14 head" v-show="showCD">
       <el-button
         v-if="env.NODE_ENV == 'development'"
@@ -20,7 +19,7 @@
 
     <!-- 路由出口 -->
     <!-- 路由匹配到的组件将渲染在这里 -->
-    <div v-if="platformType =='pc'" class="header">
+    <div v-if="platformType == 'pc'" class="header">
       <img src="/src/images/西中岛/logo@2x.png" class="newImage" />
       <div class="buttons">
         <span><router-link to="/xizhongdao">园区介绍</router-link></span>
@@ -45,12 +44,14 @@
         >
         </el-option>
       </el-select>
+
+      <img class="touxiang" src="/src/images/西中岛/头像@2x.png">
     </div>
 
     <!-- mobile版的头部 -->
     <div v-else>
       <h1>驾驶舱</h1>
-       <div class="buttons">
+      <div class="buttons">
         <span><router-link to="/huanbaoguanli">环保</router-link></span>
         <span><router-link to="/yingjiguanli">应急</router-link></span>
         <span><router-link to="/fengbihuaguanli">封闭化</router-link></span>
@@ -58,9 +59,10 @@
       </div>
     </div>
 
-
     <div class="body">
-      <router-view class="f-h100p"></router-view>
+      <keep-alive>
+        <router-view class="f-h100p"></router-view>
+      </keep-alive>
 
       <el-drawer
         direction="rtl"
@@ -80,8 +82,6 @@
           <el-divider :key="item.title"></el-divider>
         </template>
       </el-drawer>
-
-      <keep-alive> </keep-alive>
     </div>
   </div>
 </template>
@@ -157,22 +157,44 @@ export default {
 }
 
 .main_pc {
+  .xzd_container {
+    padding: 40px;
+    box-sizing: border-box;
+    width: 1650px;
+    color: white;
+    font-size: 14px;
+    margin:0 auto;
+  }
+
+
   min-height: 940px;
   /* // 背景图写法模板,图片插入模板 */
   background-image: url(/src/images/西中岛/背景.png);
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  min-width: 1800px;
+  min-width: 1650px;
   box-sizing: border-box;
 
   .header {
     background-image: url(/src/images/西中岛/top.png);
     background-repeat: no-repeat;
+    // background-size: 100% 100%;
     background-size: cover;
+
     height: 68px;
-    width: 1800px;
+    width: 1650px;
     position: relative;
     margin: 0 auto;
+
+    .touxiang {
+      //  background-image: url(/src/images/西中岛/背景.png);
+      // background-repeat: no-repeat;
+      position: absolute;
+      right:-5px;
+      height:26px;
+      top:25px;
+      cursor: pointer;
+    }
 
     .newImage {
       height: 40px;
@@ -219,11 +241,17 @@ export default {
     position: absolute;
   }
 
-  .select .el-input__inner {
+  .select .el-input__inner, .select_cont .el-input__inner {
     background: #00569e;
+    background: rgba(0, 0, 0, 0);
     border: none;
     color: white;
   }
+
+  .select_cont .el-input__inner {
+    border:1px solid   rgba(18, 111, 190, 1);
+  }
+
 
   .h1 {
     font-family: PingFang SC;
@@ -238,6 +266,20 @@ export default {
     border: 1px solid;
     border-color: #00689f;
     border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .h1-select {
+    background-image: url(/src/images/西中岛/未选中@2x.png);
+    background-repeat: no-repeat;
+    background-position: 95% 50%;
+    background-size: 16px;
+  }
+
+  .h1-on {
+    background-image: url(/src/images/西中岛/选中@2x.png);
+    // background-color: linear-gradient(top to bottom,#113B70,#00689f);
+    // background: linear-gradient(to bottom,red,blue);
   }
 
   .p {
@@ -276,12 +318,26 @@ export default {
       margin-right: 15px;
     }
   }
+
+  .tab_cont {
+    padding: 0 20px 20px 20px;
+    height: calc(100% - 80px)
+  }
+
+  .box_cont {
+    padding:20px;
+    padding-top:0;
+  }
+
+  .el-divider {
+    opacity: 20%;
+    width: 320px;
+    height: 1px;
+    background-color: #ffffff;
+  }
+
+  
 }
-
-
-
-
-
 
 .main_mobile {
   box-sizing: border-box;
@@ -290,11 +346,11 @@ export default {
   background-image: url(/src/images/西中岛app/背景2@2X.png);
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  padding:0.8rem; 
+  padding: 0.8rem;
 
   h1 {
-    color:white;
-    font-size:1rem;
+    color: white;
+    font-size: 1rem;
   }
 }
 </style>

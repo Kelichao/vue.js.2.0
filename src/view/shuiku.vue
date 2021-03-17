@@ -72,7 +72,7 @@ z<template>
       <div class="right">数据更新时间：{{moment(dateTime).format("YYYY-MM-DD HH:mm")}}</div>
 
       <div class="bottom">
-        <img src="../assets/color.png" />
+        <img src="../images/assets/color.png" />
       </div>
 
       <div class="mapPanel">
@@ -682,23 +682,23 @@ export default {
 }
 
 .water_1 {
-  background-image: url("../assets/I.png");
+  background-image: url("../images/assets/I.png");
 }
 
 .water_2 {
-  background-image: url("../assets/II.png");
+  background-image: url("../images/assets/II.png");
 }
 .water_3 {
-  background-image: url("../assets/III.png");
+  background-image: url("../images/assets/III.png");
 }
 .water_4 {
-  background-image: url("../assets/IV.png");
+  background-image: url("../images/assets/IV.png");
 }
 .water_5 {
-  background-image: url("../assets/V.png");
+  background-image: url("../images/assets/V.png");
 }
 .water_6 {
-  background-image: url("../assets/劣V.png");
+  background-image: url("../images/assets/劣V.png");
 }
 
 

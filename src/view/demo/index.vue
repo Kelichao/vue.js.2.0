@@ -9,6 +9,14 @@
 <script>
 // 生命周期
 export default {
+  data() {
+    return {
+      type:0,
+      tableDate:[],
+    data:"",
+      aaa:""
+    }
+  },
   mounted() {
     console.log(this.$el)
   },
@@ -17,12 +25,7 @@ export default {
   },
   components: {
   },
-  data() {
-    return {
-    data:"",
-      aaa:""
-    }
-  },
+  
   watch: {
     aaa: {
       handler() {

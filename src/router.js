@@ -9,12 +9,12 @@ import maps from '~/view/maps/demo.vue'
 import mapSelect from '~/view/demo/mapSelect.vue'  
 import Vue from 'vue'
 import tableDemo from '~/view/tableDemo.vue'  
-import xizhongdao from '~/view/xizhongdao/index.vue'  
-import huanbaoguanli from '~/view/xizhongdao/huanbaoguanli.vue'  
 
-import yingjiguanli from '~/view/xizhongdao/yingjiguanli.vue'  
-import fengbihuaguanli from '~/view/xizhongdao/fengbihuaguanli.vue'  
-import yunyinguanli from '~/view/xizhongdao/yunyinguanli.vue'  
+import xizhongdao from '~/view/xizhongdao/1index.vue'  
+import huanbaoguanli from '~/view/xizhongdao/2huanbaoguanli.vue' 
+import yingjiguanli from '~/view/xizhongdao/3yingjiguanli.vue'  
+import fengbihuaguanli from '~/view/xizhongdao/4fengbihuaguanli.vue'  
+import yunyinguanli from '~/view/xizhongdao/5yunyinguanli.vue'  
 
 
 var arr = [

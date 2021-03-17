@@ -21,12 +21,7 @@ legend{color:#000}
 button,input,select,textarea{font-size:100%}
 table {border-collapse:collapse;border-spacing:0;}
 span,label {display: inline-block;}
-/* --------------------single CSS start----------------------- */
-* {
-    padding:0px;
-    margin:0px;
-    /* font-size: 14px; */
-}
+
 
 ::-webkit-scrollbar { width:10px;border-radius:5px;height:10px;}/*滚动条整体部分*/
 ::-webkit-scrollbar-track { background-color:#eaeff4;width:10px; }/*滚动条轨道*/
@@ -36,6 +31,7 @@ span,label {display: inline-block;}
 /* 这里的width是指实际的页面宽度 */
 /*根元素字体不会小于12px*/
 /* 这里的width是指实际的页面宽度 */
+/* 标准页面为375PX,所以标准字体为20px,如需要16px字体,则可以选择0.8rem, 系数为20倍 */
 @media screen and (max-width: 320px) { html{font-size: 16px;} }
 /* 375为iphone6屏幕宽度 (主流宽度)*/
 @media screen and (min-width: 321px) and (max-width: 375px) { html{font-size: 20px;} }

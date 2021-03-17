@@ -12,6 +12,5 @@ var content= require("./public/underscore")
 kit._ = content._;
 kit.$ = window.jQuery;
 kit.ajax = ajax;
-window.kit = kit;
-window._ = content._;
-window.$ = window.jQuery;
+
+export default kit

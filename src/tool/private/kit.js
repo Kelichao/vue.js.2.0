@@ -1057,7 +1057,7 @@
 	};
 
 	// 渲染图表 echarts2
-	kit.chartRender = function(option, total) {
+	kit.chartRender = function(total,option) {
 		var proChart = null;
 		
 		if((typeof jQuery !=="undefined" && total instanceof jQuery) || 

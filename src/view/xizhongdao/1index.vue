@@ -146,6 +146,7 @@ export default {
   data() {
     return {
       data: "",
+       tableDate:[],
       aaa: "",
     };
   },

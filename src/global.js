@@ -3,9 +3,12 @@ import moment from "moment"
 
 import { Message, MessageBox } from 'element-ui';
 import * as echarts from 'echarts';
-import a from "@/tool/index.js" ;
+import kit from "@/tool/index.js" ;
 
 
+// node_modules版本
+// import kit from "klcs"
+window.kit = kit;
 
 // 定义全局变量
 window.echarts = echarts;

@@ -19,8 +19,8 @@ function ajax(
   return $.ajax({
     type: options.type,
     data: {
-      ...{},  // 默认参数,每个请求需要夹带
-      ...options.data,
+      // ...{},  // 默认参数,每个请求需要夹带
+      // ...options.data,
     },
     url: options.url || options.wholeUrl,
     complete: ((info) => {

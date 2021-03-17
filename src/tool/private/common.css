@@ -1,10 +1,18 @@
 /*
- * @css common
+ * @css common  single CSS 
  * @author: kelichao;
  * @update: 2016-12-20  -kelichao
  * @update: 2017-01-29  -kelichao
  * @update: 2021-03-10  -kelichao
+ /* 
+
  */
+
+* {
+    padding:0px;
+    margin:0px;
+    /* font-size: 14px; */
+}
 
 /* display */
 .hide{display:none;}

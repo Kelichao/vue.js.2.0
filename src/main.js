@@ -11,16 +11,18 @@ import store from "./store.js"
 
 import './css/reset.css';
 import './css/swiper.css';
-import "./assets/leaflet/leaflet.css"
+import "./images/assets/leaflet/leaflet.css"
 import './style/theme/index.css';
 
 import UmyUi from 'umy-ui'
 import 'umy-ui/lib/theme-chalk/index.css';// 引入样式
+import simpleTable from "src/components/simpleTable/index";
 Vue.use(UmyUi);
 
 console.warn("当前模式",process.env.TYPE)
 // console.log(`%c打包时间:  ${process.env.DATE}`, "color:blue;");
-Vue.use(ElementUI)
+Vue.use(ElementUI);
+Vue.component('simple-table', simpleTable)
 
 // Vue.extend(process)
 
