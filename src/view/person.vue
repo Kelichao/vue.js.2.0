@@ -83,7 +83,7 @@
             </h1>
             <ul class="f-f1 f-df f-fdc">
               <li class="f-cp f-df f-jcl f-aic f-ml20 f-mr20 f-f1" v-for="item in 2" :key="item">
-                <img data-v-c3876194 src="../assets/aaa.png" class="newImage" />
+                <img data-v-c3876194 src="/src/assets/aaa.png" class="newImage" />
                 <div
                   style="height:33px;overflow : hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;"
                 >案发时发生按时发送发顺丰大法师安抚啊的说法发送案发时发生按时发送发顺丰大法师安抚啊的说法发送案发时发生按时发送发顺丰大法师安抚啊的说法发送案发时发生按时发送发顺丰大法师安抚啊的说法发送</div>
@@ -116,7 +116,7 @@
               v-for="item in 8"
               :key="item"
             >
-              <img data-v-c3876194 src="../assets/ccc.png" style="height:26px;width:26px;" class />
+              <img data-v-c3876194 src="../images/assets/ccc.png" style="height:26px;width:26px;" class />
               <div style="height:33px;overflow : hidden;">案发</div>
             </li>
           </ul>

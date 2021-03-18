@@ -16,11 +16,11 @@
           <h1 class="h1">特色片区</h1>
           <div class="f-df f-fdc">
             <label class="label">
-              <img src="/src/images/西中岛/西中岛中日合作产业园@2x.png" />
+              <img src="../../../src/images/西中岛/西中岛中日合作产业园@2x.png" />
               西中岛中日合作产业园
             </label>
             <label class="label f-mt10">
-              <img src="/src/images/西中岛/化工新材料产业园@2x.png" />
+              <img src="../../images/西中岛/化工新材料产业园@2x.png" />
               化工新材料产业园</label
             >
           </div>
@@ -28,15 +28,15 @@
       </div>
       <!-- 中 -->
       <div class="lunbotu f-df f-fdr">
-        <img src="/src/images/西中岛/地图左@2x.png" class="f-mr10" style="width:20px;height:500px;">
+        <img src="../../images/西中岛/地图左@2x.png" class="f-mr10" style="width:20px;height:500px;">
         <div class="f-f1 f-mt10">
           <el-carousel :interval="5000" arrow="always" height="480px">
           <el-carousel-item v-for="item in 4" :key="item">
-            <img class="f-h100p f-w100p" src="/src/images/西中岛/1.png" />
+            <img class="f-h100p f-w100p" src="../../images/西中岛/1.png" />
           </el-carousel-item>
         </el-carousel>
         </div>
-        <img src="/src/images/西中岛/地图右@2x.png" class="f-ml10" style="width:20px;height:500px;">
+        <img src="../../images/西中岛/地图右@2x.png" class="f-ml10" style="width:20px;height:500px;">
         
       </div>
 
@@ -48,11 +48,11 @@
           
           <div class="f-df f-fdr ">
             <label class="label label2 f-df f-fdc" style="margin-right:10px;">
-              <img class="f1" src="/src/images/西中岛/炼化一体化@2x.png" />
+              <img class="f1" src="../../images/西中岛/炼化一体化@2x.png" />
               <span clas="f1">炼化一体化</span>
             </label>
             <label class="label label2 f-df f-fdc" style="margin-left:0">
-              <img class="f1"   src="/src/images/西中岛/轻质化资源利用@2x.png" />
+              <img class="f1"   src="../../images/西中岛/轻质化资源利用@2x.png" />
               <span clas="f1">轻质化资源利用</span>
               </label>
 
@@ -62,11 +62,11 @@
 
 
             <label class="label label2 f-df f-fdc"  style="margin-right:10px;">
-              <img  class="f1"  src="/src/images/西中岛/石化深加工@2x.png" />
+              <img  class="f1"  src="../../images/西中岛/石化深加工@2x.png" />
               <span clas="f1">石化深加工</span></label
             >
              <label class="label label2 f-df f-fdc" style="margin-left:0">
-              <img class="f1"   src="/src/images/西中岛/气化岛@2x.png" />
+              <img class="f1"   src="../../images/西中岛/气化岛@2x.png" />
               <span clas="f1">气化岛</span></label
             >
           </div>
@@ -79,11 +79,11 @@
 
 
             <label class="label label2 f-df f-fdc"  style="margin-right:10px;">
-              <img  class="f1"  src="/src/images/西中岛/先进产业立园@2x.png" />
+              <img  class="f1"  src="../../images/西中岛/先进产业立园@2x.png" />
               <span clas="f1">先进产业立园</span></label
             >
              <label class="label label2 f-df f-fdc" style="margin-left:0">
-              <img class="f1"   src="/src/images/西中岛/创新开放驱动@2x.png" />
+              <img class="f1"   src="../../images/西中岛/创新开放驱动@2x.png" />
               <span clas="f1">创新开放驱动</span></label
             >
           </div>
@@ -92,7 +92,7 @@
           <div class="f-df f-fdc">
             
             <label class="label f-mt10 " style="text-align:center;">
-              <img src="/src/images/西中岛/绿色安全发展@2x.png" />
+              <img src="../../images/西中岛/绿色安全发展@2x.png" />
               绿色安全发展</label
             >
            
@@ -117,15 +117,15 @@
       <div class="f-f1 box f-ml24">
         <h1 class="h1">入围企业</h1>
         <div class="company">
-          <img class="" src="/src/images/西中岛/组 28741@2x.png" />
-          <img class="" src="/src/images/西中岛/组 28742@2x.png" />
-          <img class="" src="/src/images/西中岛/组 28743@2x.png" />
-          <img class="" src="/src/images/西中岛/组 28744@2x.png" />
-          <img class="" src="/src/images/西中岛/组 28745@2x.png" />
-          <img class="" src="/src/images/西中岛/组 28746@2x.png" />
-          <img class="" src="/src/images/西中岛/组 28747@2x.png" />
-          <img class="" src="/src/images/西中岛/组 28748@2x.png" />
-          <img class="" src="/src/images/西中岛/组 28749@2x.png" />
+          <img class="" src="../../images/西中岛/组28741@2x.png" />
+          <img class="" src="../../images/西中岛/组28742@2x.png" />
+          <img class="" src="../../images/西中岛/组28743@2x.png" />
+          <img class="" src="../../images/西中岛/组28744@2x.png" />
+          <img class="" src="../../images/西中岛/组28745@2x.png" />
+          <img class="" src="../../images/西中岛/组28746@2x.png" />
+          <img class="" src="../../images/西中岛/组28747@2x.png" />
+          <img class="" src="../../images/西中岛/组28748@2x.png" />
+          <img class="" src="../../images/西中岛/组28749@2x.png" />
         </div>
       </div>
     </div>

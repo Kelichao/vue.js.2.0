@@ -20,7 +20,7 @@
     <!-- 路由出口 -->
     <!-- 路由匹配到的组件将渲染在这里 -->
     <div v-if="platformType == 'pc'" class="header">
-      <img src="/src/images/西中岛/logo@2x.png" class="newImage" />
+      <img :src="require('src/images/西中岛/logo@2x.png')" class="newImage" />
       <div class="buttons">
         <span><router-link to="/xizhongdao">园区介绍</router-link></span>
         <span><router-link to="/huanbaoguanli">环保管理</router-link></span>
@@ -169,14 +169,14 @@ export default {
 
   min-height: 940px;
   /* // 背景图写法模板,图片插入模板 */
-  background-image: url(/src/images/西中岛/背景.png);
+  background-image: url(../src/images/西中岛/背景.png);
   background-repeat: no-repeat;
   background-size: 100% 100%;
   min-width: 1650px;
   box-sizing: border-box;
 
   .header {
-    background-image: url(/src/images/西中岛/top.png);
+    background-image: url(../src/images/西中岛/top.png);
     background-repeat: no-repeat;
     // background-size: 100% 100%;
     background-size: cover;
@@ -187,7 +187,6 @@ export default {
     margin: 0 auto;
 
     .touxiang {
-      //  background-image: url(/src/images/西中岛/背景.png);
       // background-repeat: no-repeat;
       position: absolute;
       right:-5px;
@@ -252,6 +251,11 @@ export default {
     border:1px solid   rgba(18, 111, 190, 1);
   }
 
+  .el-radio-button__inner{
+    background:none;
+    color:white;
+  }
+
 
   .h1 {
     font-family: PingFang SC;
@@ -270,14 +274,14 @@ export default {
   }
 
   .h1-select {
-    background-image: url(/src/images/西中岛/未选中@2x.png);
+    background-image: url(../src/images/西中岛/未选中@2x.png);
     background-repeat: no-repeat;
     background-position: 95% 50%;
     background-size: 16px;
   }
 
   .h1-on {
-    background-image: url(/src/images/西中岛/选中@2x.png);
+    background-image: url(../src/images/西中岛/选中@2x.png);
     // background-color: linear-gradient(top to bottom,#113B70,#00689f);
     // background: linear-gradient(to bottom,red,blue);
   }
@@ -343,7 +347,7 @@ export default {
   box-sizing: border-box;
 
   background: #1a54c9;
-  background-image: url(/src/images/西中岛app/背景2@2X.png);
+  background-image: url("../src/images/西中岛app/背景2@2X.png");
   background-repeat: no-repeat;
   background-size: 100% 100%;
   padding: 0.8rem;
@@ -359,7 +363,23 @@ export default {
 
 
 
-<style lang="less">
+<style lang="css">
+
+/* .main_mobile {
+  box-sizing: border-box;
+
+  background: #1a54c9;
+  background-image: url(/src/images/西中岛app/背景2@2X.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  padding: 0.8rem;
+
+ 
+} */
+
+.el-divider--horizontal {
+  margin:10px 0;
+}
 </style>
 
 

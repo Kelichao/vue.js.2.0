@@ -21,7 +21,7 @@ module.exports = (options = {}) => ({
     path: resolve(__dirname, `dist/` + process.env.NODE_ENV +"_" + fileName),
     filename: options.dev ? '[name].js' : '[name].js?[chunkhash]',
     chunkFilename: '[id].js?[chunkhash]',
-    publicPath: options.dev ? '/assets/' : publicPath
+
   },
   module: {
     rules: [{
@@ -50,7 +50,8 @@ module.exports = (options = {}) => ({
       use: [{
         loader: 'url-loader',
         options: {
-          limit: 10000
+          limit: 5000,
+          name: "images/[name].[ext]"// 输出路径
         }
       }]
     }
@@ -62,7 +63,7 @@ module.exports = (options = {}) => ({
     }),
     new HtmlWebpackPlugin({
       template: 'src/index.html',
-      favicon: resolve('src/assets/favicon.ico'),
+      favicon: resolve('src/images/assets/favicon.ico'),
     }),
     new webpack.DefinePlugin({
       'process.env': {

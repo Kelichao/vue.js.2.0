@@ -12,16 +12,89 @@
             </h1>
 
             <div class="box_cont f-f1 f-df f-fdc">
-              <div class="detail">
-                交流岛站 2020-12-01 17:00 120 轻度 AQI 首要污染物：PM2.5 22℃ 64%
-                西北风 3级 PM2.5 22 PM10 11 SO2 11 NO2 22 O3 33 CO 24
-                单位：μg/m³，CO：mg/m³
+              <div class="detail f-df f-fdc f-f1">
+                <div class="f-f3 f-df">
+                  <div class="f-f3">
+                    <h1 class="f-ti15">交流岛站</h1>
+                    <div class="air_detail">
+                      <label>120 </label>
+                      <i>轻度</i>
+                      <span>AQI</span>
+
+                      <h2 class="f-mt4">
+                        <h3>首要污染物：</h3>
+                        <h4>PM2.5</h4>
+                      </h2>
+                    </div>
+                  </div>
+
+                  <div class="f-f2">
+                    <h1 >2020-12-01 17:00</h1>
+                    <div class="air_detail">
+                      <div>
+                        <img src="../../images/西中岛/温度@2x.png" alt="">
+                        <b>22℃</b>  
+                        </div>
+                      <div  class="f-mt6">
+                        <img src="../../images/西中岛/湿度@2x.png" alt="">
+                        <b>64%</b>
+                      </div>
+                      <div class="f-mt6">
+                        <img src="../../images/西中岛/风向@2x.png" alt="">
+                        <b>西北风 3级</b>
+                      </div>
+                       
+                    </div>
+                  </div>
+                </div>
+
+                <div class="f-f2 f-df f-fdc">
+                  <div class="f-f1 f-df">
+                    <span class="f-f1 f-df">
+                      <label class="f-f1">PM2.5 </label>
+                      <h3 class="f-f1 f-ti5 f-tac" style="color:rgba(48, 211, 133, 1)">22</h3>
+                    </span>
+
+                     <span class="f-f1 f-df">
+                      <label class="f-tac f-f1">PM10</label>
+                      <h3 class="f-f1 f-ti5 f-tac" style="color:rgba(48, 211, 133, 1)">11</h3>
+                    </span>
+
+                     <span class="f-f1 f-df">
+                      <label class="f-tac f-f1">SO2</label>
+                      <h3 class="f-f1 f-ti5 f-tac" style="color:rgba(48, 211, 133, 1)">11</h3>
+                    </span>
+                         
+                  </div>
+
+                  <div class="f-f1 f-df">
+                    <span class="f-f1 f-df">
+                      <label class="f-tac f-f1">NO2  </label>
+                      <h3 class="f-f1 f-ti5 f-tac" style="color:rgba(48, 211, 133, 1)">22</h3>
+                    </span>
+
+                     <span class="f-f1 f-df">
+                      <label class="f-tac f-f1">O3 </label>
+                      <h3 class="f-f1 f-ti5 f-tac" style="color:rgba(48, 211, 133, 1)">11</h3>
+                    </span>
+
+                     <span class="f-f1 f-df">
+                      <label class="f-tac f-f1">CO </label>
+                      <h3 class="f-f1 f-ti5 f-tac" style="color:rgba(48, 211, 133, 1)">11</h3>
+                    </span>
+                         
+                  </div>
+                  
+                  <h1 class="danwei">单位：μg/m³，CO：mg/m³</h1>
+                  
+                </div>
+
                 <el-divider></el-divider>
               </div>
               <div>
                 <div
                   id="paint1"
-                  style="height: 300px; width: 300px; margin: 0 auto"
+                  style="height: 150px; width: 300px; margin: 0 auto"
                 ></div>
                 优良天数 123 重污染天数天数 18
               </div>
@@ -29,43 +102,62 @@
           </div>
         </div>
         <!-- 中 -->
-        <div class="lunbotu f-df f-fdr box f-p20">
+        <div class="lunbotu f-df  box f-p20 f-fdc">
           <div>
             <el-select
-            class="select_cont"
-            style="width:100px"
-            size="mini"
-            v-model="timeType"
-            change="change"
-          >
-            <el-option
-              v-for="item in [{value:'month',label:'月'},{value:'year',label:'年'}]"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
+              class="select_cont"
+              style="width: 100px"
+              size="mini"
+              v-model="timeType"
+              change="change"
             >
-            </el-option>
-          </el-select>
+              <el-option
+                v-for="item in [
+                  { value: 'month', label: '月' },
+                  { value: 'year', label: '年' },
+                ]"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
 
             <el-date-picker
-            class="select_cont"
-            style="width:100px"
-            size="mini"
+              v-if="timeType=='year'"
+              class="select_cont"
+              style="width: 100px"
+              size="mini"
               v-model="time"
               type="year"
-              placeholder="选择年">
+              placeholder="选择年"
+            >
             </el-date-picker>
 
             <el-date-picker
-            class="select_cont"
-            style="width:130px"
-            size="mini"
+             v-if="timeType=='month'"
+              class="select_cont"
+              style="width: 130px"
+              size="mini"
               v-model="time"
               type="month"
-              placeholder="选择月">
+              placeholder="选择月"
+            >
             </el-date-picker>
           </div>
-          
+          <div class="f-f1 f-df f-fdc f-pt20">
+            <div class="f-f1 f-df">
+              <div id="paint2" class="f-f1" style=""></div>
+              <div id="paint3" class="f-f1" style=""></div>
+              <div id="paint4" class="f-f1" style=""></div>
+            </div>
+            <div class="f-f1 f-df f-fdc">
+              <el-radio-group v-model="checkboxGroup3" size="mini">
+                <el-radio-button v-for="city in cities" :label="city" :key="city">{{city}}</el-radio-button>
+              </el-radio-group>
+              <div class="f-f1 f-mt10" id="paint5"></div>
+            </div>
+          </div>
         </div>
 
         <!-- 右 -->
@@ -127,48 +219,14 @@
 </template>
 
 <script>
-var option = {
-  title: {
-    text: "全年空气质量等级占比",
-    //  color: 'white',
-    // subtext: '纯属虚构',
-    left: "left",
-  },
-  tooltip: {
-    trigger: "item",
-  },
-  // legend: {
-  //     orient: 'vertical',
-  //     left: 'center',
-  //     top:"bottom"
-  // },
-  series: [
-    {
-      name: "访问来源",
-      type: "pie",
-      radius: ["20%", "30%"],
-      label: {
-        formatter: "{b} {c} 天 \n 占比 {d} ",
-        //  fontSize: 14,
-        color: "white",
-      },
-      data: [
-        { value: 1048, name: "优" },
-        { value: 735, name: "良3" },
-        { value: 735, name: "良4" },
-        { value: 735, name: "良5" },
-        { value: 735, name: "良6" },
-        { value: 735, name: "良5" },
-      ],
-    },
-  ],
-};
 
 // 生命周期
 export default {
   data() {
     return {
-      timeType:"year",
+      checkboxGroup3:"AQI",
+      cities:["AQI","综合","PM2.5","PM10","SO₂","NO₂","O₃","CO"],
+      timeType: "month",
       time: new Date(),
       type: 0,
       tableDate: [
@@ -196,8 +254,58 @@ export default {
   },
   mounted() {
     console.log(this.$el);
+
     // kit.ajax();
-    kit.chartRender($("#paint1"), option);
+    kit.chartRender($("#paint1"), kit.util.paintPie({
+      title: "全年空气质量等级占比", 
+      formatter:"{b} {c} 天 \n 占比 {d} ", 
+      data: [
+          { value: 1048, name: "优" },
+          { value: 735, name: "良3" },
+          { value: 735, name: "良4" },
+          { value: 735, name: "良5" },
+          { value: 735, name: "良6" },
+        ]
+    }));
+
+
+
+    kit.chartRender($("#paint2"), kit.util.paintPie({
+      title: "空气质量等级占比分布图", 
+      formatter:"{b} {c} 天 \n 占比 {d} ", 
+      data: [
+          { value: 1048, name: "优" },
+          { value: 735, name: "良3" },
+        ]
+    }));
+
+    kit.chartRender($("#paint3"), kit.util.paintPie({
+      title: "首要污染物占比分布图", 
+      formatter:"{b} {c} 天 \n 占比 {d} ", 
+      data: [
+          { value: 1048, name: "优" },
+          { value: 735, name: "良3" },
+
+        ]
+    }));
+
+    kit.chartRender($("#paint4"), kit.util.paintPie({
+      title: "六项污染物贡献率分布图", 
+      formatter:"{b} {c} 天 \n 占比 {d} ", 
+      data: [
+          { value: 1048, name: "优" },
+          { value: 735, name: "良3" },
+        ]
+    }));
+
+    kit.chartRender($("#paint5"), kit.util.paintLine({
+      title: "六项污染物贡献率分布图", 
+      formatter:"{b} {c} 天 \n 占比 {d} ", 
+      data: [
+          { value: 1048, name: "优" },
+          { value: 735, name: "良3" },
+        ]
+    }));
   },
   beforeMount() {
     console.log(this.$el);
@@ -241,6 +349,66 @@ export default {
   img {
     margin: 0;
   }
+}
+
+.air_detail {
+  padding: 16px;
+  position: relative;
+  label {
+    font-family: Bebas Neue;
+    color: #ff9902;
+    font-size: 64px;
+    line-height: 48px;
+  }
+  i {
+    position: absolute;
+    top: 10px;
+    width: 32px;
+    height: 20px;
+    background-color: #ff9902;
+    border-radius: 2px;
+    text-align: center;
+  }
+  span {
+    opacity: 60%;
+    width: 32px;
+    height: 17px;
+    color: #ffffff;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  h3 {
+    width: 84px;
+    height: 20px;
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 18px;
+    display: inline-block;
+  }
+  h4 {
+    width: 45px;
+    height: 16px;
+    color: #29deff;
+    font-size: 14px;
+    line-height: 18px;
+    display: inline-block;
+  }
+  img {
+    width: 16px;
+  }
+}
+
+.danwei {
+  opacity: 70%;
+
+// height: 17px;
+font-family: PingFang SC;
+color: #ffffff;
+font-size: 12px;
+line-height: 14px;
+text-align: right;
+margin-right:12px;
 }
 
 // .bottom {}

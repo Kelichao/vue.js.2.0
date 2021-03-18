@@ -5,43 +5,36 @@
  */
 
 
-function ajax(
-  options = {
-    url: "http://dev.oa.zcabc.com/api/v1/boot/",// 地址,不包含ip端口等
-    wholeUrl: "",// 全地址,用于解决特殊情况
-    type: "post",// 默认为post,
-    data: {},// 参数
-    success() { },
-    complete() {},
-  }
-) {
+function ajax(options = {}) {
 
   return $.ajax({
-    type: options.type,
+    type: options.type || "post",// 默认为post,
     data: {
       // ...{},  // 默认参数,每个请求需要夹带
       // ...options.data,
     },
-    url: options.url || options.wholeUrl,
-    complete: ((info) => {
-      console.info("请求完成")
-    })
-  })
-    .then((resp) => {
+    timeout: options.timeout || 30000,// 请求超时
+    url: $$.url + options.url || options.wholeUrl,// 全地址,用于解决特殊情况
+    success(resp) {
 
       if (resp.meta.code === 200) {
         options.success(resp.data)
       }
-    })
-    .catch((e) => {
+    },
+    error(e) {
+      // console.error({
+      //   code: e.status,
+      //   message: e.statusText,
+      //   detail: e
+      // });
+    },
+    complete: ((info) => {
+      console.info("请求完成")
+    }),
+  })
+    .then((resp) => { })
+    .catch((e) => { })
 
-      console.error({
-        code: e.status,
-        message: e.statusText,
-        detail: e
-      });
-    })
-    
 }
 
 export default ajax

@@ -12,8 +12,11 @@ window.kit = kit;
 
 // 定义全局变量
 window.echarts = echarts;
+
+// 环境变量
 window.$$ = config[process.env.NODE_ENV];
 
+// 环境变量输出
 console.log(config,process.env.NODE_ENV)
 // console.log(ElementUI)
 
