@@ -1066,11 +1066,18 @@
 			total = total.get(0);
 		}
 
+		// this.barChart.dispose();
+		// console.log(total,111)
 		// 这里需要原生dom节点
 		proChart = echarts.init(total);
-
+		
+		// 没有这个重新渲染,没反应.
+		proChart.dispose();
+		proChart = echarts.init(total);
 		//传入参数
 		proChart.setOption(option, true);
+
+		return proChart
 	};
 
 	// 判断对象属性数量// flag为true则除去原型链上的属性

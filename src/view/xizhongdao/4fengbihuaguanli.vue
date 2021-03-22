@@ -14,7 +14,14 @@
           </div>
         </div>
         <!-- 中 -->
-        <div class="lunbotu f-df f-fdr box"></div>
+        <div class="lunbotu f-df f-fdc box" v-show="type=='0'"></div>
+        <div class="lunbotu f-df  box f-fdc" v-show="type=='1'">
+          <div class="f-f1"></div>
+          <div class="f-f1" id="paint2">
+
+          </div>
+        </div>
+        
 
         <!-- 右 -->
 
@@ -34,8 +41,9 @@
       <!-- 下部分 -->
       <div class="f-f2 f-df f-mt24 f-ofa bottom">
         <!-- 左 -->
-        <div class="f-f1 box">
+        <div class="f-f1 box f-df f-fdc">
           <h1 class="h1">危化品车辆统计</h1>
+          <div class="f-f1" id="paint1"></div>
         </div>
         <!-- 右 -->
         <div class="f-f1 box f-ml24">
@@ -50,7 +58,7 @@
                 '处理情况',
                 '负责人',
               ]"
-              :value="tableDate2"
+              :value="tableDate"
             ></simple-table>
           </div>
         </div>
@@ -74,11 +82,31 @@ export default {
       data: "",
       tableDate: [],
       aaa: "",
+      paint1: null,
+
     };
   },
   mounted() {
     console.log(this.$el);
     // kit.ajax();
+
+    kit.chartRender(
+      $("#paint1"),
+      kit.util.paintLine({
+        title: "全年空气质量等级占比",
+        formatter: "{b} {c} 天 \n 占比 {d} ",
+        legend:["邮件营销", "联盟广告"],
+        data: [
+          { value: 1048, name: "优" },
+          { value: 735, name: "良3" },
+          { value: 735, name: "良4" },
+          { value: 735, name: "良5" },
+          { value: 735, name: "良6" },
+        ],
+      })
+    );
+
+
   },
   beforeMount() {
     console.log(this.$el);
@@ -96,6 +124,20 @@ export default {
   methods: {
     changeType(type) {
       this.type = type;
+
+      this.$nextTick(() => {
+            kit.chartRender(
+      $("#paint2"),
+      kit.util.paintLine({
+        title: "报警数量变化",
+        formatter: "{b} {c} 天 \n 占比 {d} ",
+        data: [
+          { value: 1048, name: "优" },
+          { value: 735, name: "良3" },
+        ],
+      })
+    );
+      })
     },
     startHacking: function () {
       this.aaa = 111;

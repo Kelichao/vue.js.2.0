@@ -23,17 +23,19 @@
           </div>
         </div>
         <!-- 中 -->
-        <div class="lunbotu f-df f-fdr box"></div>
+        <div class="lunbotu f-df f-fdr box">
+          
+        </div>
 
         <!-- 右 -->
 
         <div class="f-f1 f-df f-fdc f-ml24">
-          <div class="f-f1 box">
+          <div class="f-f1 box f-df">
             <h1 class="h1">应急预案</h1>
 
-            <div class="f-df f-fdr"></div>
+            <div id="paint34" class="f-f1"></div>
 
-            <div class="f-df f-fdr f-bsb f-mt10"></div>
+            
           </div>
 
           <div class="f-f1 box f-mt24">
@@ -107,6 +109,21 @@ export default {
   mounted() {
     console.log(this.$el);
     // kit.ajax();
+
+    kit.chartRender(
+          $("#paint34"),
+          kit.util.paintPie({
+            // title: "用电计划",
+            formatter: "{b} {c} 天 \n 占比 {d} ",
+            data: [
+              { value: 1048, name: "优" },
+              { value: 735, name: "良3" },
+              { value: 735, name: "良4" },
+              { value: 735, name: "良5" },
+              { value: 735, name: "良6" },
+            ],
+          })
+        );
   },
   beforeMount() {
     console.log(this.$el);

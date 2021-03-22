@@ -60,9 +60,12 @@
     </div>
 
     <div class="body">
-      <keep-alive>
+       <router-view class="f-h100p"></router-view>
+
+       <!-- 内存消耗太大 -->
+      <!-- <keep-alive>
         <router-view class="f-h100p"></router-view>
-      </keep-alive>
+      </keep-alive> -->
 
       <el-drawer
         direction="rtl"
@@ -167,7 +170,7 @@ export default {
   }
 
 
-  min-height: 940px;
+  min-height: 950px;
   /* // 背景图写法模板,图片插入模板 */
   background-image: url(../src/images/西中岛/背景.png);
   background-repeat: no-repeat;
@@ -379,6 +382,11 @@ export default {
 
 .el-divider--horizontal {
   margin:10px 0;
+}
+
+.el-progress__text {
+  color:#ffffff;
+font-size:32px;
 }
 </style>
 

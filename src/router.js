@@ -7,6 +7,9 @@ import edit from '~/view/edit.vue'
 import lunbotu from '~/view/lunbotu.vue'  
 
 import mapSelect from '~/view/demo/mapSelect.vue'  
+import pie from '~/view/demo/pie.vue'  
+import bar from '~/view/demo/bar.vue'  
+import line from '~/view/demo/line.vue'  
 import Vue from 'vue'
 import tableDemo from '~/view/tableDemo.vue'  
 
@@ -60,12 +63,23 @@ var arr = [
     title: "tab组件效率demo",
     meta: { keepAlive: true }
   },
-  { path: '/bar', meta: { keepAlive: true }  },
   { path: '/person', meta: { keepAlive: true },component: person,    title: "个人门户", },
   {
     title:"tab组件",
     path: "/vuex", component: vuex,
     meta: { keepAlive: true },//当前的.vue文件需要缓存
+  },
+  {
+    title:"饼图",
+    path:"/pie",component:pie,
+  },
+  {
+    title:"柱状图",
+    path:"/bar",component:bar,
+  },
+  {
+    title:"折线图",
+    path:"/line",component:line,
   },
   {
     title: "XX水库",

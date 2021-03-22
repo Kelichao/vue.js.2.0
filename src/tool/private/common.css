@@ -68,6 +68,7 @@
 .f_w100p{width:100%;}
 
 /* line-height */
+.f_lhi{line-height: initial};
 .f_lh14{line-height:14px;}
 .f_lh16{line-height:16px;}
 .f_lh18{line-height:18px;}
@@ -163,6 +164,7 @@
 .f_vab{vertical-align:bottom;}
 .f_vat{vertical-align:top;}
 .f_vatb{vertical-align:text-bottom;}
+.f-vas {vertical-align:sub;}
 
 /* visibility */
 .f_vh{visibility:hidden;}
@@ -325,6 +327,36 @@
 .f_mr25{margin-right:25px;}
 .f_mt25{margin-top:25px;}
 .f_mb25{margin-bottom:25px;}
+
+.f_m26{margin:26px;}
+.f_ml26{margin-left:26px;}
+.f_mr26{margin-right:26px;}
+.f_mt26{margin-top:26px;}
+.f_mb26{margin-bottom:26px;}
+
+.f_m27{margin:27px;}
+.f_ml27{margin-left:27px;}
+.f_mr27{margin-right:27px;}
+.f_mt27{margin-top:27px;}
+.f_mb27{margin-bottom:27px;}
+
+.f_m28{margin:28px;}
+.f_ml28{margin-left:28px;}
+.f_mr28{margin-right:28px;}
+.f_mt28{margin-top:28px;}
+.f_mb28{margin-bottom:28px;}
+
+.f_m29{margin:29px;}
+.f_ml29{margin-left:29px;}
+.f_mr29{margin-right:29px;}
+.f_mt29{margin-top:29px;}
+.f_mb29{margin-bottom:29px;}
+
+.f_m30{margin:30px;}
+.f_ml30{margin-left:30px;}
+.f_mr30{margin-right:30px;}
+.f_mt30{margin-top:30px;}
+.f_mb30{margin-bottom:30px;}
 
 
 /*增加了padding*/
@@ -727,3 +759,26 @@
 .f_ti15 {
     text-indent: 15px;
 }
+
+
+/* 
+
+如果有下列代码：
+
+    <div class="wrapper">
+        hello world
+    </div>
+
+想让hello world在wrapper类中垂直居中，可以为wrapper中添加如下CSS：
+
+    .wrapper:after {
+        display:inline-block;
+        width:0;
+        height:100%;
+        vertical-align:middle;
+        content:"";
+    }
+
+原理未知。该方法参考自新华网的一个项目：《45名日本战犯侵华罪行自供》
+
+*/

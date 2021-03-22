@@ -9,7 +9,7 @@ body,button,dd,dl,dt,fieldset,form,
 h1,h2,h3,h4,h5,h6,hr,input,legend,
 li,ol,p,pre,td,textarea,th,ul {margin: 0;padding:0;outline:none;font-weight: normal;}
 
-h1,h2,h3,h4,h5,h6 {font-size:100%}
+h1,h2,h3,h4,h5,h6 {font-size:14px}
 body,button,input,select,textarea {font-size:0.8rem;}
 address,cite,dfn,em,var,i{font-style:normal;}
 strong {font-weight:normal;}
