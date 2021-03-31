@@ -3,7 +3,7 @@
     <!-- PC开始 -->
     <template v-if="platformType == 'pc'">
       <!-- 上部分 -->
-      <div class="f-f3 f-df" style="height:500px;">
+      <div class="f-f3 f-df" style="height: 500px">
         <!-- 左 -->
         <div class="f-f1 f-mr24 f-df f-fdc">
           <div class="f-f1 box f-df f-fdc" @click="changeType(0)">
@@ -29,7 +29,7 @@
                   </div>
 
                   <div class="f-f2">
-                    <h1 >2020-12-01 17:00</h1>
+                    <h1>2020-12-01 17:00</h1>
                     <div class="air_detail">
                       <div>
                         <img src="../../images/西中岛/温度@2x.png" alt="" />
@@ -122,7 +122,14 @@
                   id="paint1"
                   style="height: 150px; width: 300px; margin: 0 auto"
                 ></div>
-                优良天数 123 重污染天数天数 18
+                <span>优良天数</span>
+                <span class="f-ti10" style="color: #30d385; font-size: 28px"
+                  >123</span
+                >
+                <span class="f-ti25">重污染天数天数</span>
+                <span class="f-ti10" style="color: #ff0200; font-size: 28px"
+                  >18</span
+                >
               </div>
             </div>
           </div>
@@ -176,10 +183,11 @@
           <!-- 中间切换开始 -->
           <div v-show="type == 0" class="f-f1 f-df f-fdc f-pt20">
             <div class="f-f1 f-df">
-              <div id="paint2" class="f-f1" style=""></div>
-              <div id="paint3" class="f-f1" style=""></div>
-              <div id="paint4" class="f-f1" style=""></div>
+              <div id="paint2" class="f-f1"></div>
+              <div id="paint3" class="f-f1"></div>
+              <div id="paint4" class="f-f1"></div>
             </div>
+            <el-divider></el-divider>
             <div class="f-f1 f-df f-fdc">
               <el-radio-group v-model="checkboxGroup3" size="mini">
                 <el-radio-button
@@ -189,20 +197,186 @@
                   >{{ city }}</el-radio-button
                 >
               </el-radio-group>
+              
               <div class="f-f1 f-mt10" id="paint5"></div>
             </div>
           </div>
 
           <div v-show="type == 1" class="f-f1 f-df f-fdc f-pt20">
-            <div class="f-f1 f-df"></div>
-            <div class="f-f1 f-df f-fdc">
+            <div class="f-f3 f-df">
+              <div class="f-h100p f-w100p f-df">
+                <div class="f-f2">
+                  <div class="f-h100p f-df f-fdc f-pr">
+                    <div class="">排污大户-前五</div>
+                    <el-select
+                      class="select_cont wuranwu_select"
+                      style="width: 100px"
+                      size="mini"
+                      v-model="wuranType"
+                      change=""
+                    >
+                      <el-option
+                        v-for="item in [
+                          { value: 'klw', label: '颗粒物' },
+                          { value: 'SO2', label: 'SO2' },
+                          { value: 'NOx', label: 'NOx' },
+                        ]"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value"
+                      >
+                      </el-option>
+                    </el-select>
+                    <div class="f-f1" id="paint24"></div>
+                  </div>
+                </div>
+                <div class="f-f3">
+                  <div class="f-h100p f-w100p f-df f-fdc f-pr">
+                    <div class="">超标企业-前五</div>
+                    <span
+                      style="
+                        color: #ffffff;
+                        font-size: 12px;
+                        top: 0px;
+                        right: 40px;
+                        opacity: 60%;
+                      "
+                      class="f-pa"
+                      >单位：次</span
+                    >
+                    <div class="f-f1">
+                      <div
+                        class="f-h100p f-df f-fww"
+                        style="
+                          justify-content: flex-start;
+                          align-content: space-around;
+                        "
+                      >
+                        <div
+                          class="f-w46p f-h23p f-df f-mr10"
+                          v-for="item in 5"
+                          :key="item"
+                        >
+                          <div
+                            style="background: #053570"
+                            class="f-h100p f-w100p f-df f-fdc f-p5"
+                          >
+                            <div class="f-f1">
+                              <div class="f-h100p f-w100p f-df ">
+                                <div class="f-f1 f-lh26">01 <span class="f-ti5">大连蒙连石化有限公司</span></div>
+                                <div style="color: #29deff; font-size: 18px">
+                                  16
+                                </div>
+                              </div>
+                            </div>
+                            <div class="f-f1">
+                              <div class="f-h100p f-w100p f-df">
+                                <div class="f-f1 f-tac">颗粒物 <span style="color:#29deff;font-size:16px;">5</span> </div>
+                                <div class="f-f1 f-tac">SO2 <span style="color:#29deff;font-size:16px;">5</span> </div>
+                                <div class="f-f1 f-tac">NOx <span style="color:#29deff;font-size:16px;">5</span> </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <el-divider></el-divider>
+            <div class="f-f2 f-df f-fdc">
               <div class="f-f1 f-mt10" id="paint6"></div>
             </div>
           </div>
 
           <div v-show="type == 2" class="f-f1 f-df f-fdc f-pt20">
-            <div class="f-f1 f-df"></div>
-            <div class="f-f1 f-df f-fdc">
+            <div class="f-f3 f-df">
+              <div class="f-h100p f-w100p f-df">
+                <div class="f-f2">
+                  <div class="f-h100p f-df f-fdc f-pr">
+                    <div class="">排污大户-前五</div>
+                    <el-select
+                      class="select_cont wuranwu_select"
+                      style="width: 100px"
+                      size="mini"
+                      v-model="wushuiType"
+                      change=""
+                    >
+                      <el-option
+                        v-for="item in [
+                          { value: 'klw', label: '污水' },
+                          { value: 'COD', label: 'COD' },
+                          { value: '氨氮', label: '氨氮' },
+                          { value: '总磷', label: '总磷' },
+                        ]"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value"
+                      >
+                      </el-option>
+                    </el-select>
+                    <div class="f-f1" id="paint25"></div>
+                  </div>
+                </div>
+                <div class="f-f3">
+                  <div class="f-h100p f-w100p f-df f-fdc f-pr">
+                    <div class="">超标企业-前五</div>
+                    <span
+                      style="
+                        color: #ffffff;
+                        font-size: 12px;
+                        top: 0px;
+                        right: 40px;
+                        opacity: 60%;
+                      "
+                      class="f-pa"
+                      >单位：次</span
+                    >
+                    <div class="f-f1">
+                      <div
+                        class="f-h100p f-df f-fww"
+                        style="
+                          justify-content: flex-start;
+                          align-content: space-around;
+                        "
+                      >
+                        <div
+                          class="f-w46p f-h23p f-df f-mr10"
+                          v-for="item in 5"
+                          :key="item"
+                        >
+                          <div
+                            style="background: #053570"
+                            class="f-h100p f-w100p f-df f-fdc f-p5"
+                          >
+                            <div class="f-f1">
+                              <div class="f-h100p f-w100p f-df f-lh26">
+                                <div class="f-f1 f-lh26">01 <span class="f-ti5">大连蒙连石化有限公司</span></div>
+                                <div style="color: #29deff; font-size: 18px">
+                                  16
+                                </div>
+                              </div>
+                            </div>
+                            <div class="f-f1">
+                              <div class="f-h100p f-w100p f-df">
+                                <div class="f-f1 f-tac">颗粒物 <span style="color:#29deff;font-size:16px;">5</span> </div>
+                                <div class="f-f1 f-tac">SO2 <span style="color:#29deff;font-size:16px;">5</span> </div>
+                                <div class="f-f1 f-tac">NOx <span style="color:#29deff;font-size:16px;">5</span> </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <el-divider></el-divider>
+            <div class="f-f2 f-df f-fdc">
               <div class="f-f1 f-mt10" id="paint7"></div>
             </div>
           </div>
@@ -224,24 +398,22 @@
                 />
                 废气排口数量<span>17</span>
               </label>
-              <span class="f-mt5 f_ml30">因子超标次数</span>
-              <label class="label f-mt5 f-df f-pt5" style="height:70px;">
-                <span class="f-f1 f-df f-fdc" style="line-height:initial;">
-                  <span class="f-f1 f-tac xinmu" >1</span> 
-                  <span class="f-f1 f-tac">SO2</span> 
+              <span class="f-mt5 f-ml30">因子超标次数</span>
+              <label class="label f-mt5 f-df f-pt5" style="height: 70px">
+                <span class="f-f1 f-df f-fdc" style="line-height: initial">
+                  <span class="f-f1 f-tac xinmu">1</span>
+                  <span class="f-f1 f-tac">SO2</span>
                 </span>
-                <span class="f-f1 f-df f-fdc" style="line-height:initial;">
-                  <span class="f-f1 f-tac xinmu"  >2</span> 
-                  <span class="f-f1 f-tac">NOx</span> 
+                <span class="f-f1 f-df f-fdc" style="line-height: initial">
+                  <span class="f-f1 f-tac xinmu">2</span>
+                  <span class="f-f1 f-tac">NOx</span>
                 </span>
-                <span class="f-f1 f-df f-fdc" style="line-height:initial;">
-                  <span class="f-f1 f-tac xinmu">3</span> 
-                  <span class="f-f1 f-tac">烟尘</span> 
+                <span class="f-f1 f-df f-fdc" style="line-height: initial">
+                  <span class="f-f1 f-tac xinmu">3</span>
+                  <span class="f-f1 f-tac">烟尘</span>
                 </span>
               </label>
             </div>
-
-           
           </div>
 
           <div class="f-f1 box f-mt24" @click="changeType(2)">
@@ -256,19 +428,19 @@
                 />
                 废水排口数量<span>17</span>
               </label>
-               <span class="f-mt5 f_ml30">因子超标次数</span>
-              <label class="label f-mt5 f-df f-pt5" style="height:70px;">
-                <span class="f-f1 f-df f-fdc" style="line-height:initial;">
-                  <span class="f-f1 f-tac xinmu" >1</span> 
-                  <span class="f-f1 f-tac">COD</span> 
+              <span class="f-mt5 f-ml30">因子超标次数</span>
+              <label class="label f-mt5 f-df f-pt5" style="height: 70px">
+                <span class="f-f1 f-df f-fdc" style="line-height: initial">
+                  <span class="f-f1 f-tac xinmu">1</span>
+                  <span class="f-f1 f-tac">COD</span>
                 </span>
-                <span class="f-f1 f-df f-fdc" style="line-height:initial;">
-                  <span class="f-f1 f-tac xinmu"  >2</span> 
-                  <span class="f-f1 f-tac">氨氮</span> 
+                <span class="f-f1 f-df f-fdc" style="line-height: initial">
+                  <span class="f-f1 f-tac xinmu">2</span>
+                  <span class="f-f1 f-tac">氨氮</span>
                 </span>
-                <span class="f-f1 f-df f-fdc" style="line-height:initial;">
-                  <span class="f-f1 f-tac xinmu">3</span> 
-                  <span class="f-f1 f-tac">PH</span> 
+                <span class="f-f1 f-df f-fdc" style="line-height: initial">
+                  <span class="f-f1 f-tac xinmu">3</span>
+                  <span class="f-f1 f-tac">PH</span>
                 </span>
               </label>
             </div>
@@ -319,6 +491,8 @@ export default {
       checkboxGroup3: "AQI",
       cities: ["AQI", "综合", "PM2.5", "PM10", "SO₂", "NO₂", "O₃", "CO"],
       timeType: "month",
+      wuranType: "SO2",
+      wushuiType:"COD",
       time: new Date(),
       type: 0,
       tableDate: [
@@ -444,6 +618,34 @@ export default {
         });
       }
 
+      this.$nextTick(() => {
+        kit.chartRender(
+          $("#paint24"),
+          kit.util.paintBar({
+            formatter: "{b} {c} 天 \n 占比 {d} ",
+            legend: ["收费", "缴费"],
+            color: ["rgba(41, 222, 255, 1)"],
+            data: [
+              { value: 1048, name: "优" },
+              { value: 735, name: "良3" },
+            ],
+          })
+        );
+
+        kit.chartRender(
+          $("#paint25"),
+          kit.util.paintBar({
+            formatter: "{b} {c} 天 \n 占比 {d} ",
+            legend: ["收费", "缴费"],
+            color: ["rgba(41, 222, 255, 1)"],
+            data: [
+              { value: 1048, name: "优" },
+              { value: 735, name: "良3" },
+            ],
+          })
+        );
+      });
+
       if (type == 2) {
         this.$nextTick(() => {
           kit.chartRender(
@@ -470,9 +672,14 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.wuranwu_select {
+  top: -5px;
+  position: absolute;
+  right: 10px;
+}
+
 .lunbotu {
   width: 800px;
- 
 }
 
 .label2 {
@@ -550,8 +757,8 @@ export default {
 
 .xinmu {
   // font-family:Bebas Neue;
-color:#f54455;
-font-size:26px;
+  color: #f54455;
+  font-size: 26px;
 }
 
 // .bottom {}

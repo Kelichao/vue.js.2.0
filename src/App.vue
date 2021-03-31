@@ -160,22 +160,40 @@ export default {
 }
 
 .main_pc {
+  .bg {
+    background:#05346E
+  }
+  .sp_num {
+    color:#29deff;
+font-size:32px;
+  }
+
+  .sp_small {
+    color:#29deff;
+font-size:20px;
+  }
+
+  .m_bt{
+    color:#29deff;
+font-size:14px;
+position:absolute
+  }
   .xzd_container {
     padding: 40px;
     box-sizing: border-box;
-    width: 1650px;
+    width: 1700px;
     color: white;
     font-size: 14px;
     margin:0 auto;
   }
 
 
-  min-height: 950px;
+  min-height: 1000px;
   /* // 背景图写法模板,图片插入模板 */
   background-image: url(../src/images/西中岛/背景.png);
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  min-width: 1650px;
+  min-width: 1700px;
   box-sizing: border-box;
 
   .header {
@@ -338,7 +356,7 @@ export default {
 
   .el-divider {
     opacity: 20%;
-    width: 320px;
+    // width: 320px;
     height: 1px;
     background-color: #ffffff;
   }
@@ -387,6 +405,14 @@ export default {
 .el-progress__text {
   color:#ffffff;
 font-size:32px;
+}
+
+.el-calendar-table .el-calendar-day:hover {
+    cursor: pointer;
+    background-color: transparent !important;
+}
+.el-calendar-table td.is-selected {
+   background-color: transparent !important;
 }
 </style>
 
@@ -444,4 +470,72 @@ font-size:32px;
 // .el-tabs__nav .el-tabs__item:nth-child(1) .el-icon-close {
 //   display: none;
 // }
+
+.el-calendar-table .el-calendar-day {
+  box-sizing: border-box;
+  padding: 0px;
+  text-align: center;
+  height: 30px;
+}
+.el-calendar__body {
+  padding: 10px;
+  padding-top:0;
+}
+
+.el-calendar {
+  background:none;
+}
+
+.el-dialog__title {
+  border-left: 2px solid #01c6ac;
+  text-indent: 6px;
+  display: inline-block;
+  line-height: 20px;
+}
+
+
+.el-notification__title {
+  border-left: 2px solid #01c6ac;
+  text-indent: 6px;
+  display: inline-block;
+  line-height: 16px;
+}
+
+.el-dialog__header {
+  padding: 30px 20px 10px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.el-button--primary.is-plain {
+  background: white;
+}
+
+.el-calendar-table tr td,
+.el-calendar-table tr,
+.el-calendar-table tbody {
+  border: none;
+}
+
+.el-calendar-table tr td:first-child {
+  border-left: none;
+}
+
+.el-calendar-table tr:first-child td {
+  border-top: none;
+}
+
+.el-calendar__title {
+  color:white;
+}
+
+.el-calendar__button-group {
+  display: none;
+}
+
+.el-pagination.is-background .btn-next, .el-pagination.is-background .btn-prev, .el-pagination.is-background .el-pager li{
+  background-color: transparent;
+    color: white;
+    opacity: 0.6;
+}
 </style>

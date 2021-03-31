@@ -73,12 +73,69 @@
           </div>
         </div>
 
-        <div class="f-f1 box f-mt24" @click="changeType(1)">
+        <div class="f-f1 box f-mt24 f-df f-fdc" @click="changeType(1)">
           <h1 class="h1 h1-select" :class="{ 'h1-on': type == 1 }">水费营收</h1>
 
-          <div class="f-df f-fdr f-bsb f-mt10"></div>
-
-          <div class="f-df f-fdc"></div>
+          <div class="f-df f-fdr f-bsb f-mt10 f-f1">
+            <div class="f-h100p f-w100p f-df f-fdc">
+              <div class="f-f1">
+                <div class="f-h100p f-w100p f-df">
+                  <div class="f-f1">
+                    <div class="f-h70p f-w80p f-df f-fdc f-ma">
+                      <div class="f-f1 f-tac">总用水量</div>
+                      <div class="f-f1 f-tac">
+                        <span
+                          style="color: rgba(41, 222, 255, 1); font-size: 22px"
+                          >200856.00
+                        </span>
+                        <span style="opacity: 0.6">吨</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="f-f1">
+                    <div class="f-h70p f-w80p f-ma f-df f-fdc">
+                      <div class="f-f1 f-tac">总收费</div>
+                      <div class="f-f1 f-tac">
+                        <span
+                          style="color: rgba(41, 222, 255, 1); font-size: 22px"
+                          >200856.00
+                        </span>
+                        元
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="f-f1">
+                <div class="f-h100p f-w100p f-df">
+                  <div class="f-f1">
+                    <div class="f-h70p f-w80p f-ma f-df f-fdc">
+                      <div class="f-f1 f-tac">企业用水</div>
+                      <div class="f-f1 f-tac">
+                        <span
+                          style="color: rgba(41, 222, 255, 1); font-size: 22px"
+                          >2008</span
+                        >
+                        <span style="opacity: 0.6">吨</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="f-f1">
+                    <div class="f-h70p f-w80p f-ma f-df f-fdc">
+                      <div class="f-f1 f-tac">其他用水</div>
+                      <div class="f-f1 f-tac">
+                        <span
+                          style="color: rgba(41, 222, 255, 1); font-size: 22px"
+                          >200
+                        </span>
+                        <span style="opacity: 0.6">吨</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -128,7 +185,25 @@
         </div>
 
         <!-- 中间切换开始 -->
-        <div v-show="type == 0" class="lunbotu f-df f-fdc f-f1">
+        <div v-show="type == 0" class="lunbotu f-df f-fdc f-f1 f-pr">
+          <el-select
+            class="select_cont f-pa f-t-20 f-r10"
+            style="width: 100px; position: absolute"
+            size="mini"
+            v-model="yilouType"
+            change="change"
+          >
+            <el-option
+              v-for="item in [
+                { value: 'month', label: '漏失率' },
+                { value: 'year', label: '漏损率' },
+              ]"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
           <div class="f-f1 f-df">
             <div class="f-f1 f-df" style="">
               <div class="f-df f-fdr f-f1">
@@ -161,8 +236,9 @@
                 </div>
               </div>
             </div>
-            <div class="f-f1" style="">2222</div>
+            <div class="f-f1" style="" id="paint59"></div>
           </div>
+          <el-divider></el-divider>
           <div class="f-f1 f-df f-fdc">
             <div class="f-f1 f-mt10" id="paint5"></div>
           </div>
@@ -170,9 +246,114 @@
 
         <div class="lunbotu f-df f-fdc f-f1" v-show="type == '1'">
           <div class="f-f1 f-df">
-            <div class="f-f1" style="">33</div>
-            <div class="f-f1" style="">44</div>
+            <div class="f-f2 f-df f-fdc f-p20" style="">
+              <h1>营收统计</h1>
+              <div class="f-h100p f-w100p f-df f-mt20">
+                <div class="f-f1">
+                  <div class="f-h100p f-w100p f-df">
+                    <div style="width: 50px" class="f-df f-jcc f-aic">
+                      <img
+                        style="width: 30px"
+                        src="../../../src/images/西中岛/总购水量@2x.png"
+                        alt=""
+                      />
+                    </div>
+                    <div class="f-f1">
+                      <div class="f-h100p f-w100p f-df f-fdc">
+                        <div class="f-f1">
+                          <span class="info">3660000.00</span
+                          ><span class="f-o6">万吨</span>
+                        </div>
+                        <div class="f-f1 f-df f-fs12 f-aic">总购水量</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="f-f1">
+                  <div class="f-h100p f-w100p f-df">
+                    <div style="width: 50px" class="f-df f-jcc f-aic">
+                      <img
+                        style="width: 30px"
+                        src="../../../src/images/西中岛/总缴费@2x.png"
+                        alt=""
+                      />
+                    </div>
+                    <div class="f-f1">
+                      <div class="f-h100p f-w100p f-df f-fdc">
+                        <div class="f-f1">
+                          <span class="info">3660000.00</span
+                          ><span class="f-o6">元</span>
+                        </div>
+                        <div class="f-f1 f-df f-fs12 f-aic">总缴费</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="f-h100p f-w100p f-df">
+                <div class="f-f1">
+                  <div class="f-h100p f-w100p f-df">
+                    <div style="width: 50px" class="f-df f-jcc f-aic">
+                      <img
+                        style="width: 30px"
+                        src="../../../src/images/西中岛/总用水量@2x.png"
+                        alt=""
+                      />
+                    </div>
+                    <div class="f-f1">
+                      <div class="f-h100p f-w100p f-df f-fdc">
+                        <div class="f-f1">
+                          <span class="info">3660000.00</span
+                          ><span class="f-o6">万吨</span>
+                        </div>
+                        <div class="f-f1 f-df f-fs12 f-aic">总用水量</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="f-f1">
+                  <div class="f-h100p f-w100p f-df">
+                    <div style="width: 50px" class="f-df f-jcc f-aic">
+                      <img
+                        style="width: 30px"
+                        src="../../../src/images/西中岛/总收费@2x.png"
+                        alt=""
+                      />
+                    </div>
+                    <div class="f-f1">
+                      <div class="f-h100p f-w100p f-df f-fdc">
+                        <div class="f-f1">
+                          <span class="info">3660000.00</span
+                          ><span class="f-o6">万吨</span>
+                        </div>
+                        <div class="f-f1 f-df f-fs12 f-aic">总收费</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="f-f2" style="">
+              <h1>企业用水详情</h1>
+              <div class="tab_cont" style="height: 90%">
+                <simple-table
+                  :head="[
+                    '企业',
+                    '用水量（万吨）',
+                    '应收费用（万元）',
+                    '实收费用（万元）',
+                    '欠款（万元）',
+                  ]"
+                  :value="tableDate2"
+                ></simple-table>
+              </div>
+            </div>
           </div>
+
+          <el-divider style="width: 100%"></el-divider>
+
           <div class="f-f1 f-df f-fdc">
             <div class="f-f1 f-mt10" id="paint6"></div>
           </div>
@@ -180,9 +361,60 @@
 
         <div class="lunbotu f-df f-fdc f-f1" v-show="type == '2'">
           <div class="f-f1 f-df">
-            <div id="paint53" class="f-f1" style=""></div>
-            <div id="paint54" class="f-f1" style=""></div>
+            <div id="paint53" class="f-f2" style=""></div>
+            <div class="f-f3" style="">
+              <div class="f-h100p f-w100p f-df">
+                <div class="f-f2" div id="paint54"></div>
+                <div class="f-f1">
+                  <div class="f-h100p f-w100p f-df f-fdc">
+                    <div class="f-f1"></div>
+                    <div class="f-f1">
+                      <div class="f-h100p f-w100p f-df">
+                        <div class="f-f2 f-tar">本月能耗</div>
+                        <div class="f-f3 f-tar">
+                          <span style="color:rgba(41, 222, 255, 1);font-size:16px;">5.43</span><span class="f-o6">kw/h</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="f-f1">
+                      <div class="f-h100p f-w100p f-df">
+                        <div class="f-f2 f-tar">上月能耗</div>
+                        <div class="f-f3 f-tar">
+                          <span style="color:rgba(41, 222, 255, 1);font-size:16px;">5.43</span><span class="f-o6">kw/h</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="f-f1">
+                      <div class="f-h100p f-w100p f-df">
+                        <div class="f-f2 f-tar">环比</div>
+                        <div class="f-f3 f-tar">
+                          <span style="color:rgba(41, 222, 255, 1);font-size:16px;">5.43</span><span class="f-o6">%</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="f-f1">
+                      <div class="f-h100p f-w100p f-df">
+                        <div class="f-f2 f-tar">去年同期</div>
+                        <div class="f-f3 f-tar">
+                          <span style="color:rgba(41, 222, 255, 1);font-size:16px;">5.43</span><span class="f-o6">kw/h</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="f-f1">
+                      <div class="f-h100p f-w100p f-df">
+                        <div class="f-f2 f-tar">同比</div>
+                        <div class="f-f3 f-tar">
+                          <span style="color:rgba(41, 222, 255, 1);font-size:16px;">5.43</span><span class="f-o6">%</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="width:50px;"></div>
           </div>
+          <el-divider></el-divider>
           <div class="f-f1 f-df f-fdc">
             <div class="f-f1 f-mt10" id="paint7"></div>
           </div>
@@ -193,6 +425,7 @@
             <div id="paint55" class="f-f1" style=""></div>
             <div id="paint56" class="f-f1" style=""></div>
           </div>
+          <el-divider></el-divider>
           <div class="f-f1 f-df f-fdc">
             <div class="f-f1 f-mt10" id="paint8"></div>
           </div>
@@ -372,6 +605,19 @@
 <script>
 // 生命周期
 export default {
+  data() {
+    return {
+      type: 0,
+      tableDate2: [],
+      timeType: "month",
+      yilouType: "month",
+      time: new Date(),
+      platformType: store.state.platformType,
+      tableDate: [],
+      data: "",
+      aaa: "",
+    };
+  },
   mounted() {
     console.log(this.$el);
     kit.ajax();
@@ -404,22 +650,26 @@ export default {
         ],
       })
     );
+
+    kit.chartRender(
+      $("#paint59"),
+      kit.util.paintBar({
+        title: "区域排名-前五",
+        xyChange: true,
+        formatter: "{b} {c} 天 \n 占比 {d} ",
+        color: ["rgba(41, 222, 255, 1)"],
+        data: [
+          { value: 1048, name: "优" },
+          { value: 735, name: "良3" },
+        ],
+      })
+    );
   },
   beforeMount() {
     console.log(this.$el);
   },
   components: {},
-  data() {
-    return {
-      type: 0,
-      timeType: "month",
-      time: new Date(),
-      platformType: store.state.platformType,
-      tableDate: [],
-      data: "",
-      aaa: "",
-    };
-  },
+
   watch: {
     aaa: {
       handler() {
@@ -436,7 +686,7 @@ export default {
         kit.chartRender(
           $("#paint6"),
           kit.util.paintLine({
-            title: "园区营收变化",
+            title: "用水企业详情",
             formatter: "{b} {c} 天 \n 占比 {d} ",
             legend: ["收费", "缴费"],
             data: [
@@ -522,7 +772,7 @@ export default {
         kit.chartRender(
           $("#paint54"),
           kit.util.paintBar({
-            title: "测点对比",
+            title: "能耗对比",
             formatter: "{b} {c} 天 \n 占比 {d} ",
             legend: ["收费", "缴费"],
             data: [
@@ -544,7 +794,12 @@ export default {
 
 <style lang="less" scoped>
 .lunbotu {
-  width: 800px;
+  width: 1000px;
+}
+
+.info {
+  color: #29deff;
+  font-size: 17px;
 }
 
 .label2 {

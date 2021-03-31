@@ -86,12 +86,14 @@ export default {
       series: [
         {
           name: "邮件营销",
+          barWidth : 13,//柱图宽度
           type: "bar", // 图标类型
           stack: "总量",
           data: [120, 132, 101, 134, 90, 230, 210],
         },
         {
           name: "联盟广告",
+          barWidth : 13,//柱图宽度
           type: "bar",
           stack: "总量",
           data: [220, 182, 191, 234, 290, 330, 310],

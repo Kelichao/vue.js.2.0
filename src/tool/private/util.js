@@ -20,25 +20,12 @@ util.paintPie = function (options = {
         color: 'white',
         fontSize: "14px"
       },
-
-      // subtext: '全年空气质量等级占比',// 副标题
-      left: "left",
-      // top:"0"
+      left: options.titlePosition,
     },
     tooltip: {
       trigger: "item",
     },
-    // 网格边缘
-    // grid: {
-    //     top: 0,
-    //     bottom: 30
-    // },
-    // // 项目列表
-    // legend: {
-    //     orient: 'vertical',
-    //     left: 'center',
-    //     top:"bottom"
-    // },
+
     series: [
       {
         color: ["rgba(48, 211, 133, 1)", "rgba(255, 211, 0, 1)", "rgba(255, 153, 2, 1)", "rgba(255, 2, 0, 1)", "rgba(153, 0, 153, 1)", "rgba(153, 0, 0, 1)"],// 饼图颜色,会不断循环
@@ -58,16 +45,18 @@ util.paintPie = function (options = {
 
 util.paintLine = function (options = {
   title: "",
+  titlePosition: '',
   formatter: "",
   data: []
 }) {
   return {
     title: {
-      text: options.title|| "",
+      text: options.title || "",
       textStyle: {
         color: "white",
         fontSize: "14px",
       },
+
     },
     // // 鼠标上移的tip提示框
     tooltip: {
@@ -82,6 +71,9 @@ util.paintLine = function (options = {
     color: ['rgba(28,108,197,1)', "rgba(255, 2, 0, 1)", "rgba(255, 153, 2, 1)", "rgba(2, 194, 108, 1)"],      //关键加上这句话，legend的颜色和折线的自定义颜色就一致了
     legend: {
       data: options.legend || [],
+      textStyle: {
+        color: "white"
+      }
     },
     // 整体位置区域,只对line或bar有效
     grid: {
@@ -98,7 +90,7 @@ util.paintLine = function (options = {
     //   },
     // },
     xAxis: {
-      type: "category",
+      type: options.xType || "category",
       boundaryGap: false,
       // name:"日期",// 坐标的单位
       // 画图区域的分割线
@@ -116,7 +108,7 @@ util.paintLine = function (options = {
       data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
     },
     yAxis: {
-      type: "value",
+      type: options.yType || "value",
       // name:"摄氏度",// 坐标的单位
       // scale: true,
       // 画图区域的分割线
@@ -170,14 +162,69 @@ util.paintLine = function (options = {
   };
 }
 
-util.paintBar = function(options = {
+util.paintBar = function (options = {
   title: "",
   formatter: "",
-  data: []
+  data: [],
+  xyChange:"",// xy轴位置兑换
+  color: [],
 }) {
-  return  {
+
+  var xAxis = {
+    // 画图区域的分割线
+    splitLine: {
+      show: false,
+    },
+    // boundaryGap: false,
+    // name:"日期",// 坐标的单位
+    // // 坐标轴轴线相关设置
+    axisLine: {
+      // onZero: false,
+      lineStyle: {
+        color: "gray",
+        opacity: 0.1 // 轴体的透明度
+      },
+    },
+    type: options.xType || "category",
+
+    data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+  };
+
+  var yAxis = {
+    type: options.yType || "value",
+    name: "摄氏度",// 坐标的单位
+    // scale: true,
+    // 带区域的分隔栏
+    // 带区域的分隔栏
+    splitArea: {
+      show: true,
+      // 分割区域颜色
+      areaStyle: {
+        color: ["rgba(0, 65, 136, 1)", "rgba(0,0,0,0)"],
+      },
+    },
+    splitLine: {
+      show: false,
+    },
+    // // 坐标轴轴线相关设置
+    axisLine: {
+      onZero: false,
+      lineStyle: {
+        color: "gray",
+        opacity: 0.1 // 轴体的透明度
+      },
+    },
+  }
+
+  var arr = [xAxis,yAxis];
+
+  if (options.xyChange) {
+    arr = arr.reverse();
+  }
+
+  return {
     title: {
-      text: options.title|| "",
+      text: options.title || "",
       textStyle: {
         color: "white",
         fontSize: "14px",
@@ -195,10 +242,13 @@ util.paintBar = function(options = {
     },
     legend: {
       data: ["邮件营销", "联盟广告"],
+      textStyle: {
+        color: "white"
+      }
     },
-    color:["rgba(255, 153, 2, 1)"],
+    color: options.color || ["rgba(255, 153, 2, 1)"],
     // 整体位置区域,只对line或bar有效
-    grid: {
+    grid: options.grid || {
       left: "3%",
       right: "4%",
       bottom: "3%",
@@ -210,52 +260,12 @@ util.paintBar = function(options = {
     //     saveAsImage: {},
     //   },
     // },
-    xAxis: {
-       // 画图区域的分割线
-       splitLine: {
-        show: false,
-      },
-      // boundaryGap: false,
-      // name:"日期",// 坐标的单位
-      // // 坐标轴轴线相关设置
-      axisLine: {
-        // onZero: false,
-        lineStyle: {
-          color: "gray",
-          opacity: 0.1 // 轴体的透明度
-        },
-      },
-    
-      data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
-    },
-    yAxis: {
-      type: "value",
-      name:"摄氏度",// 坐标的单位
-      // scale: true,
-      // 带区域的分隔栏
-      // 带区域的分隔栏
-      splitArea: {
-        show: true,
-        // 分割区域颜色
-        areaStyle: {
-          color: ["rgba(0, 65, 136, 1)", "rgba(0,0,0,0)"],
-        },
-      },
-      splitLine: {
-        show: false,
-      },
-      // // 坐标轴轴线相关设置
-      axisLine: {
-        onZero: false,
-        lineStyle: {
-          color: "gray",
-          opacity: 0.1 // 轴体的透明度
-        },
-      },
-    },
+    xAxis: arr[0],
+    yAxis: arr[1],
     series: [
       {
         name: "邮件营销",
+        barWidth: 13,//柱图宽度
         type: "bar", // 图标类型
         stack: "总量",
         data: [120, 132, 101, 134, 90, 230, 210],
