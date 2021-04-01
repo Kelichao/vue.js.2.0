@@ -17,6 +17,16 @@ import './style/theme/index.css';
 import UmyUi from 'umy-ui'
 import 'umy-ui/lib/theme-chalk/index.css';// 引入样式
 import simpleTable from "src/components/simpleTable/index";
+
+// 京东移动UI库,不好用
+// import NutUI from '@nutui/nutui';
+// import '@nutui/nutui/dist/nutui.css';
+// NutUI.install(Vue);
+
+import Vant from 'vant';
+import 'vant/lib/index.css';
+Vue.use(Vant);
+
 Vue.use(UmyUi);
 
 console.warn("当前模式",process.env.TYPE)

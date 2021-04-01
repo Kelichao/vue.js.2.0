@@ -991,63 +991,63 @@
 		}
 	};
 
-	// 初始化ajax步骤
-	// total{before:fn1,complete:fn2}
-	kit.ajaxInit = function(total) {
+	// // 初始化ajax步骤
+	// // total{before:fn1,complete:fn2}
+	// kit.ajaxInit = function(total) {
 
-		// 初始化aiax步骤
-		$.ajaxSetup({
-			dataType: "json",
-			beforeSend: function() {
-				if (kit.isFunction(total.before)) {
-					total.before();
-				}
-			},
-			type: "GET",
-			complete: function() {
-				if (kit.isFunction(total.complete)) {
-					total.complete();
-				}
-			},
-			error: function(xhr) {
-				console.warn("请求错误：errno=" + xhr.status + 
-							 ";statusText=" + xhr.statusText);
-			}
-		});
-	};
+	// 	// 初始化aiax步骤
+	// 	$.ajaxSetup({
+	// 		dataType: "json",
+	// 		beforeSend: function() {
+	// 			if (kit.isFunction(total.before)) {
+	// 				total.before();
+	// 			}
+	// 		},
+	// 		type: "GET",
+	// 		complete: function() {
+	// 			if (kit.isFunction(total.complete)) {
+	// 				total.complete();
+	// 			}
+	// 		},
+	// 		error: function(xhr) {
+	// 			console.warn("请求错误：errno=" + xhr.status + 
+	// 						 ";statusText=" + xhr.statusText);
+	// 		}
+	// 	});
+	// };
 
-	// 针对zepto中无ajaxSetup这个方法
-	// 添加一个已写的代码包装器ajax常量
-	// val = {beforeSend:fn1, complete:fn2};
-	kit.ajaxConstant = function(val) {
+	// // 针对zepto中无ajaxSetup这个方法
+	// // 添加一个已写的代码包装器ajax常量
+	// // val = {beforeSend:fn1, complete:fn2};
+	// kit.ajaxConstant = function(val) {
 
-		// var setupArray = ["beforeSend", "complete"];
-		var obj = {
-			dataType: "json",
-			type: "GET",
-			error: function(xhr) {
-				console.warn("请求错误：errno=" + xhr.status + 
-						";statusText=" + xhr.statusText);
-			}
-		};
+	// 	// var setupArray = ["beforeSend", "complete"];
+	// 	var obj = {
+	// 		dataType: "json",
+	// 		type: "GET",
+	// 		error: function(xhr) {
+	// 			console.warn("请求错误：errno=" + xhr.status + 
+	// 					";statusText=" + xhr.statusText);
+	// 		}
+	// 	};
 
-		if (kit.isObject(val) === false) {
-			val = {};
-		}
-		// kit.forEach(["beforeSend", "complete"], function(value, key) {
-		// 	if (key) {
+	// 	if (kit.isObject(val) === false) {
+	// 		val = {};
+	// 	}
+	// 	// kit.forEach(["beforeSend", "complete"], function(value, key) {
+	// 	// 	if (key) {
 
-		// 	}
-		// });
-		kit.mixin(true, obj, val);
+	// 	// 	}
+	// 	// });
+	// 	kit.mixin(true, obj, val);
 
-		return function(add) {
-			var temp = kit.clone(obj);
-			kit.mixin(true, temp, add);
-			// 触发
-			$.ajax(temp);
-		};
-	};
+	// 	return function(add) {
+	// 		var temp = kit.clone(obj);
+	// 		kit.mixin(true, temp, add);
+	// 		// 触发
+	// 		$.ajax(temp);
+	// 	};
+	// };
 
 	// 出现错误的时候执行的全局操作
 	kit.error = function(fn) {
@@ -1068,6 +1068,9 @@
 
 		// this.barChart.dispose();
 		// console.log(total,111)
+		if (!total) {
+			return;
+		}
 		// 这里需要原生dom节点
 		proChart = echarts.init(total);
 		

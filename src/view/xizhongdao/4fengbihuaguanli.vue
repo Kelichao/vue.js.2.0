@@ -255,7 +255,7 @@
     <!-- PC结束 -->
 
     <!-- moblie开始 -->
-    <template v-else> 222222 </template>
+    <template v-else> 444444444 </template>
     <!-- mobile结束 -->
   </div>
 </template>

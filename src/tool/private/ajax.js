@@ -5,23 +5,30 @@
  */
 
 
-function ajax(options = {}) {
+function ajax(options = {
+  type:"",// post还是get等
+  data:{},// 参数
+  timeout:"",// 超时时间
+  url:"",// 链接地址相对路径
+  wholeUrl:"",// 全地址,用于解决特殊情况,如果有相对路径,该参数无效
+  success: function(){},
+  error:function(){},
+  complete:function() {}
+}) {
 
   return $.ajax({
-    type: options.type || "post",// 默认为post,
+    type: options.type || "get",// 默认为get,
     data: {
-      // ...{},  // 默认参数,每个请求需要夹带
-      // ...options.data,
+      ...{},  // 默认参数,每个请求需要夹带
+      ...options.data,
     },
-    timeout: options.timeout || 30000,// 请求超时
-    url: $$.url + options.url || options.wholeUrl,// 全地址,用于解决特殊情况
+    timeout: options.timeout || 40000,
+    url: $$.url + options.url || options.wholeUrl,
     success(resp) {
-
-      if (resp.meta.code === 200) {
-        options.success(resp.data)
-      }
+      options.success && options.success(resp)
     },
     error(e) {
+      options.error && options.error(resp)
       // console.error({
       //   code: e.status,
       //   message: e.statusText,
@@ -29,7 +36,8 @@ function ajax(options = {}) {
       // });
     },
     complete: ((info) => {
-      console.info("请求完成")
+      options.complete && options.complete(resp)
+      // console.info("请求完成")
     }),
   })
     .then((resp) => { })

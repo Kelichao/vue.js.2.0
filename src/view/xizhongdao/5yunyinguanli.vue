@@ -1,6 +1,8 @@
 <template>
-  <!-- <div style='{backgroundUrl: "@/images/西中岛/背景.png"}' >123 -->
+
   <div class="xzd_container f-df f-fdc">
+    <!-- PC开始 -->
+    <template v-if="platformType == 'pc'">
     <!-- 上部分 -->
     <div class="f-f3 f-df" style="height: 500px">
       <!-- 左 -->
@@ -599,6 +601,12 @@
         </div>
       </div>
     </div>
+
+     </template>
+    <!-- PC结束 -->
+
+    <!-- moblie开始 -->
+    <template v-else> 5555 </template>
   </div>
 </template>
 

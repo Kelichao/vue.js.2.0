@@ -17,6 +17,11 @@ export default {
       aaa:""
     }
   },
+  computed: {
+    // text() {
+    //   return this.currentRate.toFixed(0) + '%';
+    // },
+  },
   mounted() {
     console.log(this.$el)
   },

@@ -197,7 +197,7 @@
                   >{{ city }}</el-radio-button
                 >
               </el-radio-group>
-              
+
               <div class="f-f1 f-mt10" id="paint5"></div>
             </div>
           </div>
@@ -262,8 +262,13 @@
                             class="f-h100p f-w100p f-df f-fdc f-p5"
                           >
                             <div class="f-f1">
-                              <div class="f-h100p f-w100p f-df ">
-                                <div class="f-f1 f-lh26">01 <span class="f-ti5">大连蒙连石化有限公司</span></div>
+                              <div class="f-h100p f-w100p f-df">
+                                <div class="f-f1 f-lh26">
+                                  01
+                                  <span class="f-ti5"
+                                    >大连蒙连石化有限公司</span
+                                  >
+                                </div>
                                 <div style="color: #29deff; font-size: 18px">
                                   16
                                 </div>
@@ -271,15 +276,29 @@
                             </div>
                             <div class="f-f1">
                               <div class="f-h100p f-w100p f-df">
-                                <div class="f-f1 f-tac">颗粒物 <span style="color:#29deff;font-size:16px;">5</span> </div>
-                                <div class="f-f1 f-tac">SO2 <span style="color:#29deff;font-size:16px;">5</span> </div>
-                                <div class="f-f1 f-tac">NOx <span style="color:#29deff;font-size:16px;">5</span> </div>
+                                <div class="f-f1 f-tac">
+                                  颗粒物
+                                  <span style="color: #29deff; font-size: 16px"
+                                    >5</span
+                                  >
+                                </div>
+                                <div class="f-f1 f-tac">
+                                  SO2
+                                  <span style="color: #29deff; font-size: 16px"
+                                    >5</span
+                                  >
+                                </div>
+                                <div class="f-f1 f-tac">
+                                  NOx
+                                  <span style="color: #29deff; font-size: 16px"
+                                    >5</span
+                                  >
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-
                     </div>
                   </div>
                 </div>
@@ -353,7 +372,12 @@
                           >
                             <div class="f-f1">
                               <div class="f-h100p f-w100p f-df f-lh26">
-                                <div class="f-f1 f-lh26">01 <span class="f-ti5">大连蒙连石化有限公司</span></div>
+                                <div class="f-f1 f-lh26">
+                                  01
+                                  <span class="f-ti5"
+                                    >大连蒙连石化有限公司</span
+                                  >
+                                </div>
                                 <div style="color: #29deff; font-size: 18px">
                                   16
                                 </div>
@@ -361,15 +385,29 @@
                             </div>
                             <div class="f-f1">
                               <div class="f-h100p f-w100p f-df">
-                                <div class="f-f1 f-tac">颗粒物 <span style="color:#29deff;font-size:16px;">5</span> </div>
-                                <div class="f-f1 f-tac">SO2 <span style="color:#29deff;font-size:16px;">5</span> </div>
-                                <div class="f-f1 f-tac">NOx <span style="color:#29deff;font-size:16px;">5</span> </div>
+                                <div class="f-f1 f-tac">
+                                  颗粒物
+                                  <span style="color: #29deff; font-size: 16px"
+                                    >5</span
+                                  >
+                                </div>
+                                <div class="f-f1 f-tac">
+                                  SO2
+                                  <span style="color: #29deff; font-size: 16px"
+                                    >5</span
+                                  >
+                                </div>
+                                <div class="f-f1 f-tac">
+                                  NOx
+                                  <span style="color: #29deff; font-size: 16px"
+                                    >5</span
+                                  >
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-
                     </div>
                   </div>
                 </div>
@@ -383,7 +421,11 @@
           <!-- 中间切换结束 -->
         </div>
 
-        <!-- 右 -->
+        <!-- <div class="f-h100p f-w100p f-df f-fdc">
+                      <div class="f-f1 f-tac">PM2.5</div>
+                      <div class="f-f1 f-fs08r f-fwb f-tac">134</div>
+                      <div class="f-f1 f-tac">μg/m³</div>
+                    </div> -->
 
         <div class="f-f1 f-df f-fdc f-ml24">
           <div class="f-f1 box" @click="changeType(1)">
@@ -478,7 +520,131 @@
     <!-- PC结束 -->
 
     <!-- moblie开始 -->
-    <template v-else> 222222 </template>
+    <template v-else>
+      <!-- 头部详细开始 -->
+      <div class="zhiliang f-cw f-mt10 f-p20">
+        <div class="f-h100p f-w100p f-df f-fdc">
+          <div class="f-df" style="height: 1rem">
+            <h2 class="f-fs06r f-f1">实时空气质量</h2>
+            <h2 class="f-fs06r f-f1 f-tar">2020-12-01 17:00</h2>
+          </div>
+          <div class="f-f1">
+            <div class="f-h100p f-w100p f-df f-fdc">
+              <div class="f-f1">
+                <div class="f-h100p f-w100p f-df">
+                  <div class="f-f1 f-fs21r f-tar">134</div>
+                  <div class="f-f1">
+                    <div class="f-h100p f-w100p f-df f-fdc">
+                      <div class="f-f1 f-df f-aic">
+                        <span
+                          class="f-ml10 f-o09 f-br4 f-p2"
+                          style="background: rgba(255, 153, 2, 1)"
+                          >轻度污染</span
+                        >
+                      </div>
+                      <div class="f-f1 f-ml10 f-o09">首要污染物：无</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="f-f1 f-fs06r">
+                <div class="f-h100p f-w100p f-df">
+                  <div class="f-f1">
+                    <div class="f-h100p f-w100p f-df f-fdc">
+                      <div class="f-f1 f-tac">PM2.5</div>
+                      <div class="f-f1 f-fs08r f-fwb f-tac">134</div>
+                      <div class="f-f1 f-tac">μg/m³</div>
+                    </div>
+                  </div>
+                  <div class="f-f1">
+                    <div class="f-h100p f-w100p f-df f-fdc">
+                      <div class="f-f1 f-tac">PM10</div>
+                      <div class="f-f1 f-fs08r f-fwb f-tac">134</div>
+                      <div class="f-f1 f-tac">μg/m³</div>
+                    </div>
+                  </div>
+                  <div class="f-f1">
+                    <div class="f-h100p f-w100p f-df f-fdc">
+                      <div class="f-f1 f-tac">SO₂</div>
+                      <div class="f-f1 f-fs08r f-fwb f-tac">134</div>
+                      <div class="f-f1 f-tac">μg/m³</div>
+                    </div>
+                  </div>
+                  <div class="f-f1">
+                    <div class="f-h100p f-w100p f-df f-fdc">
+                      <div class="f-f1 f-tac">NO₂</div>
+                      <div class="f-f1 f-fs08r f-fwb f-tac">134</div>
+                      <div class="f-f1 f-tac">μg/m³</div>
+                    </div>
+                  </div>
+                  <div class="f-f1">
+                    <div class="f-h100p f-w100p f-df f-fdc">
+                      <div class="f-f1 f-tac">O₃</div>
+                      <div class="f-f1 f-fs08r f-fwb f-tac">134</div>
+                      <div class="f-f1 f-tac">μg/m³</div>
+                    </div>
+                  </div>
+                  <div class="f-f1">
+                    <div class="f-h100p f-w100p f-df f-fdc">
+                      <div class="f-f1 f-tac">CO</div>
+                      <div class="f-f1 f-fs08r f-fwb f-tac">134</div>
+                      <div class="f-f1 f-tac">μg/m³</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="youlianglv f-df f-mt20">
+        <div class="f-h100p f-w100p f-df">
+          <div class="f-df f-fdc f-f1 f-bcw f-br12">
+            <h2 class="f-tac f-cb f-fs07r f-m10">全年空气优良率</h2>
+            <van-circle
+              class="f-ma"
+              v-model="currentRate"
+              :rate="currentRate"
+              :stroke-width="100"
+              size="5rem"
+              :text="text"
+              color="rgba(51, 204, 156, 1)"
+              layer-color="#ebedf0"
+            />
+          </div>
+          <div style="width: 10px"></div>
+
+          <div class="f-df f-fdc f-f1 f-bcw f-br12">
+            <h2 class="f-tac f-cb f-fs07r f-m10">全年首要污染物分布</h2>
+            <van-circle
+              class="f-ma"
+              v-model="currentRate"
+              :rate="currentRate"
+              :stroke-width="100"
+              size="5rem"
+              :text="text"
+              color="rgba(51, 204, 156, 1)"
+              layer-color="#ebedf0"
+            />
+          </div>
+        </div>
+      </div>
+      <!-- 头部详细结束 -->
+
+      <van-tabs class="f-mt20" v-model="active" color="white">
+        <van-tab title="废气">
+          <div style="height: 7rem" class="f-bcw f-br12 f-mt10"></div>
+          <div style="height: 10rem" class="f-bcw f-br12 f-mt10"></div>
+          <div style="height: 10rem" class="f-bcw f-br12 f-mt10"></div>
+        </van-tab>
+        <van-tab title="废水">
+          <div style="height: 7rem" class="f-bcw f-br12 f-mt10"></div>
+          <div style="height: 10rem" class="f-bcw f-br12 f-mt10"></div>
+          <div style="height: 10rem" class="f-bcw f-br12 f-mt10"></div
+        ></van-tab>
+      </van-tabs>
+    </template>
     <!-- mobile结束 -->
   </div>
 </template>
@@ -488,11 +654,14 @@
 export default {
   data() {
     return {
+      active: 2,
+      currentRate: 80,
       checkboxGroup3: "AQI",
+      weather: {},
       cities: ["AQI", "综合", "PM2.5", "PM10", "SO₂", "NO₂", "O₃", "CO"],
       timeType: "month",
       wuranType: "SO2",
-      wushuiType:"COD",
+      wushuiType: "COD",
       time: new Date(),
       type: 0,
       tableDate: [
@@ -518,8 +687,23 @@ export default {
       aaa: "",
     };
   },
+  computed: {
+    text() {
+      return this.currentRate.toFixed(0) + "%";
+    },
+  },
   mounted() {
     console.log(this.$el);
+
+    kit.ajax({
+      url: "/fpi/air/weather",
+      data: {
+        cityCode: "",
+      },
+      success: (resp) => {
+        console.log(resp);
+      },
+    });
 
     // kit.ajax();
     kit.chartRender(
@@ -695,6 +879,10 @@ export default {
   }
 }
 
+.youlianglv {
+  height: 8rem;
+}
+
 .air_detail {
   padding: 16px;
   position: relative;
@@ -759,6 +947,16 @@ export default {
   // font-family:Bebas Neue;
   color: #f54455;
   font-size: 26px;
+}
+
+.zhiliang {
+  background-image: url(../../../src/images/西中岛app/轻度@2X.png);
+  // background-image: url(../../../src/images/西中岛/top.png);
+  background-repeat: no-repeat;
+  // background-size: 100% 100%;
+  // background-size: cover;
+  background-size: 100% 100%;
+  height: 8rem;
 }
 
 // .bottom {}

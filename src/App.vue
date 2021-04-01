@@ -2,7 +2,7 @@
   <div
     id="app"
     :class="{
-      'f-h100p': true,
+      
       main_pc: platformType == 'pc',
       main_mobile: platformType == 'mobile',
     }"
@@ -45,24 +45,44 @@
         </el-option>
       </el-select>
 
-      <img class="touxiang" src="/src/images/西中岛/头像@2x.png">
+      <img class="touxiang" src="/src/images/西中岛/头像@2x.png" />
     </div>
-
+    
     <!-- mobile版的头部 -->
     <div v-else>
       <h1>驾驶舱</h1>
-      <div class="buttons">
-        <span><router-link to="/huanbaoguanli">环保</router-link></span>
-        <span><router-link to="/yingjiguanli">应急</router-link></span>
-        <span><router-link to="/fengbihuaguanli">封闭化</router-link></span>
-        <span><router-link to="/yunyinguanli">运营</router-link></span>
+      <div class="buttons head2 f-mt20">
+        <span
+          class="f-f1 f-m5 f-tac"
+          @click="item = 1"
+          :class="{ on: item == 1 }"
+          ><router-link to="/huanbaoguanli">环保</router-link></span
+        >
+        <span
+          class="f-f1 f-m5 f-tac"
+          @click="item = 2"
+          :class="{ on: item == 2 }"
+          ><router-link to="/yingjiguanli">应急</router-link></span
+        >
+        <span
+          class="f-f1 f-m5 f-tac"
+          @click="item = 3"
+          :class="{ on: item == 3 }"
+          ><router-link to="/fengbihuaguanli">封闭化</router-link></span
+        >
+        <span
+          class="f-f1 f-m5 f-tac"
+          @click="item = 4"
+          :class="{ on: item == 4 }"
+          ><router-link to="/yunyinguanli">运营</router-link></span
+        >
       </div>
     </div>
 
     <div class="body">
-       <router-view class="f-h100p"></router-view>
+      <router-view class="f-h100p"></router-view>
 
-       <!-- 内存消耗太大 -->
+      <!-- 内存消耗太大 -->
       <!-- <keep-alive>
         <router-view class="f-h100p"></router-view>
       </keep-alive> -->
@@ -93,33 +113,29 @@
 export default {
   data() {
     return {
+      item: 1,
       platformType: store.state.platformType,
       showCD: process.env.NODE_ENV == "development", // development
       drawer: false,
       hideMenus: eval(this.$route.query.hideMenus),
       editableTabsValue: "person",
       editableTabs: window.routerMap, // [],,
-      // [
-      //   {
-      //     title: "个人门户",
-      //     name: "person",
-      //   }],
-      tabIndex: 2,
       options: [
         {
           value: "西中岛",
           label: "西中岛",
         },
-        {
-          value: "长兴岛",
-          label: "长兴岛",
-        },
+        // {
+        //   value: "长兴岛",
+        //   label: "长兴岛",
+        // },
       ],
       value: "西中岛",
     };
   },
   mounted() {
     console.log(this);
+    // /fpi/air/points
   },
   methods: {
     change() {},
@@ -143,7 +159,7 @@ export default {
 
 <style lang="less">
 #app {
-  height: 100%;
+  // height: 100%;
 }
 
 .body {
@@ -160,23 +176,24 @@ export default {
 }
 
 .main_pc {
+  height:100%;
   .bg {
-    background:#05346E
+    background: #05346e;
   }
   .sp_num {
-    color:#29deff;
-font-size:32px;
+    color: #29deff;
+    font-size: 32px;
   }
 
   .sp_small {
-    color:#29deff;
-font-size:20px;
+    color: #29deff;
+    font-size: 20px;
   }
 
-  .m_bt{
-    color:#29deff;
-font-size:14px;
-position:absolute
+  .m_bt {
+    color: #29deff;
+    font-size: 14px;
+    position: absolute;
   }
   .xzd_container {
     padding: 40px;
@@ -184,9 +201,8 @@ position:absolute
     width: 1700px;
     color: white;
     font-size: 14px;
-    margin:0 auto;
+    margin: 0 auto;
   }
-
 
   min-height: 1000px;
   /* // 背景图写法模板,图片插入模板 */
@@ -210,9 +226,9 @@ position:absolute
     .touxiang {
       // background-repeat: no-repeat;
       position: absolute;
-      right:-5px;
-      height:26px;
-      top:25px;
+      right: -5px;
+      height: 26px;
+      top: 25px;
       cursor: pointer;
     }
 
@@ -261,7 +277,8 @@ position:absolute
     position: absolute;
   }
 
-  .select .el-input__inner, .select_cont .el-input__inner {
+  .select .el-input__inner,
+  .select_cont .el-input__inner {
     background: #00569e;
     background: rgba(0, 0, 0, 0);
     border: none;
@@ -269,14 +286,13 @@ position:absolute
   }
 
   .select_cont .el-input__inner {
-    border:1px solid   rgba(18, 111, 190, 1);
+    border: 1px solid rgba(18, 111, 190, 1);
   }
 
-  .el-radio-button__inner{
-    background:none;
-    color:white;
+  .el-radio-button__inner {
+    background: none;
+    color: white;
   }
-
 
   .h1 {
     font-family: PingFang SC;
@@ -346,12 +362,12 @@ position:absolute
 
   .tab_cont {
     padding: 0 20px 20px 20px;
-    height: calc(100% - 80px)
+    height: calc(100% - 80px);
   }
 
   .box_cont {
-    padding:20px;
-    padding-top:0;
+    padding: 20px;
+    padding-top: 0;
   }
 
   .el-divider {
@@ -360,8 +376,6 @@ position:absolute
     height: 1px;
     background-color: #ffffff;
   }
-
-  
 }
 
 .main_mobile {
@@ -377,6 +391,28 @@ position:absolute
     color: white;
     font-size: 1rem;
   }
+
+  .head2 {
+    display: flex;
+  }
+  .head2 span {
+    // opacity:0.9;
+    a {
+      width: 100%;
+      display: inline-block;
+      color: white;
+      border-radius: 4px;
+      height: 1.6rem;
+      line-height: 1.6rem;
+      background: #396ddc;
+    }
+  }
+  .head2 span.on {
+    a {
+      background: white;
+      color: black;
+    }
+  }
 }
 </style>
 
@@ -385,7 +421,6 @@ position:absolute
 
 
 <style lang="css">
-
 /* .main_mobile {
   box-sizing: border-box;
 
@@ -399,20 +434,32 @@ position:absolute
 } */
 
 .el-divider--horizontal {
-  margin:10px 0;
+  margin: 10px 0;
 }
 
 .el-progress__text {
-  color:#ffffff;
-font-size:32px;
+  color: #ffffff;
+  font-size: 32px;
 }
 
 .el-calendar-table .el-calendar-day:hover {
-    cursor: pointer;
-    background-color: transparent !important;
+  cursor: pointer;
+  background-color: transparent !important;
 }
 .el-calendar-table td.is-selected {
-   background-color: transparent !important;
+  background-color: transparent !important;
+}
+
+.van-tabs__nav{
+  background-color: transparent;
+}
+
+.van-tab--active {
+  color:white;
+}
+
+.van-tab {
+  color:white;
 }
 </style>
 
@@ -479,11 +526,11 @@ font-size:32px;
 }
 .el-calendar__body {
   padding: 10px;
-  padding-top:0;
+  padding-top: 0;
 }
 
 .el-calendar {
-  background:none;
+  background: none;
 }
 
 .el-dialog__title {
@@ -492,7 +539,6 @@ font-size:32px;
   display: inline-block;
   line-height: 20px;
 }
-
 
 .el-notification__title {
   border-left: 2px solid #01c6ac;
@@ -526,16 +572,18 @@ font-size:32px;
 }
 
 .el-calendar__title {
-  color:white;
+  color: white;
 }
 
 .el-calendar__button-group {
   display: none;
 }
 
-.el-pagination.is-background .btn-next, .el-pagination.is-background .btn-prev, .el-pagination.is-background .el-pager li{
+.el-pagination.is-background .btn-next,
+.el-pagination.is-background .btn-prev,
+.el-pagination.is-background .el-pager li {
   background-color: transparent;
-    color: white;
-    opacity: 0.6;
+  color: white;
+  opacity: 0.6;
 }
 </style>
