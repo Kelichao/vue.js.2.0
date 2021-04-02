@@ -380,7 +380,7 @@ export default {
 
 .main_mobile {
   box-sizing: border-box;
-
+  min-height:100%;
   background: #1a54c9;
   background-image: url("../src/images/西中岛app/背景2@2X.png");
   background-repeat: no-repeat;
