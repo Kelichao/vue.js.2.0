@@ -56,10 +56,10 @@ export default {
     };
   },
   mounted() {
-    console.log(this.$el);
+    // console.log(this.$el);
   },
   beforeMount() {
-    console.log(this.$el);
+    // console.log(this.$el);
   },
   components: {},
 

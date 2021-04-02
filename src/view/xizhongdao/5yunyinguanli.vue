@@ -632,7 +632,7 @@ export default {
 
     kit.chartRender(
       $("#paint1"),
-      kit.util.paintLine({
+      util.paintLine({
         title: "",
         formatter: "{b} {c} 天 \n 占比 {d} ",
         legend: ["邮件营销", "联盟广告"],
@@ -648,7 +648,7 @@ export default {
 
     kit.chartRender(
       $("#paint5"),
-      kit.util.paintBar({
+      util.paintBar({
         title: "测点对比",
         formatter: "{b} {c} 天 \n 占比 {d} ",
         legend: ["收费", "缴费"],
@@ -661,7 +661,7 @@ export default {
 
     kit.chartRender(
       $("#paint59"),
-      kit.util.paintBar({
+      util.paintBar({
         title: "区域排名-前五",
         xyChange: true,
         formatter: "{b} {c} 天 \n 占比 {d} ",
@@ -693,7 +693,7 @@ export default {
       this.$nextTick(() => {
         kit.chartRender(
           $("#paint6"),
-          kit.util.paintLine({
+          util.paintLine({
             title: "用水企业详情",
             formatter: "{b} {c} 天 \n 占比 {d} ",
             legend: ["收费", "缴费"],
@@ -706,7 +706,7 @@ export default {
 
         kit.chartRender(
           $("#paint7"),
-          kit.util.paintLine({
+          util.paintLine({
             title: "能耗趋势",
             formatter: "{b} {c} 天 \n 占比 {d} ",
             legend: ["收费", "缴费"],
@@ -719,7 +719,7 @@ export default {
 
         kit.chartRender(
           $("#paint8"),
-          kit.util.paintLine({
+          util.paintLine({
             title: "能耗趋势",
             formatter: "{b} {c} 天 \n 占比 {d} ",
             legend: ["收费", "缴费"],
@@ -733,7 +733,7 @@ export default {
         // kit.ajax();
         kit.chartRender(
           $("#paint55"),
-          kit.util.paintPie({
+          util.paintPie({
             title: "巡查统计",
             formatter: "{b} {c} 天 \n 占比 {d} ",
             data: [
@@ -749,7 +749,7 @@ export default {
         // kit.ajax();
         kit.chartRender(
           $("#paint56"),
-          kit.util.paintPie({
+          util.paintPie({
             title: "事件统计",
             formatter: "{b} {c} 天 \n 占比 {d} ",
             data: [
@@ -764,7 +764,7 @@ export default {
 
         kit.chartRender(
           $("#paint53"),
-          kit.util.paintPie({
+          util.paintPie({
             title: "用电计划",
             formatter: "{b} {c} 天 \n 占比 {d} ",
             data: [
@@ -779,7 +779,7 @@ export default {
 
         kit.chartRender(
           $("#paint54"),
-          kit.util.paintBar({
+          util.paintBar({
             title: "能耗对比",
             formatter: "{b} {c} 天 \n 占比 {d} ",
             legend: ["收费", "缴费"],

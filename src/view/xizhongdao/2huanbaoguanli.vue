@@ -708,7 +708,7 @@ export default {
     // kit.ajax();
     kit.chartRender(
       $("#paint1"),
-      kit.util.paintPie({
+      util.paintPie({
         title: "全年空气质量等级占比",
         formatter: "{b} {c} 天 \n 占比 {d} ",
         data: [
@@ -723,7 +723,7 @@ export default {
 
     kit.chartRender(
       $("#paint2"),
-      kit.util.paintPie({
+      util.paintPie({
         title: "空气质量等级占比分布图",
         formatter: "{b} {c} 天 \n 占比 {d} ",
         data: [
@@ -735,7 +735,7 @@ export default {
 
     kit.chartRender(
       $("#paint3"),
-      kit.util.paintPie({
+      util.paintPie({
         title: "首要污染物占比分布图",
         formatter: "{b} {c} 天 \n 占比 {d} ",
         data: [
@@ -747,7 +747,7 @@ export default {
 
     kit.chartRender(
       $("#paint4"),
-      kit.util.paintPie({
+      util.paintPie({
         title: "六项污染物贡献率分布图",
         formatter: "{b} {c} 天 \n 占比 {d} ",
         data: [
@@ -759,7 +759,7 @@ export default {
 
     kit.chartRender(
       $("#paint5"),
-      kit.util.paintLine({
+      util.paintLine({
         title: "",
         formatter: "{b} {c} 天 \n 占比 {d} ",
         data: [
@@ -770,7 +770,7 @@ export default {
     );
   },
   beforeMount() {
-    console.log(this.$el);
+    // console.log(this.$el);
   },
   components: {},
 
@@ -790,7 +790,7 @@ export default {
         this.$nextTick(() => {
           kit.chartRender(
             $("#paint6"),
-            kit.util.paintLine({
+            util.paintLine({
               title: "园区排放总量",
               formatter: "{b} {c} 天 \n 占比 {d} ",
               data: [
@@ -805,7 +805,7 @@ export default {
       this.$nextTick(() => {
         kit.chartRender(
           $("#paint24"),
-          kit.util.paintBar({
+          util.paintBar({
             formatter: "{b} {c} 天 \n 占比 {d} ",
             legend: ["收费", "缴费"],
             color: ["rgba(41, 222, 255, 1)"],
@@ -818,7 +818,7 @@ export default {
 
         kit.chartRender(
           $("#paint25"),
-          kit.util.paintBar({
+          util.paintBar({
             formatter: "{b} {c} 天 \n 占比 {d} ",
             legend: ["收费", "缴费"],
             color: ["rgba(41, 222, 255, 1)"],
@@ -834,7 +834,7 @@ export default {
         this.$nextTick(() => {
           kit.chartRender(
             $("#paint7"),
-            kit.util.paintLine({
+            util.paintLine({
               title: "园区排放总量",
               formatter: "{b} {c} 天 \n 占比 {d} ",
               data: [

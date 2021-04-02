@@ -274,7 +274,7 @@ export default {
 
     kit.chartRender(
       $("#paint34"),
-      kit.util.paintPie({
+      util.paintPie({
         // title: "用电计划",
         formatter: "{b} {c} 天 \n 占比 {d} ",
         data: [
@@ -288,7 +288,7 @@ export default {
     );
     kit.chartRender(
       $("#paint35"),
-      kit.util.paintPie({
+      util.paintPie({
         // title: "用电计划",
         formatter: "{b} {c} 天 \n 占比 {d} ",
         data: [
@@ -303,7 +303,7 @@ export default {
 
     kit.chartRender(
       $("#paint36"),
-      kit.util.paintPie({
+      util.paintPie({
         // title: "用电计划",
         formatter: "{b} {c} 天 \n 占比 {d} ",
         data: [
@@ -317,7 +317,7 @@ export default {
     );
     kit.chartRender(
       $("#paint37"),
-      kit.util.paintPie({
+      util.paintPie({
         // title: "用电计划",
         formatter: "{b} {c} 天 \n 占比 {d} ",
         data: [
@@ -334,7 +334,7 @@ export default {
 
     kit.chartRender(
       $("#paint31"),
-      kit.util.paintLine({
+      util.paintLine({
         title: "事件数量变化",
         formatter: "{b} {c} 天 \n 占比 {d} ",
         data: [

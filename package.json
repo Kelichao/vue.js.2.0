@@ -2,7 +2,7 @@
   "name": "vue2.0-tool",
   "author": "kelichao",
   "version": "1.0.1",
-  "main": "src/tool/index.js",
+  "main": "src/klcs/index.js",
   "private": false,
   "scripts": {
     "start": "cross-env NODE_ENV=development  webpack-dev-server --inline  --host localhost --hot --env.dev --open",

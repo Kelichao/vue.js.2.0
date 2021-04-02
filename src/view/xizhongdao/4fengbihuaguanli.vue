@@ -282,7 +282,7 @@ export default {
 
     kit.chartRender(
       $("#paint1"),
-      kit.util.paintLine({
+      util.paintLine({
         title: "全年空气质量等级占比",
         formatter: "{b} {c} 天 \n 占比 {d} ",
         legend: ["邮件营销", "联盟广告"],
@@ -298,7 +298,7 @@ export default {
 
     kit.chartRender(
       $("#paint43"),
-      kit.util.paintPie({
+      util.paintPie({
         title: "引擎状态",
         formatter: "{b} {c} 天 \n 占比 {d} ",
         data: [
@@ -310,7 +310,7 @@ export default {
 
     kit.chartRender(
       $("#paint48"),
-      kit.util.paintPie({
+      util.paintPie({
         title: "视频分布",
         titlePosition: "center",
         formatter: "{b} {c} 天 \n 占比 {d} ",
@@ -326,7 +326,7 @@ export default {
 
     kit.chartRender(
       $("#paint49"),
-      kit.util.paintPie({
+      util.paintPie({
         title: "2020年12月报警统计",
         titlePosition: "center",
         formatter: "{b} {c} 天 \n 占比 {d} ",
@@ -424,7 +424,7 @@ export default {
 
     kit.chartRender(
       $("#paint45"),
-      kit.util.paintBar({
+      util.paintBar({
         title: "企业危化品运输形式分析",
         formatter: "{b} {c} 天 \n 占比 {d} ",
         legend: ["邮件营销", "联盟广告"], // 出园,入园
@@ -458,7 +458,7 @@ export default {
       this.$nextTick(() => {
         kit.chartRender(
           $("#paint2"),
-          kit.util.paintLine({
+          util.paintLine({
             title: "报警数量变化",
             formatter: "{b} {c} 天 \n 占比 {d} ",
             data: [
@@ -470,7 +470,7 @@ export default {
 
         kit.chartRender(
           $("#paint455"),
-          kit.util.paintBar({
+          util.paintBar({
             title: "重点报警点位-前五",
             formatter: "{b} {c} 天 \n 占比 {d} ",
             xyChange: true,
@@ -490,7 +490,7 @@ export default {
 
         kit.chartRender(
           $("#paint456"),
-          kit.util.paintBar({
+          util.paintBar({
             title: "违规车辆所属企业-前五",
             xyChange: true,
             formatter: "{b} {c} 天 \n 占比 {d} ",

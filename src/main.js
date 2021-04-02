@@ -12,7 +12,7 @@ import store from "./store.js"
 import './css/reset.css';
 import './css/swiper.css';
 import "./images/assets/leaflet/leaflet.css"
-import './style/theme/index.css';
+import './css/skin/theme/index.css';// 饿了么定制皮肤
 
 import UmyUi from 'umy-ui'
 import 'umy-ui/lib/theme-chalk/index.css';// 引入样式
