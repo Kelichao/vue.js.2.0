@@ -18,10 +18,11 @@ function ajax(options = {
 
   return $.ajax({
     type: options.type || "get",// 默认为get,
-    data: {
-      ...{},  // 默认参数,每个请求需要夹带
-      ...options.data,
-    },
+    data: Object.assign(
+      {}, // 默认参数,每个请求需要夹带
+      options.data
+    )
+    ,
     timeout: options.timeout || 40000,
     url: $$.url + options.url || options.wholeUrl,
     success(resp) {

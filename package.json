@@ -16,7 +16,7 @@
     "element-ui": "^2.3.4",
     "jquery": "^3.5.0",
     "kit-pro": "^1.0.3",
-    "klcs": "^1.0.4",
+    "klcs": "^1.0.7",
     "leaflet": "^1.7.1",
     "less": "3.9",
     "less-loader": "5.0.0",

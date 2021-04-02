@@ -6,8 +6,12 @@ import * as echarts from 'echarts';
 import kit from "@/klcs/index.js" ;
 import util from "@/js/util"
 
-// node_modules版本
-// import kit from "klcs"
+// node_modules版本,测试代码
+// import klcs from "klcs"
+// window.klcs = klcs
+
+
+
 window.kit = kit;
 window.util = util;
 // 定义全局变量

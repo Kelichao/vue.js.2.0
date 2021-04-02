@@ -13,7 +13,6 @@ console.log(process.env.NODE_ENV)  // development
 module.exports = (options = {}) => ({
 
   entry: {
-    vendor: './src/vendor',
     index: './src/main.js',
     env: "./src/env.js"
   },

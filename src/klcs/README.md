@@ -1,5 +1,3 @@
-# klcs方法库
-
 ![image](https://cloud.githubusercontent.com/assets/18028533/21641415/a0801094-d2b6-11e6-9cfd-3069b4195042.png)
 
 > 方法:借鉴底线库的工具框架，包含一些常用方法，在兼容AMD模式的同时，兼顾了CMD [(链接地址)](http://kelichao.github.io/)
@@ -7,20 +5,26 @@
 ```bash
 
 # 下载依赖
-$ npm install klcs --save
+$ npm install
 
+
+# 开发环境(开启本地热服务)
+$ npm run start
+
+
+# 生产环境(输出压缩后代码)
+$ npm run product
 
 ```
 
 > 博客日期2016-10-18
 
 # kit.js 
-
 <table>
 
 <thead>
 <tr>
-        <td>序号</td>
+        <td>序号</td>
 	<td>方法名称</td>
 	<td>使用方法</td>
 </tr>
@@ -190,11 +194,6 @@ $ npm install klcs --save
 	为脚本加载完毕后触发的回调</td>
 </tr>
 <tr>
-        <td>序号</td>
-	<td>kit.underToMustache()</td> 
-	<td>启用Mustache.js类型模板语法，使用{{= }} 这样的语法</td>
-</tr>
-<tr>
         <td>33</td>
 	<td>kit.bind(total, fn)</td> 
 	<td>返回一个绑定this后的函数体，仿原生bind</td>
@@ -232,7 +231,7 @@ $ npm install klcs --save
 <tr>
         <td>40</td>
 	<td>kit.triggerSuccess(receive)</td> 
-	<td>ajax请求成功后<a href="https://github.com/Kelichao/Ajax/issues/6">(ajax请求返回格式标准)</a> 传入一个对象 obj = {response: resp,// 数据源  haveData: fn1,// 存在数据,存在数据要分两种情况// 部分无数据与全部有数据 noData:fn2// 不存在数据}    在内部按照事先定好的请求数据格式进行函数的调用</td>
+	<td>ajax请求成功后<a href="https://github.com/Kelichao/Ajax/issues/6">(ajax请求返回格式标准)</a> 传入一个对象 obj = {response: resp,// 数据源  haveData: fn1,// 存在数据,存在数据要分两种情况// 部分无数据与全部有数据 noData:fn2// 不存在数据}    在内部按照事先定好的请求数据格式进行函数的调用</td>
 </tr>
 <tr>
         <td>41</td>
@@ -307,7 +306,7 @@ $ npm install klcs --save
 <tr>
         <td>55</td>
 	<td>kit.triggerSuccessEvun(receive)</td> 
-	<td>ajax请求成功后<a href="https://github.com/Kelichao/Ajax/issues/7">(ajax请求返回格式标准)</a> 传入一个对象 obj = {response: resp,// 数据源  haveData: fn1,// 存在数据,存在数据要分两种情况// 部分无数据与全部有数据 noData:fn2// 不存在数据}    在内部按照事先定好的请求数据格式进行函数的调用</td>
+	<td>ajax请求成功后<a href="https://github.com/Kelichao/Ajax/issues/7">(ajax请求返回格式标准)</a> 传入一个对象 obj = {response: resp,// 数据源  haveData: fn1,// 存在数据,存在数据要分两种情况// 部分无数据与全部有数据 noData:fn2// 不存在数据}    在内部按照事先定好的请求数据格式进行函数的调用</td>
 </tr>
 <tr>
         <td>56</td>
@@ -324,6 +323,25 @@ $ npm install klcs --save
 	<td>kit.setViewport(width)</td> 
 	<td>改变移动端的屏幕缩放比，使不同分辨率的屏幕有相同的显示效果</td>
 </tr>
+<tr>
+        <td>59</td>
+	<td>kit.objToSearch(obj)</td> 
+	<td>将对象转化成?a=123&b=567这样的形式</td>
+</tr>	
+<tr>
+        <td>60</td>
+	<td>kit.underToMustache()</td> 
+	<td>启用Mustache.js类型模板语法，使用{{= }} 这样的语法</td>
+</tr>
+	<tr>
+			<td>61</td>
+			<td>kit._</td>
+			<td>继承底线库underscore方法</td>
+		</tr>
+		<tr>
+			<td>62</td>
+			<td>kit.$</td>
+			<td>继承jQuery v3 方法</td>
+		</tr>
 </tbody>
 </table>
-
