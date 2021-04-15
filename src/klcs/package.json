@@ -1,6 +1,6 @@
 {
   "name": "klcs",
-  "version": "1.0.9",
+  "version": "1.0.14",
   "description": "工具函数升级版",
   "main": "index.js",
   "scripts": {

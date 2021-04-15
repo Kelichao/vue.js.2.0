@@ -258,8 +258,8 @@
 	 * 将参数字符串转化成JSON对象。
 	 * @param {*} key 为需要取得的键值
 	 * @param {*} address 地址串，不填则为location.search
-	 * exp: kit.locaSearch("fsd","?sfsd=3423&we=234&fsd=324");  =>   324
-	 *      kit.locaSearch("","?sfsd=3423&we=234&fsd=324");     =>  {sfsd:3423,we:234,fsd:324}
+	 * exp: kit.locaSearch("fsd","?sfsd=3423&we=234&fsd=324");  =   324
+	 *      kit.locaSearch("","?sfsd=3423&we=234&fsd=324");     =  {sfsd:3423,we:234,fsd:324}
 	 */
 	kit.locaSearch = function(key, address){
 
@@ -275,9 +275,9 @@
 	* 2020.9.1添加
 	*/
 	kit.getQueryString = function(name) {
-		let href = decodeURI(window.location.href)
-		let v1 = []
-		let v2 = []
+		var href = decodeURI(window.location.href)
+		var v1 = []
+		var v2 = []
 		v1 = href.split(name + "=")
 		if (v1.length > 1) {
 		  v2 = v1[1].split("&")
@@ -296,7 +296,7 @@
 	 * @param {*} key 
 	 * @param {*} string 
 	 * aaa=123;bbb=456;ccc=678  
-	 * =>  {
+	 * =  {
 	 *   a:123,
 	 *   bbb:456,
 	 *   ccc=678
@@ -446,12 +446,12 @@
 	 */
 	function changeKeyNames(data) {
         if (!data.context.length) {
-            data.in.forEach((value,key) => {                
+            data.in.forEach(function(value,key) {                
                 data.context[data.out[key]] = data.context[value];
             })
         } else {
-            data.context.forEach((item) => {
-                data.in.forEach((value,key) => {                
+            data.context.forEach(function(item) {
+                data.in.forEach(function(value,key) {                
                 item[data.out[key]] = item[value];
             })
             })
@@ -461,7 +461,7 @@
 	}
 
 	// 判断是否在小程序端
-    kit.inWxWebView = () => {
+    kit.inWxWebView = function()  {
         var flag = !!(navigator.userAgent.match(/micromessenger/i) && navigator.userAgent.match(/miniprogram/i) || window.__wxjs_environment === 'miniprogram');
 
         return flag;
@@ -1664,6 +1664,8 @@
 
         return type;
     };
+
+	
 
 
 

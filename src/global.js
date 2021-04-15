@@ -7,10 +7,10 @@ import kit from "@/klcs/index.js" ;
 import util from "@/js/util"
 
 // node_modules版本,测试代码
-// import klcs from "klcs"
-// window.klcs = klcs
+import klcs from "klcs"
+window.klcs = klcs
 
-
+// window.jQuery = klcs.$;  ??????????????
 
 window.kit = kit;
 window.util = util;
@@ -20,7 +20,15 @@ window.echarts = echarts;
 
 // console.log(ElementUI)
 
+// 转时间戳
 
+// 上个月的第一天 : 
+// moment().month(moment().month() - 1).startOf(‘month’).format(“YYYY-MM-DD”);
+
+// 上个月的最后一天 :
+// moment().month(moment().month() - 1).endOf(‘month’).format(“YYYY-MM-DD”)
+// 时间戳
+// moment().valueOf()
 // 日期格式化
 // moment().format('MMMM Do YYYY, h:mm:ss a'); // 九月 10日 2020, 9:48:39 上午
 // moment().format('dddd');                    // 星期四

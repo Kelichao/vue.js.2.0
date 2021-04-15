@@ -1,17 +1,18 @@
-import './private/common_old.css';
 import './private/common.css';
 import {kit} from "./private/kit"
+import {_} from "./public/underscore"
 import ajax from "./private/ajax"
-import jquery from "./public/jquery"
+import $   from "./public/jquery"
+// var a = require ("./public/jquery")
 // var jquery = require("@/public/jquery")
 // import jquery from "jquery"
-var content= require("./public/underscore")
+// require("./public/underscore")
 
-// console.log(_,1111)
-// console.log(kit)
+// console.log($)
+// console.log(a)
 
-kit._ = content._;
-kit.$ = window.jQuery;
+kit._ = _;
+kit.$ = $;
 kit.ajax = ajax;
 
 export default kit

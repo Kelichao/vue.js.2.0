@@ -9,15 +9,17 @@
     </tr>
     <template v-if="value.length">
       <tr v-for="item in value" :key="item.a">
-        <td>{{ item.a }}</td>
-        <td>{{ item.a }}</td>
-        <td>{{ item.a }}</td>
-        <td>{{ item.a }}</td>
-        <td>
+        <template v-for="it in item" >
+          <td  :key="it">{{ it}}</td>
+          <!-- <td :key="it">
           <span :class="{ green: true, red: true, orange: true }">{{
             item.a
-          }}</span>
+          }}</span> -->
         </td>
+        </template>
+        
+        
+        
       </tr>
     </template>
     <template v-else>

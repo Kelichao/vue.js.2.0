@@ -3,7 +3,7 @@
     <!-- PC开始 -->
     <template v-if="platformType == 'pc'">
       <!-- 上部分 -->
-      <div class="f-f3 f-df" style="height: 500px">
+      <div class="f-f3 f-df" style="height: 560px">
         <!-- 左 -->
         <div class="f-f1 f-mr24 f-df f-fdc">
           <div class="f-f1 box f-df f-fdc" @click="changeType(0)">
@@ -17,31 +17,38 @@
                   <div class="f-f3">
                     <h1 class="f-ti15">交流岛站</h1>
                     <div class="air_detail">
-                      <label>120 </label>
-                      <i>轻度</i>
+                      <label :style="{ color: standard.aqiColor }"
+                        >{{ standard.aqiValue || "--" }}
+                      </label>
+                      <i :style="{ background: standard.aqiColor }">{{
+                        standard.aqiLevel
+                      }}</i>
                       <span>AQI</span>
 
                       <h2 class="f-mt4">
                         <h3>首要污染物：</h3>
-                        <h4>PM2.5</h4>
+                        <h4>{{ standard.mainPollutants }}</h4>
                       </h2>
                     </div>
                   </div>
 
-                  <div class="f-f2">
-                    <h1>2020-12-01 17:00</h1>
+                  <div style="width: 150px">
+                    <h1>{{ weather.reporttime }}</h1>
                     <div class="air_detail">
                       <div>
                         <img src="../../images/西中岛/温度@2x.png" alt="" />
-                        <b>22℃</b>
+                        <b>{{ weather.temperature }}℃</b>
                       </div>
                       <div class="f-mt6">
                         <img src="../../images/西中岛/湿度@2x.png" alt="" />
-                        <b>64%</b>
+                        <b>{{ weather.humidity }}%</b>
                       </div>
                       <div class="f-mt6">
                         <img src="../../images/西中岛/风向@2x.png" alt="" />
-                        <b>西北风 3级</b>
+                        <b
+                          >{{ weather.winddirection }}风
+                          {{ weather.windpower }}级</b
+                        >
                       </div>
                     </div>
                   </div>
@@ -55,7 +62,7 @@
                         class="f-f1 f-ti5 f-tac"
                         style="color: rgba(48, 211, 133, 1)"
                       >
-                        22
+                        {{ standard.pollutantDistribute["PM2.5"] }}
                       </h3>
                     </span>
 
@@ -65,39 +72,39 @@
                         class="f-f1 f-ti5 f-tac"
                         style="color: rgba(48, 211, 133, 1)"
                       >
-                        11
+                        {{ standard.pollutantDistribute["PM10"] }}
                       </h3>
                     </span>
 
                     <span class="f-f1 f-df">
-                      <label class="f-tac f-f1">SO2</label>
+                      <label class="f-tac f-f1">SO₂</label>
                       <h3
                         class="f-f1 f-ti5 f-tac"
                         style="color: rgba(48, 211, 133, 1)"
                       >
-                        11
+                        {{ standard.pollutantDistribute["SO₂"] }}
                       </h3>
                     </span>
                   </div>
 
                   <div class="f-f1 f-df">
                     <span class="f-f1 f-df">
-                      <label class="f-tac f-f1">NO2 </label>
+                      <label class="f-tac f-f1">NO₂ </label>
                       <h3
                         class="f-f1 f-ti5 f-tac"
                         style="color: rgba(48, 211, 133, 1)"
                       >
-                        22
+                        {{ standard.pollutantDistribute["NO₂"] }}
                       </h3>
                     </span>
 
                     <span class="f-f1 f-df">
-                      <label class="f-tac f-f1">O3 </label>
+                      <label class="f-tac f-f1">O₃ </label>
                       <h3
                         class="f-f1 f-ti5 f-tac"
                         style="color: rgba(48, 211, 133, 1)"
                       >
-                        11
+                        {{ standard.pollutantDistribute["O₃"] }}
                       </h3>
                     </span>
 
@@ -107,7 +114,7 @@
                         class="f-f1 f-ti5 f-tac"
                         style="color: rgba(48, 211, 133, 1)"
                       >
-                        11
+                        {{ standard.pollutantDistribute["CO"] }}
                       </h3>
                     </span>
                   </div>
@@ -120,16 +127,16 @@
               <div>
                 <div
                   id="paint1"
-                  style="height: 150px; width: 300px; margin: 0 auto"
+                  style="height: 230px; width: 300px; margin: 0 auto"
                 ></div>
                 <span>优良天数</span>
-                <span class="f-ti10" style="color: #30d385; font-size: 28px"
-                  >123</span
-                >
+                <span class="f-ti10" style="color: #30d385; font-size: 28px">{{
+                  standard.levelDistribute[1]
+                }}</span>
                 <span class="f-ti25">重污染天数天数</span>
-                <span class="f-ti10" style="color: #ff0200; font-size: 28px"
-                  >18</span
-                >
+                <span class="f-ti10" style="color: #ff0200; font-size: 28px">{{
+                  standard.levelDistribute[6]
+                }}</span>
               </div>
             </div>
           </div>
@@ -143,7 +150,7 @@
               style="width: 100px"
               size="mini"
               v-model="timeType"
-              change="change"
+              @change="change"
             >
               <el-option
                 v-for="item in [
@@ -165,6 +172,7 @@
               v-model="time"
               type="year"
               placeholder="选择年"
+              @change="change"
             >
             </el-date-picker>
 
@@ -176,6 +184,7 @@
               v-model="time"
               type="month"
               placeholder="选择月"
+              @change="change"
             >
             </el-date-picker>
           </div>
@@ -216,11 +225,7 @@
                       change=""
                     >
                       <el-option
-                        v-for="item in [
-                          { value: 'klw', label: '颗粒物' },
-                          { value: 'SO2', label: 'SO2' },
-                          { value: 'NOx', label: 'NOx' },
-                        ]"
+                        v-for="item in wuranArray"
                         :key="item.value"
                         :label="item.label"
                         :value="item.value"
@@ -438,7 +443,10 @@
                 <img
                   src="../../../src/images/西中岛/西中岛中日合作产业园@2x.png"
                 />
-                废气排口数量<span>17</span>
+                废气排口数量<span
+                  style="color: rgba(41, 222, 255, 1); font-size: 30px"
+                  >17</span
+                >
               </label>
               <span class="f-mt5 f-ml30">因子超标次数</span>
               <label class="label f-mt5 f-df f-pt5" style="height: 70px">
@@ -467,8 +475,10 @@
               <label class="label">
                 <img
                   src="../../../src/images/西中岛/西中岛中日合作产业园@2x.png"
-                />
-                废水排口数量<span>17</span>
+                /><span>废水排口数量</span
+                ><span style="font-size: 30px; color: rgba(41, 222, 255, 1)"
+                  >17</span
+                >
               </label>
               <span class="f-mt5 f-ml30">因子超标次数</span>
               <label class="label f-mt5 f-df f-pt5" style="height: 70px">
@@ -526,23 +536,25 @@
         <div class="f-h100p f-w100p f-df f-fdc">
           <div class="f-df" style="height: 1rem">
             <h2 class="f-fs06r f-f1">实时空气质量</h2>
-            <h2 class="f-fs06r f-f1 f-tar">2020-12-01 17:00</h2>
+            <h2 class="f-fs06r f-f1 f-tar">{{ weather.reporttime }}</h2>
           </div>
           <div class="f-f1">
             <div class="f-h100p f-w100p f-df f-fdc">
               <div class="f-f1">
                 <div class="f-h100p f-w100p f-df">
-                  <div class="f-f1 f-fs21r f-tar">134</div>
+                  <div class="f-f1 f-fs21r f-tar">{{ standard.aqiValue }}</div>
                   <div class="f-f1">
                     <div class="f-h100p f-w100p f-df f-fdc">
                       <div class="f-f1 f-df f-aic">
                         <span
-                          class="f-ml10 f-o09 f-br4 f-p2"
-                          style="background: rgba(255, 153, 2, 1)"
-                          >轻度污染</span
+                          class="f-ml10 f-o09 f-br4 f-p2 f-pl10 f-pr10"
+                          :style="{ background: standard.aqiColor }"
+                          >{{ standard.aqiLevel }}</span
                         >
                       </div>
-                      <div class="f-f1 f-ml10 f-o09">首要污染物：无</div>
+                      <div class="f-f1 f-ml10 f-o09">
+                        首要污染物：{{ standard.mainPollutants }}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -552,42 +564,54 @@
                   <div class="f-f1">
                     <div class="f-h100p f-w100p f-df f-fdc">
                       <div class="f-f1 f-tac">PM2.5</div>
-                      <div class="f-f1 f-fs08r f-fwb f-tac">134</div>
+                      <div class="f-f1 f-fs08r f-fwb f-tac">
+                        {{ standard.pollutantDistribute["PM2.5"] }}
+                      </div>
                       <div class="f-f1 f-tac">μg/m³</div>
                     </div>
                   </div>
                   <div class="f-f1">
                     <div class="f-h100p f-w100p f-df f-fdc">
                       <div class="f-f1 f-tac">PM10</div>
-                      <div class="f-f1 f-fs08r f-fwb f-tac">134</div>
+                      <div class="f-f1 f-fs08r f-fwb f-tac">
+                        {{ standard.pollutantDistribute["PM10"] }}
+                      </div>
                       <div class="f-f1 f-tac">μg/m³</div>
                     </div>
                   </div>
                   <div class="f-f1">
                     <div class="f-h100p f-w100p f-df f-fdc">
                       <div class="f-f1 f-tac">SO₂</div>
-                      <div class="f-f1 f-fs08r f-fwb f-tac">134</div>
+                      <div class="f-f1 f-fs08r f-fwb f-tac">
+                        {{ standard.pollutantDistribute["SO₂"] }}
+                      </div>
                       <div class="f-f1 f-tac">μg/m³</div>
                     </div>
                   </div>
                   <div class="f-f1">
                     <div class="f-h100p f-w100p f-df f-fdc">
                       <div class="f-f1 f-tac">NO₂</div>
-                      <div class="f-f1 f-fs08r f-fwb f-tac">134</div>
+                      <div class="f-f1 f-fs08r f-fwb f-tac">
+                        {{ standard.pollutantDistribute["NO₂"] }}
+                      </div>
                       <div class="f-f1 f-tac">μg/m³</div>
                     </div>
                   </div>
                   <div class="f-f1">
                     <div class="f-h100p f-w100p f-df f-fdc">
                       <div class="f-f1 f-tac">O₃</div>
-                      <div class="f-f1 f-fs08r f-fwb f-tac">134</div>
+                      <div class="f-f1 f-fs08r f-fwb f-tac">
+                        {{ standard.pollutantDistribute["O₃"] }}
+                      </div>
                       <div class="f-f1 f-tac">μg/m³</div>
                     </div>
                   </div>
                   <div class="f-f1">
                     <div class="f-h100p f-w100p f-df f-fdc">
                       <div class="f-f1 f-tac">CO</div>
-                      <div class="f-f1 f-fs08r f-fwb f-tac">134</div>
+                      <div class="f-f1 f-fs08r f-fwb f-tac">
+                        {{ standard.pollutantDistribute["CO"] }}
+                      </div>
                       <div class="f-f1 f-tac">μg/m³</div>
                     </div>
                   </div>
@@ -617,32 +641,285 @@
 
           <div class="f-df f-fdc f-f1 f-bcw f-br12">
             <h2 class="f-tac f-cb f-fs07r f-m10">全年首要污染物分布</h2>
-            <van-circle
-              class="f-ma"
-              v-model="currentRate"
-              :rate="currentRate"
-              :stroke-width="100"
-              size="5rem"
-              :text="text"
-              color="rgba(51, 204, 156, 1)"
-              layer-color="#ebedf0"
-            />
+            <div class="f-f1" id="paint_m1"></div>
           </div>
         </div>
       </div>
       <!-- 头部详细结束 -->
 
-      <van-tabs class="f-mt20" v-model="active" color="white">
+      <van-tabs class="f-mt10" v-model="active" color="white">
         <van-tab title="废气">
-          <div style="height: 7rem" class="f-bcw f-br12 f-mt10"></div>
-          <div style="height: 10rem" class="f-bcw f-br12 f-mt10"></div>
-          <div style="height: 10rem" class="f-bcw f-br12 f-mt10"></div>
+          <div style="height: 7rem" class="f-bcw f-br12 f-mt10 f-df f-fdc">
+            <h2 class="m_title">
+              小时均值达标
+              <h3>2020年12月</h3>
+            </h2>
+            <div class="f-h100p f-w100p f-df f-p15 f-pt1 f-pb10 f-bsb">
+              <div class="f-f2">
+                <div class="f-h100p f-w100p f-df f-fdc">
+                  <div class="f-f1">
+                    <div class="f-h100p f-w100p f-df">
+                      <div class="f-f1 f-fs06r">涉气企业：</div>
+                      <div
+                        class="f-f1 f-fs07r f-tac"
+                        style="color: rgba(1, 85, 255, 1)"
+                      >
+                        23
+                      </div>
+                    </div>
+                  </div>
+                  <div class="f-f1">
+                    <div class="f-h100p f-w100p f-df">
+                      <div class="f-f1 f-fs06r">废气排口：</div>
+                      <div
+                        class="f-f1 f-fs07r f-tac"
+                        style="color: rgba(1, 85, 255, 1)"
+                      >
+                        23
+                      </div>
+                    </div>
+                  </div>
+                  <div class="f-f1">
+                    <div class="f-h100p f-w100p f-df">
+                      <div class="f-f1 f-fs06r">总达标率：</div>
+                      <div
+                        class="f-f1 f-fs07r f-tac"
+                        style="color: rgba(1, 85, 255, 1)"
+                      >
+                        97.6%
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="f-f3">
+                <div class="f-h100p f-w100p f-df">
+                  <div class="f-f1 f-jcc f-aic f-df">
+                    <div class="f-h100p f-w100p f-df f-fdc">
+                      <div class="f-f2 f-jcc f-aic f-df">
+                        <van-circle
+                          class="f-ma"
+                          v-model="currentRate"
+                          :rate="currentRate"
+                          :stroke-width="100"
+                          size="2.5rem"
+                          :text="text"
+                          color="rgba(51, 204, 156, 1)"
+                          layer-color="#ebedf0"
+                        />
+                      </div>
+                      <div class="f-f1 f-jcc f-aic f-df f-fs06r">颗粒物</div>
+                    </div>
+                  </div>
+                  <div class="f-f1 f-jcc f-aic f-df">
+                    <div class="f-h100p f-w100p f-df f-fdc">
+                      <div class="f-f2 f-jcc f-aic f-df">
+                        <van-circle
+                          class="f-ma"
+                          v-model="currentRate"
+                          :rate="currentRate"
+                          :stroke-width="100"
+                          size="2.5rem"
+                          :text="text"
+                          color="rgba(51, 204, 156, 1)"
+                          layer-color="#ebedf0"
+                        />
+                      </div>
+                      <div class="f-f1 f-jcc f-aic f-df f-fs06r">SO2</div>
+                    </div>
+                  </div>
+                  <div class="f-f1 f-jcc f-aic f-df">
+                    <div class="f-h100p f-w100p f-df f-fdc">
+                      <div class="f-f2 f-jcc f-aic f-df">
+                        <van-circle
+                          class="f-ma"
+                          v-model="currentRate"
+                          :rate="currentRate"
+                          :stroke-width="100"
+                          size="2.5rem"
+                          :text="text"
+                          color="rgba(51, 204, 156, 1)"
+                          layer-color="#ebedf0"
+                        />
+                      </div>
+                      <div class="f-f1 f-jcc f-aic f-df f-fs06r">NOX</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="height: 10rem" class="f-bcw f-br12 f-mt10 f-df f-fdc">
+            <h2 class="m_title">超标企业-前五</h2>
+            <simple-table
+              class="f-f1"
+              :head="['排名', '企业名称', '颗粒物', 'SO2', 'NOX']"
+              :value="tableDate"
+            ></simple-table>
+          </div>
+          <div style="height: 10rem" class="f-bcw f-br12 f-mt10">
+            <h2 class="m_title">
+              超标企业-前五
+              <h3>
+                <el-select
+                  class=""
+                  style="width: 100px"
+                  size="mini"
+                  v-model="wuranType"
+                  change=""
+                >
+                  <el-option
+                    v-for="item in wuranArray"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                  >
+                  </el-option>
+                </el-select>
+              </h3>
+            </h2>
+            <simple-table
+              :head="['序号', '报警时间', '报警排口', '报警描述', '处理情况']"
+              :value="tableDate2"
+            ></simple-table>
+          </div>
         </van-tab>
         <van-tab title="废水">
-          <div style="height: 7rem" class="f-bcw f-br12 f-mt10"></div>
-          <div style="height: 10rem" class="f-bcw f-br12 f-mt10"></div>
-          <div style="height: 10rem" class="f-bcw f-br12 f-mt10"></div
-        ></van-tab>
+          <div style="height: 7rem" class="f-bcw f-br12 f-mt10 f-df f-fdc">
+            <h2 class="m_title">
+              小时均值达标
+              <h3>2020年12月</h3>
+            </h2>
+            <div class="f-h100p f-w100p f-df f-p15 f-pt1 f-pb10 f-bsb">
+              <div class="f-f2">
+                <div class="f-h100p f-w100p f-df f-fdc">
+                  <div class="f-f1">
+                    <div class="f-h100p f-w100p f-df">
+                      <div class="f-f1 f-fs06r">涉气企业：</div>
+                      <div
+                        class="f-f1 f-fs07r f-tac"
+                        style="color: rgba(1, 85, 255, 1)"
+                      >
+                        23
+                      </div>
+                    </div>
+                  </div>
+                  <div class="f-f1">
+                    <div class="f-h100p f-w100p f-df">
+                      <div class="f-f1 f-fs06r">废气排口：</div>
+                      <div
+                        class="f-f1 f-fs07r f-tac"
+                        style="color: rgba(1, 85, 255, 1)"
+                      >
+                        23
+                      </div>
+                    </div>
+                  </div>
+                  <div class="f-f1">
+                    <div class="f-h100p f-w100p f-df">
+                      <div class="f-f1 f-fs06r">总达标率：</div>
+                      <div
+                        class="f-f1 f-fs07r f-tac"
+                        style="color: rgba(1, 85, 255, 1)"
+                      >
+                        97.6%
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="f-f3">
+                <div class="f-h100p f-w100p f-df">
+                  <div class="f-f1 f-jcc f-aic f-df">
+                    <div class="f-h100p f-w100p f-df f-fdc">
+                      <div class="f-f2 f-jcc f-aic f-df">
+                        <van-circle
+                          class="f-ma"
+                          v-model="currentRate"
+                          :rate="currentRate"
+                          :stroke-width="100"
+                          size="2.5rem"
+                          :text="text"
+                          color="rgba(51, 204, 156, 1)"
+                          layer-color="#ebedf0"
+                        />
+                      </div>
+                      <div class="f-f1 f-jcc f-aic f-df">颗粒物</div>
+                    </div>
+                  </div>
+                  <div class="f-f1 f-jcc f-aic f-df">
+                    <div class="f-h100p f-w100p f-df f-fdc">
+                      <div class="f-f2 f-jcc f-aic f-df">
+                        <van-circle
+                          class="f-ma"
+                          v-model="currentRate"
+                          :rate="currentRate"
+                          :stroke-width="100"
+                          size="2.5rem"
+                          :text="text"
+                          color="rgba(51, 204, 156, 1)"
+                          layer-color="#ebedf0"
+                        />
+                      </div>
+                      <div class="f-f1 f-jcc f-aic f-df">SO2</div>
+                    </div>
+                  </div>
+                  <div class="f-f1 f-jcc f-aic f-df">
+                    <div class="f-h100p f-w100p f-df f-fdc">
+                      <div class="f-f2 f-jcc f-aic f-df">
+                        <van-circle
+                          class="f-ma"
+                          v-model="currentRate"
+                          :rate="currentRate"
+                          :stroke-width="100"
+                          size="2.5rem"
+                          :text="text"
+                          color="rgba(51, 204, 156, 1)"
+                          layer-color="#ebedf0"
+                        />
+                      </div>
+                      <div class="f-f1 f-jcc f-aic f-df">NOX</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="height: 10rem" class="f-bcw f-br12 f-mt10 f-df f-fdc">
+            <h2 class="m_title">超标企业-前五</h2>
+            <simple-table
+              class="f-f1"
+              :head="['排名', '企业名称', '颗粒物', 'SO2', 'NOX']"
+              :value="tableDate"
+            ></simple-table>
+          </div>
+          <div style="height: 10rem" class="f-bcw f-br12 f-mt10">
+            <h2 class="m_title">
+              超标企业-前五
+              <h3>
+                <el-select
+                  class=""
+                  style="width: 100px"
+                  size="mini"
+                  v-model="wuranType"
+                  change=""
+                >
+                  <el-option
+                    v-for="item in wuranArray"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                  >
+                  </el-option>
+                </el-select>
+              </h3>
+            </h2>
+            <simple-table
+              :head="['序号', '报警时间', '报警排口', '报警描述', '处理情况']"
+              :value="tableDate2"
+            ></simple-table>
+          </div>
+        </van-tab>
       </van-tabs>
     </template>
     <!-- mobile结束 -->
@@ -658,27 +935,37 @@ export default {
       currentRate: 80,
       checkboxGroup3: "AQI",
       weather: {},
+      standard: {
+        pollutantDistribute: {},
+        levelDistribute: {},
+      },
+      wuranArray: [
+        { value: "klw", label: "颗粒物", text: "颗粒物" },
+        { value: "SO2", label: "SO2", text: "SO2" },
+        { value: "NOx", label: "NOx", text: "NOx" },
+      ],
       cities: ["AQI", "综合", "PM2.5", "PM10", "SO₂", "NO₂", "O₃", "CO"],
+      time: new Date(),
       timeType: "month",
       wuranType: "SO2",
       wushuiType: "COD",
-      time: new Date(),
+
       type: 0,
       tableDate: [
         {
+          paiming: 1,
+          a: "已处理1",
+          chuli: 123,
+        },
+        {
+          paiming: 1,
           a: "已处理",
+          chuli: 123,
         },
         {
-          a: 111321,
-        },
-        {
-          a: 111421,
-        },
-        {
-          a: 111231,
-        },
-        {
-          a: 1155121,
+          paiming: 1,
+          a: "已处理3",
+          chuli: 123,
         },
       ],
       tableDate2: [],
@@ -695,43 +982,85 @@ export default {
   mounted() {
     console.log(this.$el);
 
-    kit.ajax({
+    kit.chartRender($("#paint_m1"), {
+      radar: {
+        // shape: 'circle',
+        name: {
+          textStyle: {
+            color: "#fff",
+            backgroundColor: "#999",
+            borderRadius: 3,
+            padding: [3, 5],
+          },
+        },
+        radius: 20,
+        indicator: [
+          { name: "111", max: 6500 },
+          { name: "222", max: 16000 },
+          { name: "333", max: 30000 },
+          { name: "444", max: 38000 },
+          { name: "555", max: 52000 },
+        ],
+      },
+      series: [
+        {
+          name: "预算 vs 开销（Budget vs spending）",
+          type: "radar",
+          // areaStyle: {normal: {}},
+          data: [
+            {
+              value: [4300, 10000, 28000, 35000, 50000, 19000],
+              name: "预算分配（Allocated Budget）",
+            },
+          ],
+        },
+      ],
+    });
+
+    util.ajax({
       url: "/fpi/air/weather",
       data: {
         cityCode: "",
       },
       success: (resp) => {
-        console.log(resp);
+        this.weather = resp.entries.lives[0];
       },
     });
 
-    // kit.ajax();
-    kit.chartRender(
-      $("#paint1"),
-      util.paintPie({
-        title: "全年空气质量等级占比",
-        formatter: "{b} {c} 天 \n 占比 {d} ",
-        data: [
-          { value: 1048, name: "优" },
-          { value: 735, name: "良3" },
-          { value: 735, name: "良4" },
-          { value: 735, name: "良5" },
-          { value: 735, name: "良6" },
-        ],
-      })
-    );
+    util.ajax({
+      url: "/fpi/air/standard",
+      data: {
+        siteCode: $$.siteCode,
+        beginTime: moment().subtract(1, "years").valueOf(),
+        endTime: moment().valueOf(),
+      },
+      success: (resp) => {
+        console.log(resp.entries);
+        if (resp.entries) {
+                  this.standard = resp.entries ;
+        }
 
-    kit.chartRender(
-      $("#paint2"),
-      util.paintPie({
-        title: "空气质量等级占比分布图",
-        formatter: "{b} {c} 天 \n 占比 {d} ",
-        data: [
-          { value: 1048, name: "优" },
-          { value: 735, name: "良3" },
-        ],
-      })
-    );
+        // levelDistribute: {1: 47, 2: 22, 3: 1, 4: 0, 5: 0, 6: 0}
+        var level = this.standard.levelDistribute;
+        kit.chartRender(
+          $("#paint1"),
+          util.paintPie({
+            title: "全年空气质量等级占比",
+            formatter: "{b}{c}天\n {d}% ",
+            data: [
+              { value: level[1], name: "优" },
+              { value: level[2], name: "良" },
+              { value: level[3], name: "轻度污染" },
+              { value: level[4], name: "中度污染" },
+              { value: level[5], name: "重度污染" },
+              { value: level[6], name: "严重污染" },
+            ],
+          })
+        );
+      },
+    });
+
+    this.getPieData();
 
     kit.chartRender(
       $("#paint3"),
@@ -783,6 +1112,50 @@ export default {
     },
   },
   methods: {
+    getPieData() {
+      console.log(this.time);
+      util.ajax({
+        url: "/fpi/air/quality/pie",
+        data: {
+          beginTime:
+            this.timeType == "month"
+              ? moment(this.time).startOf("month").valueOf()
+              : moment(this.time).startOf("years").valueOf(),
+          endTime:
+            this.timeType == "month"
+              ? moment(this.time).endOf("month").valueOf()
+              : moment(this.time).endOf("years").valueOf(),
+          dataType: "day", // day:则取的是日AQI，否则小时AQI
+        },
+        success: (resp) => {
+          var levelStat
+          if (resp.entries && resp.entries.levelStat)  {
+            levelStat = resp.entries.levelStat;
+
+            kit.chartRender(
+            $("#paint2"),
+            util.paintPie({
+              title: "空气质量等级占比分布图",
+              formatter: "{b} \n {c}天 {d}%",
+              data: [
+                { value: levelStat[1], name: "优" },
+                { value: levelStat[2], name: "良" },
+                { value: levelStat[3], name: "轻度污染" },
+                { value: levelStat[4], name: "中度污染" },
+                { value: levelStat[5], name: "重度污染" },
+                { value: levelStat[6], name: "严重污染" },
+              ],
+            })
+          );
+          }
+
+          
+        },
+      });
+    },
+    change(data) {
+      this.getPieData();
+    },
     changeType(type) {
       this.type = type;
 
@@ -889,7 +1262,7 @@ export default {
   label {
     font-family: Bebas Neue;
     color: #ff9902;
-    font-size: 64px;
+    font-size: 50px;
     line-height: 48px;
   }
   i {
@@ -950,7 +1323,7 @@ export default {
 }
 
 .zhiliang {
-  background-image: url(../../../src/images/西中岛app/轻度@2X.png);
+  background-image: url(../../../src/images/西中岛app/重度@2X.png);
   // background-image: url(../../../src/images/西中岛/top.png);
   background-repeat: no-repeat;
   // background-size: 100% 100%;

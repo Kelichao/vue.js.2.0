@@ -27,15 +27,23 @@ module.exports = (options = {}) => ({
       test: /\.vue$/,
       use: ['vue-loader']
     },
+    // 注意,这块只针对打包.
     {
       test: /\.js$/,
       use: ['babel-loader'],
-      exclude: /node_modules/
+      // include:[/src/],
+      // 排除node_modules编译
+      // \\ for Windows, \/ for Mac OS and Linux
+      exclude: [
+        /node_modules/,
+        // /node_modules[\\\/]webpack[\\\/]buildin/,
+        // /src/
+      ] 
     },
     {
       test: /\.css$/,
       use: ['style-loader', 'css-loader', 'postcss-loader']
-    },
+    }, 
 
     {
 

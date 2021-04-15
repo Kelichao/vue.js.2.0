@@ -6,6 +6,18 @@
 
 let util = {};
 
+//
+util.ajax = function(options) {
+  kit.ajax({...options,...{
+    complete: (info)=> {
+        if(info.responseJSON.code == 400){
+        console.log("token过期")
+      }
+    }
+  }})
+}
+
+
 util.paintPie = function (options = {
   title: "",
   formatter: "",
@@ -17,7 +29,7 @@ util.paintPie = function (options = {
     title: {
       text: options.title,
       textStyle: {
-        color: 'white',
+        color: store.state.platformType == 'pc' ? 'white':"black",
         fontSize: "14px"
       },
       left: options.titlePosition,
@@ -25,17 +37,24 @@ util.paintPie = function (options = {
     tooltip: {
       trigger: "item",
     },
-
+    grid: {
+      left: "2%",
+      right: "4%",
+      bottom: "3%",
+      top: "10%",
+      containLabel: true,
+    },
     series: [
       {
         color: ["rgba(48, 211, 133, 1)", "rgba(255, 211, 0, 1)", "rgba(255, 153, 2, 1)", "rgba(255, 2, 0, 1)", "rgba(153, 0, 153, 1)", "rgba(153, 0, 0, 1)"],// 饼图颜色,会不断循环
         name: "",
         type: "pie",
-        radius: ["30%", "40%"],
+        radius: ["15%", "45%"],
+        center: ['50%', '60%'],
         label: {
           formatter: options.formatter,
           //  fontSize: 14,
-          color: "white",
+          color: store.state.platformType == 'pc' ? 'white':"black",
         },
         data: options.data,
       },
@@ -49,11 +68,14 @@ util.paintLine = function (options = {
   formatter: "",
   data: []
 }) {
+
+  var platformType = store.state.platformType
+
   return {
     title: {
       text: options.title || "",
       textStyle: {
-        color: "white",
+        color: platformType == 'pc' ?"white":"rgba(96, 98, 102, 1)",
         fontSize: "14px",
       },
 
@@ -72,7 +94,7 @@ util.paintLine = function (options = {
     legend: {
       data: options.legend || [],
       textStyle: {
-        color: "white"
+        color: platformType == 'pc' ?"white":"rgba(96, 98, 102, 1)",
       }
     },
     // 整体位置区域,只对line或bar有效
@@ -120,7 +142,7 @@ util.paintLine = function (options = {
         show: true,
         // 分割区域颜色
         areaStyle: {
-          color: ["rgba(0, 65, 136, 1)", "rgba(0,0,0,0)"],
+          color: platformType == 'pc' ?["rgba(0, 65, 136, 1)", "rgba(0,0,0,0)"]:["rgba(208, 216, 229, 0.2)", "rgba(0,0,0,0)"],
         },
       },
       // // 坐标轴轴线相关设置

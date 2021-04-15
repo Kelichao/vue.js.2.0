@@ -379,6 +379,7 @@ export default {
 }
 
 .main_mobile {
+  font-size:0.6rem;
   box-sizing: border-box;
   min-height:100%;
   background: #1a54c9;
@@ -387,6 +388,38 @@ export default {
   background-size: 100% 100%;
   padding: 0.8rem;
 
+  table.tab {
+    height:calc(100% - 2rem);
+    font-size:10px;
+  }
+  table.tab th{
+
+     
+      height: 1.2rem;
+      color: rgba(133, 149, 172, 1);
+      // opacity: 60%;
+      // font-weight: 500;
+      background-color: rgba(247, 248, 250, 1);
+      font-size: 12px;
+    
+  }
+
+  .m_title {
+    color:black;
+    font-size: 0.7rem;
+    padding-top:10px;
+    padding-left:15px; 
+    padding-bottom:10px;
+    // text-indent: 15px;
+    // f-cb f-fs07r f-p10
+    position: relative;
+    h3 {
+      font-size:10px;
+      color:rgba(48, 49, 51, 1);
+      float:right;
+      margin-right:15px;
+    }
+  }
   h1 {
     color: white;
     font-size: 1rem;
@@ -573,10 +606,15 @@ export default {
 
 .el-calendar__title {
   color: white;
+  display: none;
 }
 
 .el-calendar__button-group {
   display: none;
+}
+
+.el-calendar-table:not(.is-range) td.next, .el-calendar-table:not(.is-range) td.prev {
+  opacity: 0;
 }
 
 .el-pagination.is-background .btn-next,

@@ -10,7 +10,15 @@ window.store = new Vuex.Store({
         count: 0,
         time:"",
         yz:"",
-        platformType: kit.platformType()// 平台类型
+        platformType: kit.platformType(),// 平台类型
+        airLever:{
+            "1": "优",
+            "2": "良",
+            "3": "轻度污染",
+            "4": "中度污染",
+            "5": "重度污染",
+            "6": "严重污染",
+        }
     },
     // 做一些计算输出,注意，如果count不改变，只会触发一次,所以，这玩意，应该放在mtations里面
     getters: {  

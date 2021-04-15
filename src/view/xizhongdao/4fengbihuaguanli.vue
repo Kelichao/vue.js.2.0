@@ -255,7 +255,148 @@
     <!-- PC结束 -->
 
     <!-- moblie开始 -->
-    <template v-else> 444444444 </template>
+    <template v-else>
+      <div class="f-h9r f-bcw f-br12 f-mt15 f-df f-fdc">
+        <h2 class="m_title">
+          危化品车辆
+          <h3>2020年12月1日 17:05</h3>
+        </h2>
+        <div class="f-p15 f-pt1 f-f1">
+          <div class="f-h100p f-w100p f-df f-fdc">
+            <div class="f-jcc f-aic f-df">
+              <div class="f-h100p f-w100p f-df">
+                <div class="f-f1 f-jcc f-aic f-df">园内车辆：120</div>
+                <div class="f-f1 f-jcc f-aic f-df">本地：70</div>
+                <div class="f-f1 f-jcc f-aic f-df">外地：50</div>
+              </div>
+            </div>
+            <div class="f-f1 f-mt10">
+              <div class="f-h100p f-w100p f-df">
+                <div class="f-f1 f-jcc f-aic f-df">
+                  <div class="f-h100p f-w100p f-df f-fdc">
+                    <div class="f-f1"></div>
+                    <div class="f-f1 f-jcc f-aic f-df">
+                      今日入园：<span style="color: rgba(51, 204, 156, 1)"
+                        >+45
+                      </span>
+                    </div>
+                    <div class="f-f1 f-jcc f-aic f-df">
+                      今日出园：<span style="color: rgba(242, 25, 75, 1)"
+                        >-12
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="f-f2 f-jcc f-aic f-df" id="paint_m2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="f-h20r f-bcw f-br12 f-mh13r f-mt15 f-df f-fdc">
+        <h2 class="m_title">
+          危化品运输
+          <h3>2020年12月</h3>
+        </h2>
+        <div class="f-f1">
+          <div class="f-h100p f-w100p f-df f-fdc">
+            <div class="f-df" style="background: rgba(247, 248, 250, 1)">
+              <h2
+                class="m_title f-w100p"
+                style="padding-top: 5px; padding-bottom: 5px"
+              >
+                运输大户-前五
+                <h3>
+                  <el-select
+                    class=""
+                    style="width: 100px"
+                    size="mini"
+                    v-model="radio4"
+                    change=""
+                  >
+                    <el-option
+                      v-for="item in [
+                        { value: '入园', label: '入园' },
+                        { value: '出园', label: '出园' },
+                      ]"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                    >
+                    </el-option>
+                  </el-select>
+                </h3>
+              </h2>
+            </div>
+            <div class="f-f1 f-jcc f-aic f-df f-fdc">
+              <div class="f-h100p f-w100p f-df" v-for="item in 5">
+                <div class="f-f1 f-jcc f-aic f-df f-fs07r f-fwb">1</div>
+                <div class="f-f5 f-jcc f-aic f-df">大连蒙连石化有限公司</div>
+                <div
+                  class="f-f2 f-jcc f-aic f-df f-fs07r f-fwb"
+                  style="color: rgba(0, 85, 255, 1)"
+                >
+                  35.247 T
+                </div>
+              </div>
+            </div>
+            <div class="f-df" style="background: rgba(247, 248, 250, 1)">
+              <h2
+                class="m_title f-w100p"
+                style="padding-top: 5px; padding-bottom: 5px"
+              >
+                主要危化品-前五
+              </h2>
+            </div>
+            <div class="f-f1" id="paint44"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="f-bcw f-br12 f-mh13r f-mt15 f-df f-fdc">
+        <h2 class="m_title">
+          未处理事件
+          <h3>共计：4件</h3>
+        </h2>
+        <div class="f-p15 f-pt1">
+          <div
+            style="border-bottom: 1px solid rgba(231, 236, 244, 1)"
+            class="f-h100p f-pb5 f-pt5 f-fs06r f-w100p f-df f-fdc f-h08r"
+          >
+            <div class="f-f1 f-jcc f-aic f-df">
+              <div class="f-h100p f-w100p f-df">
+                <div class="f-f1 f-aic f-df">2021-1-13 11:06 钱二西</div>
+                <div
+                  class="f-jcc f-aic f-df f-br5 f-pl4 f-pr4"
+                  style="background: rgba(255, 153, 2, 1); color: white"
+                >
+                  报修
+                </div>
+              </div>
+            </div>
+            <div class="f-f1 f-aic f-df">嘉恒9-1-402，门锁坏了不能反锁。</div>
+          </div>
+          <div
+            style="border-bottom: 1px solid rgba(231, 236, 244, 1)"
+            class="f-h100p f-pb5 f-pt5 f-fs06r f-w100p f-df f-fdc f-h08r"
+          >
+            <div class="f-f1 f-jcc f-aic f-df">
+              <div class="f-h100p f-w100p f-df">
+                <div class="f-f1 f-aic f-df">2021-1-13 11:06 钱二西</div>
+                <div
+                  class="f-jcc f-aic f-df f-br5 f-pl4 f-pr4"
+                  style="background: rgba(255, 153, 2, 1); color: white"
+                >
+                  报修
+                </div>
+              </div>
+            </div>
+            <div class="f-f1 f-aic f-df">嘉恒9-1-402，门锁坏了不能反锁。</div>
+          </div>
+        </div>
+      </div>
+    </template>
     <!-- mobile结束 -->
   </div>
 </template>
@@ -292,6 +433,18 @@ export default {
           { value: 735, name: "良4" },
           { value: 735, name: "良5" },
           { value: 735, name: "良6" },
+        ],
+      })
+    );
+
+    kit.chartRender(
+      $("#paint_m2"),
+      util.paintPie({
+        title: "园内车辆",
+        formatter: "{b} {c} 天 ",
+        data: [
+          { value: 1048, name: "优" },
+          { value: 735, name: "良3" },
         ],
       })
     );
@@ -340,6 +493,8 @@ export default {
       })
     );
 
+     var platformType = store.state.platformType
+
     kit.chartRender($("#paint44"), {
       title: {
         text: "化学品申报分析",
@@ -358,7 +513,7 @@ export default {
       legend: {
         data: ["入园", "出园"],
         textStyle: {
-          color: "white",
+          color: platformType == 'pc' ?"white":"rgba(96, 98, 102, 1)",
         },
       },
       grid: {
@@ -395,7 +550,7 @@ export default {
           show: true,
           // 分割区域颜色
           areaStyle: {
-            color: ["rgba(0, 65, 136, 1)", "rgba(0,0,0,0)"],
+            color: platformType == 'pc' ?["rgba(0, 65, 136, 1)", "rgba(0,0,0,0)"]:["rgba(208, 216, 229, 0.2)", "rgba(0,0,0,0)"],
           },
         },
         // // 坐标轴轴线相关设置
@@ -474,7 +629,7 @@ export default {
             title: "重点报警点位-前五",
             formatter: "{b} {c} 天 \n 占比 {d} ",
             xyChange: true,
-             color:["rgba(41, 222, 255, 1)"],
+            color: ["rgba(41, 222, 255, 1)"],
             // grid: {
             //   left: "13%",
             //   right: "4%",
@@ -494,7 +649,7 @@ export default {
             title: "违规车辆所属企业-前五",
             xyChange: true,
             formatter: "{b} {c} 天 \n 占比 {d} ",
-            color:["rgba(41, 222, 255, 1)"],
+            color: ["rgba(41, 222, 255, 1)"],
             data: [
               { value: 1048, name: "优" },
               { value: 735, name: "良3" },
