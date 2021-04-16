@@ -247,7 +247,7 @@ export default {
         
         this.lineSelect = this.timeArray[index];
         if (this.dateType == "60") {
-          var ass =234
+  
           this.getWhole(this.lineSelect);
           this.ass= a;
         } else {

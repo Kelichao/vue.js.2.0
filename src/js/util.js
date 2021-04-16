@@ -3,15 +3,22 @@
  * @author: kelichao
  * date: 2021-03-11
  */
-
+import { Message } from 'element-ui';
 let util = {};
 
 //
 util.ajax = function(options) {
   kit.ajax({...options,...{
+    headers: {
+      token: klcs.cookie().token || "47bb82cd78604ef0956304c8de2eb5c0", // 默认参数,每个请求需要夹带
+    },
     complete: (info)=> {
-        if(info.responseJSON.code == 400){
+        if(info.responseJSON.msg == "未授权的内部用户!!!"){
         console.log("token过期")
+        Message({
+          message: '未授权的内部用户!!!',
+          type: 'warning'
+        });
       }
     }
   }})
@@ -66,6 +73,7 @@ util.paintLine = function (options = {
   title: "",
   titlePosition: '',
   formatter: "",
+  xData:[],
   data: []
 }) {
 
@@ -99,8 +107,8 @@ util.paintLine = function (options = {
     },
     // 整体位置区域,只对line或bar有效
     grid: {
-      left: "2%",
-      right: "4%",
+      left: "5%",
+      right: "5%",
       bottom: "3%",
       top: "10%",
       containLabel: true,
@@ -127,7 +135,7 @@ util.paintLine = function (options = {
           opacity: 0.1 // 轴体的透明度
         },
       },
-      data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+      data: options.xData,
     },
     yAxis: {
       type: options.yType || "value",
@@ -154,33 +162,27 @@ util.paintLine = function (options = {
         },
       },
     },
-    series: [
-      {
-        name: "联盟广告",
-        type: "line",
-        stack: "总量",
-        data: [220, 182, 191, 234, 290, 330, 310],
-      },
-      {
-        name: "邮件营销",
-        type: "line", // 图标类型
-        stack: "总量",
-        // 线条样式,不要修改,否则会对不上
-        //  lineStyle: {
-        //       color: 'rgba(28,108,197,1)',
-        //       // width: 4,
-        //       // type: 'dashed'
-        //     },
-        // // 折现上点位的样式
-        // itemStyle: {
-        //   borderWidth: 3,
-        //   borderColor: 'rgba(255, 211, 0, 1)',
-        //   // color: 'yellow'// 这个不要
-        // },
+    series: options.yData || []
+    // [{
+    //     name: "邮件营销",
+    //     type: "line", // 图标类型
+    //     stack: "总量",
+    //     // 线条样式,不要修改,否则会对不上
+    //     //  lineStyle: {
+    //     //       color: 'rgba(28,108,197,1)',
+    //     //       // width: 4,
+    //     //       // type: 'dashed'
+    //     //     },
+    //     // // 折现上点位的样式
+    //     // itemStyle: {
+    //     //   borderWidth: 3,
+    //     //   borderColor: 'rgba(255, 211, 0, 1)',
+    //     //   // color: 'yellow'// 这个不要
+    //     // },
 
-        data: [120, 132, 101, 134, 90, 230, 210],
-      }
-    ],
+    //     data: [120, 132, 101, 134, 90, 230, 210],
+    //   }
+    // ],
   };
 }
 

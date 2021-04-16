@@ -35,7 +35,7 @@
                         </div>
                         <div class="f-f1 f-tac">
                           <template v-for="item in yingjizhishou.master">
-                            {{ item.name }}
+                            {{ item.name || "--" }}
                           </template>
                         </div>
                       </div>
@@ -61,7 +61,7 @@
                         </div>
                         <div class="f-f1 f-tac">
                           <template v-for="item in yingjizhishou.otherList">
-                            {{ item.name }}
+                            {{ item.name|| "--" }}
                           </template>
                         </div>
                       </div>
@@ -277,6 +277,7 @@
             <!-- 表格开始 -->
             <simple-table
               :head="['序号', '报警时间', '报警排口', '报警描述', '处理情况']"
+
               :value="tableDate"
             ></simple-table>
           </div>
@@ -294,6 +295,7 @@
                 '处理情况',
                 '负责人',
               ]"
+              :prop="['index','accidentAcceptTime','accidentAddress','accidentAcceptMan','accidentStatus','accidentLinkMan']"
               :value="tableDate2"
             ></simple-table>
           </div>
@@ -496,13 +498,43 @@ export default {
   },
   mounted() {
     this.getData();
-    kit.ajax({
-      wholeUrl:
-        "http://hzzhhb.net:8041/duty/web/api/v1/public/getEventCalendarToCockpit",
-      data: {
-        month: moment(this.time).format("YYYY-MM"),
+    // kit.ajax({
+    //   wholeUrl:
+    //     $$.url2 + "duty/web/api/v1/incident/event/selectListForPage",
+    //   data: {
+    //     limit: 20,
+    //     offset: 0,
+    //     startDay: "2021-03-16",
+    //     endDay: moment().format("YYYY-MM-DD"),
+    //     eventType: "",
+    //     eventName: ""
+    //   },
+    //   success:(resp) => {
+    //     this.tableDate = resp.data.entries
+    //   }
+    // });
+
+    // 未完成接报事件
+    util.ajax({
+      wholeUrl:$$.url2 + "duty/web/api/v1/incident/accident/getAccidentRecordList",
+      data:{
+        offset: 0,
+        limit: 5,
+        endTime: moment().format("YYYY-MM-DD"),
+        // startTime: 2021-03-16
       },
-    });
+      success:(resp) => {
+        this.tableDate2 = resp.data.entries
+        // this.tableDate2.length = 5;
+      }
+    })
+
+    // util.ajax({
+    //   wholeUrl:$$.url2 +  "duty/web/api/v1/incident/event/getMoldByCodeIncdentType",
+    //   success:() => {
+
+    //   }
+    // })
 
     kit.chartRender(
       $("#paint34"),
@@ -594,7 +626,7 @@ export default {
   },
   methods: {
     getData() {
-      kit.ajax({
+      util.ajax({
         url: "/duty/system/details",
         data: {
           timeType: this.timeType == "month" ? "monthStr" : "yearStr",
@@ -605,7 +637,7 @@ export default {
         },
       });
 
-      kit.ajax({
+      util.ajax({
         wholeUrl:
           "http://hzzhhb.net:8041/duty/web/api/v1/public/getUserToCockpit",
         data: {
@@ -613,7 +645,10 @@ export default {
         },
         success: (resp) => {
           console.log(resp.data);
-          this.yingjizhishou = resp.data;
+          if (resp.data) {
+                      this.yingjizhishou = resp.data;
+
+          }
         },
       });
     },

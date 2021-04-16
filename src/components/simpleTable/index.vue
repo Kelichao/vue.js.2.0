@@ -8,14 +8,19 @@
       </th>
     </tr>
     <template v-if="value.length">
-      <tr v-for="item in value" :key="item.a">
-        <template v-for="it in item" >
-          <td  :key="it">{{ it}}</td>
-          <!-- <td :key="it">
-          <span :class="{ green: true, red: true, orange: true }">{{
-            item.a
-          }}</span> -->
-        </td>
+      <!-- 行 -->
+      <tr v-for="(item,index) in value" :key="item.a">
+        <!-- 格子 -->
+        <template v-for="(ind,it) in prop" >
+          <td v-if="prop[it] == 'index'" :key="it">{{index+1}}</td>
+          <!-- 处理情况 -->
+          <td v-else-if="prop[it] == 'disposalState' || prop[it] == 'accidentStatus'" :key="it">
+            <span :class="{ green: true, red: true, orange: true }">{{
+              item[prop[it]] && chuzhi[item[prop[it]]]
+            }}</span>
+          </td>
+          <td v-else :key="it">{{ item[prop[it]]}}</td>
+          
         </template>
         
         
@@ -48,9 +53,20 @@ export default {
         return [];
       },
     },
+     prop: {
+      type: Array,
+      default: function () {
+        return [];
+      },
+    },
   },
   data() {
     return {
+      chuzhi:{
+        0:"处置中",
+        1:"已处置",
+        2: "未处置",
+      },
       type: 0,
       tableDate: [],
       data: "",
@@ -107,7 +123,7 @@ export default {
   span {
     width: 45px;
     border-radius: 4px;
-    height: 18px;
+    height: 22px;
   }
 
   .green {

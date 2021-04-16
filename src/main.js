@@ -38,6 +38,7 @@ Vue.component('simple-table', simpleTable)
 
 // 环境变量, 注意,这个process不能整个获取
 Vue.prototype.env = process.env;
+Vue.prototype.moment = moment;
 
 new Vue({
   router,// 路由

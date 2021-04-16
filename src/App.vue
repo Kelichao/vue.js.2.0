@@ -125,7 +125,7 @@ export default {
           value: "西中岛",
           label: "西中岛",
         },
-        // {
+        // {g
         //   value: "长兴岛",
         //   label: "长兴岛",
         // },
@@ -134,8 +134,16 @@ export default {
     };
   },
   mounted() {
-    console.log(this);
+    console.log(this.$route);
     // /fpi/air/points
+    // this.$r
+
+    // 空路由定位
+    if (this.$route.fullPath == "/") {
+      this.$router.push({
+        path:"xizhongdao"
+      })
+    }
   },
   methods: {
     change() {},
