@@ -1,5 +1,5 @@
 /*!
- * @description: util较为特殊的项目工具库
+ * @description: util较为特殊的项目二次封装工具库
  * @author: kelichao
  * date: 2021-03-11
  */
@@ -10,7 +10,7 @@ let util = {};
 util.ajax = function(options) {
   kit.ajax({...options,...{
     headers: {
-      token: klcs.cookie().token || "47bb82cd78604ef0956304c8de2eb5c0", // 默认参数,每个请求需要夹带
+      token: klcs.cookie().token || kit.searchObject("token") || "ea43629fdf874d769c32e4d3001de6d3", // 默认参数,每个请求需要夹带
     },
     complete: (info)=> {
         if(info.responseJSON.msg == "未授权的内部用户!!!"){
@@ -51,18 +51,70 @@ util.paintPie = function (options = {
       top: "10%",
       containLabel: true,
     },
+    legend: {
+        orient: 'vertical',
+        align: "left",// 图标相对于文字的位置
+        left: 'right',
+        top:"center",
+        textStyle: {
+          color:"#ffffff",
+          rich: {
+            a: {
+              color: 'rgba(41, 222, 255, 1)',
+              fontFamily:"Bebas Neue",
+              align:'right',
+              //   padding:[0,15,0,0],
+              //   lineHeight:25
+              fontSize: 14,
+              // fontWeight: 700
+            },
+            b: {
+              color: 'white',
+              fontSize: 14,
+              float:"right"
+              // fontWeight: 700
+            },
+            c: {
+              color: '#65F7CB',
+              // fontSize: 32,
+              // fontWeight: 700
+            },
+          },
+        },
+        itemWidth:14,
+        icon:"rect",
+        format(name, data) {
+          var data = this.data
+          var sum = _.reduce(
+            _.pluck(data, "value"),
+            function(memo, num) {
+              return memo + num;
+            },
+            0
+          );
+          var total = _.findWhere(data, { name: name });
+          return `${name} {a| ${total.value}天} {b| ${kit.percent(
+            total.value / sum
+          )}%}`;
+        },
+        ...(options.legend || {}),
+    },
     series: [
       {
         color: ["rgba(48, 211, 133, 1)", "rgba(255, 211, 0, 1)", "rgba(255, 153, 2, 1)", "rgba(255, 2, 0, 1)", "rgba(153, 0, 153, 1)", "rgba(153, 0, 0, 1)"],// 饼图颜色,会不断循环
         name: "",
         type: "pie",
-        radius: ["15%", "45%"],
-        center: ['50%', '60%'],
-        label: {
-          formatter: options.formatter,
-          //  fontSize: 14,
-          color: store.state.platformType == 'pc' ? 'white':"black",
-        },
+        radius: ["40%", "50%"],
+        center: ['25%', '55%'],
+         label: {
+                show: false,
+                position: 'center'
+            },
+        // label: {
+        //   formatter: options.formatter,
+        //   //  fontSize: 14,
+        //   color: store.state.platformType == 'pc' ? 'white':"black",
+        // },
         data: options.data,
       },
     ],
@@ -107,10 +159,10 @@ util.paintLine = function (options = {
     },
     // 整体位置区域,只对line或bar有效
     grid: {
-      left: "5%",
-      right: "5%",
+      left: "4%",
+      right: "4%",
       bottom: "3%",
-      top: "10%",
+      top: "15%",
       containLabel: true,
     },
     //// 工具栏

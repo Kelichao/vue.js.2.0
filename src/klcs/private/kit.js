@@ -258,10 +258,10 @@
 	 * 将参数字符串转化成JSON对象。
 	 * @param {*} key 为需要取得的键值
 	 * @param {*} address 地址串，不填则为location.search
-	 * exp: kit.locaSearch("fsd","?sfsd=3423&we=234&fsd=324");  =   324
-	 *      kit.locaSearch("","?sfsd=3423&we=234&fsd=324");     =  {sfsd:3423,we:234,fsd:324}
+	 * exp: kit.searchObject("fsd","?sfsd=3423&we=234&fsd=324");  =   324
+	 *      kit.searchObject("","?sfsd=3423&we=234&fsd=324");     =  {sfsd:3423,we:234,fsd:324}
 	 */
-	kit.locaSearch = function(key, address){
+	kit.searchObject = function(key, address){
 
 		address = address || location.search;
 		var total = _strToObject(key, address, "&", true);
@@ -1665,8 +1665,48 @@
         return type;
     };
 
-	
 
+	// 下载并预览pdf文件
+	kit.readPDF = function() {
+
+		this.$.get({
+          url:url,
+          // headers: {
+          //   responseType: 'arraybuffer' 
+          // },
+          xhrFields: { responseType: "arraybuffer" }// 这个专门预览pdf
+        })
+          .then( (res) => {
+               const binaryData = []
+                binaryData.push(res)
+                // 获取blob链接
+                let pdfUrl = window.URL.createObjectURL(new Blob(binaryData, { type: 'application/pdf' }))
+                window.open(pdfUrl)
+          })
+	};
+
+	/**
+		计算百分比
+		@total 
+		@num 小数位数,默认为无小数点
+		@signFlag 百分号标志位.true带回百分号,false不带百分号
+	 */ 
+	kit.percent = function(total, num, signFlag) {
+		total = total * 100
+		if (Number.isNaN(total)) {
+			total = 0
+		}
+		return signFlag ?Number(total.toFixed(num || 0)) +"%" : Number(total.toFixed(num || 0)) 
+	}
+	
+	// 两个时间之间的间隔天数 ,还没写完
+	kit.betweenTwoTimes = function() {
+			var m1 = moment('2018-08-14 11:00:00'),
+			m2 = moment('2018-08-14 12:10:00');
+			console.log(m1)
+			console.log(m2)
+			console.log(m2.diff(m1, 'minute'));
+		}
 
 
 
