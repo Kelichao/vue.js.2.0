@@ -20,31 +20,21 @@
     <!-- 路由出口 -->
     <!-- 路由匹配到的组件将渲染在这里 -->
     <div v-if="platformType == 'pc'" class="header">
-      <img :src="require('src/images/西中岛/logo@2x.png')" class="newImage" />
-      <div class="buttons">
-        <span><router-link to="/xizhongdao">园区介绍</router-link></span>
-        <span><router-link to="/huanbaoguanli">环保管理</router-link></span>
-        <span><router-link to="/yingjiguanli">应急管理</router-link></span>
-        <span><router-link to="/fengbihuaguanli">封闭化管理</router-link></span>
-        <span><router-link to="/yunyinguanli">运营管理</router-link></span>
-      </div>
-
-      <el-select
-        class="select"
-        size="mini"
-        v-model="value"
-        placeholder="请选择"
-        change="change"
-      >
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
+      
+       <div class="router">
+         <span
+          class="f-f1 f-m5 f-tac"
+          @click="item = 1"
+          :class="{ on: $route.path==='/xizhongdao' }"
+          ><router-link to="/xizhongdao">执法记录管理</router-link></span
         >
-        </el-option>
-      </el-select>
-
+        <span
+          class="f-f1 f-m5 f-tac"
+          @click="item = 2"
+          :class="{ on: $route.path==='/tongjifenxi' }"
+          ><router-link to="/tongjifenxi">统计分析</router-link></span
+        >
+       </div>
       <img class="touxiang" src="/src/images/西中岛/头像@2x.png" />
     </div>
     
@@ -95,7 +85,8 @@
         :with-header="false"
         size="20%"
       >
-        <template class="f-mt20" v-for="item in editableTabs">
+      <div class="f-mt20 f-oa" style="height:600px;">
+         <template v-for="item in editableTabs">
           <el-button
             type="primary"
             @click="handleClick(item)"
@@ -104,6 +95,8 @@
           >
           <el-divider :key="item.title"></el-divider>
         </template>
+      </div>
+       
       </el-drawer>
     </div>
   </div>
@@ -114,6 +107,7 @@ export default {
   data() {
     return {
       item: 1,
+      activeName: 'second',
       platformType: store.state.platformType,
       showCD: process.env.NODE_ENV == "development", // development
       drawer: false,
@@ -146,6 +140,9 @@ export default {
     }
   },
   methods: {
+     handleClick(tab, event) {
+        console.log(tab, event);
+      },
     change() {},
     handleClick(tab, event) {
       console.log(tab);
@@ -214,29 +211,31 @@ export default {
 
   min-height: 1000px;
   /* // 背景图写法模板,图片插入模板 */
-  background-image: url(../src/images/西中岛/背景.png);
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  min-width: 1700px;
+  // background-image: url(../src/images/西中岛/背景.png);
+  // background-repeat: no-repeat;
+  // background-size: 100% 100%;
+  min-width: 1300px;
   box-sizing: border-box;
 
   .header {
-    background-image: url(../src/images/西中岛/top.png);
+    background-image: url(../src/images/sunninglogo.png);
     background-repeat: no-repeat;
+    background-position:10px 5px;
     // background-size: 100% 100%;
-    background-size: cover;
+    // background-size: cover;
+    background-color:rgba(0, 21, 41, 1);
 
-    height: 68px;
-    width: 1650px;
+    height: 40px;
+    // width: 1650px;
     position: relative;
     margin: 0 auto;
 
     .touxiang {
       // background-repeat: no-repeat;
       position: absolute;
-      right: -5px;
+      right: 5px;
       height: 26px;
-      top: 25px;
+      top: 7px;
       cursor: pointer;
     }
 
@@ -285,22 +284,7 @@ export default {
     position: absolute;
   }
 
-  .select .el-input__inner,
-  .select_cont .el-input__inner {
-    background: #00569e;
-    background: rgba(0, 0, 0, 0);
-    border: none;
-    color: white;
-  }
 
-  .select_cont .el-input__inner {
-    border: 1px solid rgba(18, 111, 190, 1);
-  }
-
-  .el-radio-button__inner {
-    background: none;
-    color: white;
-  }
 
   .h1 {
     font-family: PingFang SC;
@@ -378,12 +362,13 @@ export default {
     padding-top: 0;
   }
 
-  .el-divider {
-    opacity: 20%;
-    // width: 320px;
-    height: 1px;
-    background-color: #ffffff;
-  }
+  // .el-divider {
+  //   // opacity: 20%;
+  //   // // width: 320px;
+  //   // height: 1px;
+  //   // background-color: #ffffff;
+  //   // margin:10,0;
+  // }
 }
 
 .main_mobile {
@@ -501,6 +486,20 @@ export default {
 
 .van-tab {
   color:white;
+}
+
+.router {
+  margin: 0 auto;
+    width: 300px;
+    font-size: 18px;
+}
+
+.router .on a{
+  color:azure;
+}
+
+.router a {
+  color: #409EFF;
 }
 </style>
 

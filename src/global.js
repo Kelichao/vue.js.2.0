@@ -1,18 +1,17 @@
 import config from "./env"
 import moment from "moment"
-
 import { Message, MessageBox } from 'element-ui';
 import * as echarts from 'echarts';
 import kit from "@/klcs/index.js" ;
 import util from "@/js/util"
+import klcs from "klcs"// node_modules版本,测试代码
 
-// node_modules版本,测试代码
-import klcs from "klcs"
+
+
+
 window.klcs = klcs
-
-// window.jQuery = klcs.$;  ??????????????
-
 window.kit = kit;
+window._ = kit._;
 window.util = util;
 // 定义全局变量
 window.echarts = echarts;
@@ -30,7 +29,7 @@ window.echarts = echarts;
 // 时间戳
 // moment().valueOf()
 // 日期格式化
-// moment().format('MMMM Do YYYY, h:mm:ss a'); // 九月 10日 2020, 9:48:39 上午
+// moment().format('MMMM Do YYYY, h:mm:ss a'); // 九月 010日 2020, 9:48:39 上午
 // moment().format('dddd');                    // 星期四
 // moment().format("MMM Do YY");               // 9月 10日 20
 // moment().format('YYYY [escaped] YYYY');     // 2020 escaped 2020

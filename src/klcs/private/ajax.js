@@ -1,16 +1,17 @@
-/*!
+
+/** 
  * @description: ajax功能配置项,完整配置表
  * @author: kelichao
+ * @care 注意,这个工具函数不要用es6写法,是用来打进npm包的代码.
  * date: 2021-03-11
  */
-
-/** */
 function ajax(options) {
 
   var Default = {
-    type:"",// post还是get等
+    type: "get",// 默认为get
     data:{},// 参数
     contentType:'',//  请求头
+    dataType:"json",
     processData: true,
     timeout:"",// 超时时间
     headers:{},// 头部参数
@@ -23,14 +24,20 @@ function ajax(options) {
 
   options = Object.assign(Default,options);
 
+  // var reg=new RegExp(/(http)|(https)/);
+  // var flag = reg.test(options.url);
 
+  // // 全路径
+  // if (flag) {
 
-  // options = Object.assign(
-
-  //   )
+  // } else {
+  //   ($$.url + options.url)
+  // }
+  
 
   return $.ajax({
-    type: options.type || "get",// 默认为get,
+    type: options.type ,
+    dataType:options.dataType,
     headers:options.headers,
     contentType: options.contentType ,//  请求头
     processData:options.processData,
@@ -59,8 +66,8 @@ function ajax(options) {
     
     },
   })
-    .then(function(resp) { })
-    .catch(function(e) { })
+    // .then(function(resp) { })
+    // .catch(function(e) { })
 
 }
 

@@ -6,7 +6,7 @@ import VueRouter from 'vue-router'
 import global from "./global"// 全局调用
 import Vuex from 'vuex'
 // import VueI18n from 'vue-i18n' 
-import router from "./router.js"
+import router from "./router/index.js"
 import store from "./store.js"
 
 import './css/reset.css';
@@ -30,7 +30,7 @@ Vue.use(Vant);
 Vue.use(UmyUi);
 
 console.warn("当前模式",process.env.TYPE)
-// console.log(`%c打包时间:  ${process.env.DATE}`, "color:blue;");
+console.log(`%c打包时间:  ${process.env.DATE}`, "color:blue;");
 Vue.use(ElementUI);
 Vue.component('simple-table', simpleTable)
 
@@ -39,6 +39,7 @@ Vue.component('simple-table', simpleTable)
 // 环境变量, 注意,这个process不能整个获取
 Vue.prototype.env = process.env;
 Vue.prototype.moment = moment;
+Vue.prototype.$$ = window.$$;
 
 new Vue({
   router,// 路由

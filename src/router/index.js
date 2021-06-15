@@ -11,9 +11,11 @@ import pie from '~/view/demo/pie.vue'
 import bar from '~/view/demo/bar.vue'  
 import line from '~/view/demo/line.vue'  
 import Vue from 'vue'
-import tableDemo from '~/view/tableDemo.vue'  
+import tableDemo from '~/view/demo/tableDemo/index.vue'  
+import uploadDemo from '~/view/demo/uploadDemo/index.vue'  
 
 import xizhongdao from '~/view/xizhongdao/1index.vue'  
+import tongjifenxi from '~/view/xizhongdao/index.vue'  
 import huanbaoguanli from '~/view/xizhongdao/2huanbaoguanli.vue' 
 import yingjiguanli from '~/view/xizhongdao/3yingjiguanli.vue'  
 import fengbihuaguanli from '~/view/xizhongdao/4fengbihuaguanli.vue'  
@@ -21,6 +23,10 @@ import yunyinguanli from '~/view/xizhongdao/5yunyinguanli.vue'
 
 
 var arr = [
+  {
+      title: "统计分析",
+    path: "/tongjifenxi", component: tongjifenxi,
+  },
   {
     
     path: '/xizhongdao', 
@@ -100,7 +106,12 @@ var arr = [
   {
     title: "表格demo",
     path: "/tableDemo", component: tableDemo,
-  }
+  },
+  {
+      title: "上传demo",
+    path: "/uploadDemo", component: uploadDemo,
+  },
+
 ]
 // 2. 定义路由
 const router = new VueRouter({routes: arr})

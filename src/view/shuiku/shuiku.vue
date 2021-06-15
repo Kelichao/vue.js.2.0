@@ -532,10 +532,7 @@ export default {
   height: 100%;
   font-family: 黑体;
 }
-#app {
-  font-family: Helvetica, sans-serif;
-  text-align: center;
-}
+
 
 .header {
   width: 100%;

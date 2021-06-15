@@ -2,16 +2,33 @@
   <div>
     <div class="f-pt20">
       <el-button @click="startHacking">demo</el-button>
-      <maper v-model="doubleform.longlat" :width="780" dialogWidth="700px" :toFixedNum="8" @input="getValue" ref="destroyMap"></maper>
     </div>
+    <upload 
+      :fileList=fileList  
+      :on-change="(file, fileList)=>{return handleChange(file, fileList, $event)}"
+      :on-remove="(file, fileList)=>{return handleRemove(file, fileList, $event)}">
+    </upload>
   </div>
 </template>
 
 <script>
-import maper from "~/components/mapSelect/index.js"
-                  //  src\components\mapSelect\index.js
+
+  import upload from "@/components/upload/index";
 // 生命周期
 export default {
+  data() {
+    return {
+      type:0,
+      tableDate:[],
+    data:"",
+      aaa:""
+    }
+  },
+  computed: {
+    // text() {
+    //   return this.currentRate.toFixed(0) + '%';
+    // },
+  },
   mounted() {
     console.log(this.$el)
   },
@@ -19,17 +36,9 @@ export default {
     console.log(this.$el)
   },
   components: {
-      maper
+    upload
   },
-  data() {
-    return {
-      doubleform: {
-        longlat:[39.01178128, 117.70717621],
-      },
-    data:"",
-      aaa:""
-    }
-  },
+  
   watch: {
     aaa: {
       handler() {
@@ -40,10 +49,6 @@ export default {
     
   },
   methods: {
-     getValue(val) {
-      console.log(val)
-
-    },
     startHacking: function() {
       this.aaa = 111
       
@@ -53,6 +58,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="less" scoped>
+
 
 </style>

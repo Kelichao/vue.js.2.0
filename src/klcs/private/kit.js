@@ -258,10 +258,10 @@
 	 * 将参数字符串转化成JSON对象。
 	 * @param {*} key 为需要取得的键值
 	 * @param {*} address 地址串，不填则为location.search
-	 * exp: kit.searchObject("fsd","?sfsd=3423&we=234&fsd=324");  =   324
-	 *      kit.searchObject("","?sfsd=3423&we=234&fsd=324");     =  {sfsd:3423,we:234,fsd:324}
+	 * exp: kit.locaSearch("fsd","?sfsd=3423&we=234&fsd=324");  =   324
+	 *      kit.locaSearch("","?sfsd=3423&we=234&fsd=324");     =  {sfsd:3423,we:234,fsd:324}
 	 */
-	kit.searchObject = function(key, address){
+	kit.locaSearch = function(key, address){
 
 		address = address || location.search;
 		var total = _strToObject(key, address, "&", true);
@@ -1665,48 +1665,115 @@
         return type;
     };
 
-
-	// 下载并预览pdf文件
-	kit.readPDF = function() {
-
-		this.$.get({
-          url:url,
-          // headers: {
-          //   responseType: 'arraybuffer' 
-          // },
-          xhrFields: { responseType: "arraybuffer" }// 这个专门预览pdf
-        })
-          .then( (res) => {
-               const binaryData = []
-                binaryData.push(res)
-                // 获取blob链接
-                let pdfUrl = window.URL.createObjectURL(new Blob(binaryData, { type: 'application/pdf' }))
-                window.open(pdfUrl)
-          })
-	};
+    //     kit.fpiExport([
+	// {
+	// 	name: "路人甲",
+	// 	phone: "123456789",
+	// 	email: "000@123456.com"
+	// },
+	// {
+	// 	name: "炮灰乙",
+	// 	phone: "123456789",
+	// 	email: "000@123456.com"
+	// },
+	// {
+	// 	name: "土匪丙",
+	// 	phone: "123456789",
+	// 	email: "000@123456.com"
+	// },
+	// {
+	// 	name: "流氓丁",
+	// 	phone: "123456789",
+	// 	email: "000@123456.com"
+	// }
+	// ],"执法记录管理",[{label:"名字",key:"name"},{label:"邮箱",key:"email"}]);
 
 	/**
-		计算百分比
-		@total 
-		@num 小数位数,默认为无小数点
-		@signFlag 百分号标志位.true带回百分号,false不带百分号
+		表格导出excel
+		@arr 要导出的json数据
+		@tHeader 表头数组
+		@fileName 文件名
 	 */ 
-	kit.percent = function(total, num, signFlag) {
+	kit.fpiExport = function(arr, fileName, data) {
+		
+		if (!arr) {
+			console.warn("请输入数据源arr")
+			return;
+		}
+		
+		// 每行数据源value
+		arr = arr.map((value) => {
+			var obj = {};
+			kit._.forEach(data,(val,key) => {
+				obj[val.prop] = value[val.prop] || "";
+			})
+			return obj
+		})
+		// console.log(arr)
+
+		//列标题，逗号隔开，每一个逗号就是隔开一个单元格 \n必须要有不然在同一行
+		var pluck = kit._.pluck(data,"label")
+		let str = pluck.join(",") + "\n";
+
+		//增加\t为了不让表格显示科学计数法或者其他格式
+		for (let i = 0; i < arr.length; i++) {
+			for (let item in arr[i]) {
+				// console.log(arr[i][item])
+				// 去除敏感的逗号,换行用
+				arr[i][item]=(arr[i][item] + "").replace(/,/g,'');
+				str += `${arr[i][item] + "\t"},`;
+			}
+			str += "\n";
+		}
+		
+		console.log(str)
+		//encodeURIComponent解决中文乱码
+		let uri = "data:text/csv;charset=utf-8,\ufeff" + encodeURIComponent(str);
+
+		//通过创建a标签实现
+		var link = document.createElement("a");
+		link.href = uri;
+
+		//对下载的文件命名
+		link.download = fileName + new Date().toLocaleDateString() + "表.xlsx";
+		document.body.appendChild(link);
+		link.click();
+		document.body.removeChild(link);
+	};
+
+
+	// 获取秒级时间戳
+	kit.getSecondParse = function(date) {
+		return Date.parse(date || new Date())/1000;
+	}
+	
+
+		/**
+	 * 百分化
+	 * @total :转换目标
+	 * @num : 转换后的位数
+	 * @signFlag : 百分号标志
+	 */
+	kit.percent = function(total, num,signFlag) {
 		total = total * 100
 		if (Number.isNaN(total)) {
 			total = 0
 		}
-		return signFlag ?Number(total.toFixed(num || 0)) +"%" : Number(total.toFixed(num || 0)) 
+		return signFlag ?Number(total.toFixed(num)) +"%" : Number(total.toFixed(num)) 
+	}
+
+
+	kit.sum = function(arr) {
+         var sum = _.reduce(arr, function(memo, num){ return memo + num; }, 0)
+		return  sum;
 	}
 	
-	// 两个时间之间的间隔天数 ,还没写完
-	kit.betweenTwoTimes = function() {
-			var m1 = moment('2018-08-14 11:00:00'),
-			m2 = moment('2018-08-14 12:10:00');
-			console.log(m1)
-			console.log(m2)
-			console.log(m2.diff(m1, 'minute'));
+	
+		kit.first = function(arr) {
+			return arr[0] || {};
 		}
+	
+
 
 
 

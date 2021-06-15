@@ -6,6 +6,14 @@ const { Console } = require('console')
 const publicPath = ''
 
 var time = new Date();
+var date = new Date(1398250549490);
+Y = date.getFullYear() + '-';
+M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+D = date.getDate() + ' ';
+h = date.getHours() + ':';
+m = date.getMinutes() + ':';
+s = date.getSeconds(); 
+// console.log(Y+M+D+h+m+s); 
 var fileName = (time.getMonth() + 1)  + "-" +  time.getDate() + "_" + time.getHours() + "." + time.getMinutes()
 
 console.log(process.env.NODE_ENV)  // development
@@ -72,12 +80,20 @@ module.exports = (options = {}) => ({
       template: 'src/index.html',
       favicon: resolve('src/images/assets/favicon.ico'),
     }),
+    // //打包时清除页面中所有打印及debugger断点
+    // new webpack.optimize.UglifyJsPlugin({
+    //       compress: {
+    //             warnings: false,
+    //             drop_debugger: true,
+    //             drop_console: true
+    //       }
+    // }),
     new webpack.DefinePlugin({
       'process.env': {
         aaa: 123,
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
         TYPE: JSON.stringify(process.env.NODE_ENV),
-        // DATE: JSON.stringify(new Date())
+        DATE: JSON.stringify(Y+M+D+h+m+s)
       }
     }),
   ],

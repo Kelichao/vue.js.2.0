@@ -732,11 +732,11 @@
    justify-content: space-around; /* 均衡居中  */
 }
 
-.f-jcs {
+.f-jcfs {
     justify-content: flex-start;/*横向上的对齐方式-靠左*/
 }
 
-.f-jce {
+.f-jcfe {
     justify-content: flex-end;/*横向上的对齐方式-靠右*/
 }
 
