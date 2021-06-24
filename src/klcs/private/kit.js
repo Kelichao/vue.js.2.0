@@ -1800,7 +1800,9 @@
     kit.average = function(arr, length, flag) {
         var leng = 0;
         var sum = _.reduce(arr, function(memo, num) {
-            if (typeof num === "string") {
+
+            // 防止 "123" 这种情况
+            if (["number", "string"].includes(typeof num)) {
                 num = Number(num);
                 flag && leng++
                     if (isNaN(num)) {
@@ -1812,9 +1814,10 @@
             }
             return memo + num;
         }, 0)
-
+        console.log(arr, leng)
         return Number((sum / (leng || 1)).toFixed(length || 0));
     }
+
 
 
 
