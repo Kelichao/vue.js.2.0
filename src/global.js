@@ -6,7 +6,13 @@ import kit from "@/klcs/index.js" ;
 import util from "@/js/util"
 import klcs from "klcs"// node_modules版本,测试代码
 
+// // 导出pdf
+// import html2Canvas from 'html2canvas'
+// import JsPDF from 'jspdf'
 
+
+// window.html2Canvas = html2Canvas;
+// window.JsPDF = JsPDF;
 
 
 window.klcs = klcs

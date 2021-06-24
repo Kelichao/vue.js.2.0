@@ -390,7 +390,55 @@ util.paintBar = function (options = {
   }
 }
 
+util.pdfExport = function(dom = null, name) {
+    if (!dom) return
+    dom.style.background = "#FFFFFF";
+    // scale = !scale ? 2 : scale;
+    // // allowTaint: true 表示允许跨越的图片
+    html2Canvas(dom, { allowTaint: true }).then((canvas) => {
+        // console.log('canvas',canvas)
+        // const contentWidth = canvas.width / scale
+        // const contentHeight = canvas.height / scale
+        // const PDF = new JsPDF(undefined, 'pt', [contentWidth, contentHeight])
+        // const pageData = canvas.toDataURL('image/jpeg', 1.0)
+        // PDF.addImage(pageData, 'JPEG', 0, 0, contentWidth, contentHeight)
+        // PDF.save(name + '.pdf') // 调用save方法生成pdf文件
 
+        const pageWidth = 700
+        const pageHeight = 892.28
+        // 设置内容的宽高
+        const contentWidth = canvas.width
+        const contentHeight = canvas.height
+        // 默认的偏移量
+        let position = 0
+        // 设置生成图片的宽高
+        const imgCanvasWidth = pageWidth
+        const imgCanvasHeight = (592.28 / contentWidth) * contentHeight
+        let imageHeight = imgCanvasHeight
+        // 生成canvas截图，1表示生成的截图质量（0-1）
+        const pageData = canvas.toDataURL('image/jpeg', 1)
+        // new JsPDF接收三个参数，landscape表示横向，（默认不填是纵向），打印单位和纸张尺寸
+        const PDF = new JsPDF('landscape', 'pt', 'a4')
+        // 当内容不超过a4纸一页的情况下
+        if (imageHeight < pageHeight) {
+            PDF.addImage(pageData, 'JPEG', 20, 20, imgCanvasWidth, imgCanvasHeight)
+        } else {
+            // 当内容超过a4纸一页的情况下，需要增加一页
+            while (imageHeight > 0) {
+                PDF.addImage(pageData, 'JPEG', 20, position, imgCanvasWidth, imgCanvasHeight)
+                imageHeight -= pageHeight
+                position -= pageHeight
+                // 避免添加空白页
+                if (imageHeight > 0) {
+                    PDF.addPage()
+                }
+            }
+        }
+        // 调用save方法生成pdf文件
+        PDF.save(name + '.pdf')
+
+    })
+}
 
 
 

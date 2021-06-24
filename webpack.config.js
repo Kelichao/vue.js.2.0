@@ -39,7 +39,7 @@ module.exports = (options = {}) => ({
     {
       test: /\.js$/,
       use: ['babel-loader'],
-      // include:[/src/],
+      include:[/src/],
       // 排除node_modules编译
       // \\ for Windows, \/ for Mac OS and Linux
       exclude: [
