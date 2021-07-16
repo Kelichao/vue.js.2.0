@@ -5,6 +5,7 @@
         
         <el-select
         size="mini"
+        clearable
           v-if="item.type == 'select'"
           :key="index"
           v-model="item.value"
@@ -31,6 +32,8 @@
 
         <el-date-picker
         size="mini"
+        start-placeholder="开始日期"
+        end-placeholder="结束日期"
           style="margin-right:6px;"
           :format="item.format"
           :value-format="item.valueFormat"

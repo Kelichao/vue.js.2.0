@@ -80,7 +80,7 @@ if (typeof jQuery !== "undefined" && typeof saveAs !== "undefined") {
             const blob = new Blob([fileContent], {
                 type: "application/msword;charset=utf-8"
             });
-            saveAs(blob, fileName + ".docx");
+            saveAs(blob, fileName + ".doc"); // 必须要用doc,如果是docx则微软word无法打开
         };
     })(jQuery);
 } else {

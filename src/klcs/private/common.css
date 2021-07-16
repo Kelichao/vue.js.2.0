@@ -1086,7 +1086,49 @@
 .f-mh36r{min-height:36rem}
 .f-mh37r{min-height:37rem}
 
+.f-wbba {
+    word-break:break-all;/*只对英文起作用，以字母作为换行依据 */
+}
 
+.f-wwbw {
+    word-wrap:break-word; /*只对英文起作用，以单词作为换行依据*/
+}
+
+.f-wspw {
+    white-space:pre-wrap; 
+    /* 只对中文起作用，强制换行 */
+}
+
+.f-wsn {
+    white-space:nowrap;   /* 强制不换行，都起作用 */
+}
+
+/* 49、解决vertical-align属性不生效
+
+在使用vertical-align:middle实现垂直居中的时候，经常会发现不生效的情况。这里需要注意它生效需要满足的条件：
+
+作用环境：父元素设置line-height。需要和height一致。或者将display属性设置为table-cell，将块元素转化为单元格。
+作用对象：子元素中的inline-block和inline元素。
+<div class="box">
+  <img src=".\test.jpg"/>
+  <span>内部文字</span>
+</div>
+<style>
+.box{
+  width:300px; 
+  line-height: 300px;
+  font-size: 16px; 
+}
+.box img{
+  width: 30px; 
+  height:30px; 
+  vertical-align:middle
+}
+.box span{
+  vertical-align:middle
+}
+</style>
+PS：vertical-align不可继承，必须对子元素单独设置。同时需要注意的是line-height的高度基于font-size（即字体的高度），如果文字要转行会出现异常哦。 */
 
 /* 
 如果有下列代码：
@@ -1106,5 +1148,9 @@
     }
 
 原理未知。该方法参考自新华网的一个项目：《45名日本战犯侵华罪行自供》
+
+
+
+
 
 */
