@@ -107,9 +107,9 @@ module.exports = (options = {}) => ({
   },
   devServer: {
     // host: '127.0.0.1',
-    port: 8011,
+    port: 8012,
     disableHostCheck: true,
-    public: "localhost:8011",
+    public: "localhost:8012",
     host: '0.0.0.0',
     proxy: {
       '/api/': {

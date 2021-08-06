@@ -1,7 +1,7 @@
 ## Develop
 
 ``` bash
-# 启动服务在 localhost:8011
+# 启动服务在 localhost:8012
 npm start
 
 #进行测试环境打包，打包配置通过test获取，位于config
