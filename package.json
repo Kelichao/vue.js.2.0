@@ -19,7 +19,7 @@
     "leaflet": "^1.7.1",
     "less": "3.9",
     "less-loader": "5.0.0",
-    "moment": "^2.27.0",
+    "moment": "^2.29.2",
     "pug": "^3.0.0",
     "swiper": "^6.1.2",
     "underscore": "^1.10.2",
