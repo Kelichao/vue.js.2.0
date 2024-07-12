@@ -1,711 +1,1131 @@
 <template>
-  <div class="container f-df f-fdc">
-    <div class=" f-df">
-      <div class="f-f1 f-jcfs f-aic f-df f-fs16">执法记录管理</div>
-      <div class="f-f1 f-jcfe f-aic f-df">
-        <el-button size="mini" type="primary" @click="fpiExport">导出</el-button
-        ><el-button type="danger" size="mini" @click="deles"
-          >删除所选</el-button
-        >
-      </div>
+  <div>
+    <div class="operation-diagram" style="background:gray">
+      <canvas ref="canvas" id="myCanvas" width="1319" height="314">Your browsing is not compatible with
+        this.canvas</canvas>
     </div>
-
-    <div>
-      <el-divider></el-divider>
-    </div>
-
-    <!-- 表格组件开始 -->
-    <tabs
-      ref="tab"
-      :total="item.total"
-      :table-data="item.tableData"
-      :table-item="item.tableItem"
-      :form-item="item.formItem"
-      v-on:selectionChange="selectionChange"
-      :callback="callback"
-    >
-      <!-- 表单插槽 -->
-      <template slot="form" slot-scope="scope">
-        <el-input
-          size="mini"
-          v-if="scope.data.type == 1"
-          style="width: 200px"
-          v-model="scope.data.value"
-        ></el-input>
-      </template>
-
-      <!-- 表格体插槽 -->
-      <template slot="table" slot-scope="scope">
-        <!-- type为插槽类型 -->
-        <u-table-column label="操作" v-if="scope.data.type == 2">
-          <template slot-scope="scope">
-            <span
-              style="padding: 0 5px; background: rgba(255, 153, 2, 1);color: white;"
-              >{{ scope.row.statusStr }}</span
-            >
-          </template>
-        </u-table-column>
-
-        <u-table-column label="操作" v-if="scope.data.type == 3">
-          <template slot-scope="scope">
-            <el-button type="text" size="small" @click="edit(scope.row)"
-              >编辑</el-button
-            >
-            <el-button type="text" size="small" @click="dele(scope.row.id)"
-              >删除</el-button
-            >
-          </template>
-        </u-table-column>
-      </template>
-    </tabs>
-    <!-- 表格组件结束 -->
-
-    <el-dialog
-      title="执法内容编辑"
-      :visible.sync="dialogVisible"
-      width="1000px"
-      :before-close="handleClose"
-    >
-      <div>
-        <div class="head-line">检查记录</div>
-        <el-form ref="form" :model="form" label-width="140px">
-          <el-row :gutter="270">
-            <el-col :span="12">
-              <el-form-item label="执法人员">
-                <el-select v-model="form.userId">
-                  <el-option
-                    :key="index"
-                    v-for="(item, index) in userData"
-                    :label="item.name"
-                    :value="item.id"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="同行执法人员">
-                <el-select v-model="form.userIdPeerArr" multiple>
-                  <el-option
-                    :key="index"
-                    v-for="(item, index) in userData"
-                    :label="item.name"
-                    :value="item.id"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-          </el-row>
-
-          <el-row :gutter="270">
-            <el-col :span="12">
-              <el-form-item label="企业名称">
-                <el-input v-model="form.companyName"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="检查时间">
-                <el-date-picker
-                  v-model="form.checkTime"
-                  value-format="timestamp"
-                  type="datetime"
-                  placeholder="选择日期时间"
-                >
-                </el-date-picker>
-              </el-form-item>
-            </el-col>
-          </el-row>
-
-          <span :key="index" v-for="(list, index) in form.list">
-            <el-form-item label="需整改内容">
-              <el-input type="textarea" v-model="list.content"></el-input>
-            </el-form-item>
-
-            <el-row :gutter="270">
-              <el-col :span="12">
-                <el-form-item label="隐患类型">
-                  <el-select v-model="list.typeId" disabled>
-                    <el-option
-                      :key="item.id"
-                      v-for="item in item.formItem[2].options"
-                      :label="item.label"
-                      :value="item.value"
-                    ></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="复查日期">
-                  <el-date-picker
-                    v-model="list.reviewDate"
-                    type="datetime"
-                    value-format="timestamp"
-                    placeholder="选择日期时间"
-                  >
-                  </el-date-picker>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-form-item label="上传照片">
-                <el-upload
-                  :action="$$.ip + 'file-base-server/api/v1/sys/upload'"
-                  list-type="picture-card"
-                  :file-list="list.pictureArr"
-                  :on-change="
-                    (file, fileList) => {
-                      return handleChange(file, fileList, index);
-                    }
-                  "
-                  :on-remove="
-                    (file, fileList) => {
-                      return handleRemove(file, fileList, index);
-                    }
-                  "
-                >
-                  <i slot="default" class="el-icon-plus"></i>
-                </el-upload>
-                <!-- <el-dialog :visible.sync="dialogVisible">
-            <img width="100%" :src="dialogImageUrl" alt="" />
-          </el-dialog> -->
-              </el-form-item>
-            </el-row>
-          </span>
-
-          <el-form-item class="f-tac">
-            <el-button type="primary" @click="onSubmit">提交</el-button>
-            <el-button @click="dialogVisible = false">取消</el-button>
-          </el-form-item>
-        </el-form>
-
-        <div class="head-line">复查记录</div>
-        <el-form ref="form2Arr" label-width="140px">
-          <div v-for="(form2,index) in form2Arr" :key="index">
-            <span>{{moment(form2.checkTime).format("YYYY-MM-DD HH:MM")}}</span>
-            <el-row :gutter="270">
-              <el-col :span="12">
-                <el-form-item label="执法人员">
-                  <el-select v-model="form2.userId">
-                    <el-option
-                      :key="index"
-                      v-for="(item, index) in userData"
-                      :label="item.name"
-                      :value="item.id"
-                    ></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="同行执法人员">
-                  <el-select v-model="form2.userIdPeerArr" multiple>
-                    <el-option
-                      :key="index"
-                      v-for="(item, index) in userData"
-                      :label="item.name"
-                      :value="item.id"
-                    ></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row :gutter="270">
-              <!-- <el-col :span="12">
-                <el-form-item label="企业名称">
-                  <el-input v-model="form2.companyName"></el-input>
-                </el-form-item>
-              </el-col> -->
-              <!-- <el-col :span="12">
-                <el-form-item label="检查时间">
-                  <el-date-picker
-                    v-model="form2.checkTime"
-                    value-format="timestamp"
-                    type="datetime"
-                    placeholder="选择日期时间"
-                  >
-                  </el-date-picker>
-                </el-form-item>
-              </el-col> -->
-            </el-row>
-
-            <span :key="index" v-for="(list, index) in form2.list">
-              <el-form-item label="整改情况">
-                <el-input type="textarea" v-model="list.content"></el-input>
-              </el-form-item>
-
-              <el-row :gutter="270">
-                <el-col :span="12">
-                  <el-form-item label="隐患类型">
-                    <el-select v-model="list.typeId" disabled>
-                      <el-option
-                        :key="item.id"
-                        v-for="item in item.formItem[2].options"
-                        :label="item.label"
-                        :value="item.value"
-                      ></el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="12">
-                  <el-form-item label="复查日期">
-                    <el-date-picker
-                      v-model="list.reviewDate"
-                      type="datetime"
-                      value-format="timestamp"
-                      placeholder="选择日期时间"
-                    >
-                    </el-date-picker>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
-                <el-form-item label="上传照片">
-                  <el-upload
-                    :action="$$.ip + 'file-base-server/api/v1/sys/upload'"
-                    list-type="picture-card"
-                    :file-list="list.pictureArr"
-                    :on-change="
-                      (file, fileList) => {
-                        return handleChange(file, fileList, index);
-                      }
-                    "
-                    :on-remove="
-                      (file, fileList) => {
-                        return handleRemove(file, fileList, index);
-                      }
-                    "
-                  >
-                    <i slot="default" class="el-icon-plus"></i>
-                  </el-upload>
-                  <!-- <el-dialog :visible.sync="dialogVisible">
-            <img width="100%" :src="dialogImageUrl" alt="" />
-          </el-dialog> -->
-                </el-form-item>
-              </el-row>
-            </span>
-          </div>
-
-          <el-form-item class="f-tac">
-            <el-button type="primary" @click="onSubmit2">提交</el-button>
-            <el-button @click="dialogVisible = false">取消</el-button>
-          </el-form-item>
-        </el-form>
-      </div>
-    </el-dialog>
   </div>
 </template>
 
 <script>
-  import tabs from "@/components/tabs/index";
-  import { Message } from "element-ui";
+var M = 37
+var  N = 37
+var  A = 817
+var  h = 817
+var  H = 817
+var  O = 817
+var  j = 37
+var  W = 37
+var  q = 37
+var  B = 37
+var  k = 53
+var  G = 53
 
-  var defaults = {
-    checkTime: "",
-    companyCode: "",
-    companyName: "",
-    userIdPeerArr: [],
-    // 下面一整个部分的数组  隐患类型,复查日期,上传照片
-    list: [{},{},{}
-      // {id: "79", recordId: 40, typeId: "warn", typeName: "安全警示标语", content: "需要整改内容", picture: "12,13"},
-      //             {id: "79", recordId: 40, typeId: "warn", typeName: "安全警示标语", content: "需要整改内容", picture: "12,13"}
-    ],
-    processStatus: 1,
-    recordId: null,
-    status: "0",
-    userId: "",
-    userIdPeer: "",
-    userName: "",
-    userNamePeer: ""
-  };
-
-  // 生命周期
-  export default {
-    data() {
-      return {
-        fileList: [
-          // {name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}
-        ],
-        value1: "",
-        value2: "",
-        value3: "",
-        dialogImageUrl: "",
-        dialogVisible: false,
-        disabled: false,
-        ids: [],
-        dialogVisible: false,
-        userData: [],
-        form: {
-          ...defaults
-        },
-        // form2: {
-        //   ...defaults
-        // },
-        form2Arr: [{...defaults},{...defaults},],
-        item: {
-          total: 0,
-
-          // 表单配置项
-          formItem: [
-            {
-              type: "pick",
-              timeType: "datetimerange", // week, day month
-              placeholder: "年份",
-              // format: "timestamp",
-              valueFormat: "timestamp",
-              value: "",
-              key: ["beginTime", "endTime"]
-            },
-            {
-              type: "select",
-              value: "",
-              placeholder: "全部企业",
-              key: "companyCode",
-              options: []
-            },
-            {
-              type: "select",
-              value: "",
-              key: "typeId",
-              placeholder: "全部隐患类型",
-              options: []
-            },
-            {
-              type: "select",
-              value: "",
-              key: "userId",
-              placeholder: "全部执法人员",
-              options: []
-            },
-            {
-              type: "select",
-              key: "status",
-              value: "",
-              placeholder: "全部状态",
-              options: [
-                {
-                  value: "0",
-                  label: "待复查"
-                },
-                {
-                  value: "1",
-                  label: "完成"
-                }
-              ]
-            }
-          ],
-          tableItem: [
-            { prop: "companyName", label: "企业名称" },
-            { prop: "checkTime", label: "检查时间" },
-            { prop: "troubleTypeName", label: "隐患类型" },
-            { prop: "userName", label: "执法人员" },
-            { prop: "statusStr", label: "状态", type: 2 },
-            { prop: "", label: "操作", type: 3 }
-          ],
-          tableData: []
-        }
-      };
-    },
-    mounted() {
-      // console.log(this.$refs.tab.searchObj)
-      this.defaultGetData();
-
-      util.ajax({
-        url: "/api/v1/law-enforce/pc/company/list",
-        success: resp => {
-          this.item.formItem[1].options = resp.data.map(value => {
-            return {
-              value: value.id,
-              label: value.name
-            };
-          });
-        }
-      });
-
-      util.ajax({
-        url: "/api/v1/law-enforce/hidden-trouble/list",
-        success: resp => {
-          this.item.formItem[2].options = resp.data.map(value => {
-            return {
-              value: value.id,
-              label: value.name
-            };
-          });
-        }
-      });
-
-      util.ajax({
-        url: "/api/v1/law-enforce/pc/user/list",
-        success: resp => {
-          this.item.formItem[3].options = resp.data.map(value => {
-            return {
-              value: value.id,
-              label: value.name
-            };
-          });
-        }
-      });
-
-      util
-        .ajax({
-          url: "/api/v1/law-enforce/pc/user/list"
-        })
-        .then(resp => {
-          this.userData = resp.data;
-        });
-    },
-    components: { tabs },
-    watch: {
-      //     "form.userIdPeerArr": {
-      //   handler(newVal, oldV) {
-      //     console.log(this.form);
-      //     this.form.userIdPeer = newVal
-      //   }
-      // }
-    },
-    methods: {
-      handleChange(file, fileList, index) {
-        console.log(fileList);
-        this.form.list[index].pictureArr = fileList;
-        // console.log(this.form.list[index])
-        // this.fileList = fileList.slice(-3);
+export default {
+  name: "",
+  components: {},
+  props: {
+    siteId: String
+  },
+  data: () => ({
+    canvas: null,
+    ctx: null,
+    info: {},
+    time: null,
+    ratio: 1
+  }),
+  watch: {
+    siteId: {
+      handler(e) {
+        e && this.getInfo(e), console.log(e);
       },
-      handleRemove(file, fileList, index) {
-        console.log(file, fileList);
-        this.form.list[index].pictureArr = fileList;
-      },
-      onSubmit() {
-        // 数据处理
-        this.form.userIdPeer = this.form.userIdPeerArr.join(",");
-        this.form.list.forEach(value => {
-          var arr = value.pictureArr.map(value => {
-            var total;
-            // 如果是上传返回的
-            total = value.response[0].ID;
-            return total;
-          });
-          value.picture = arr.join(",");
-        });
-
-        util.ajax({
-          url: "/api/v1/law-enforce/pc/main/update",
-          type: "post",
-          processData: false,
-          contentType: "application/json;charset=UTF-8",
-          data: JSON.stringify({
-            ...this.form
-          }),
-          success: resp => {
-            if (resp.message == "成功！") {
-              this.$message({ message: "保存成功", type: "success" });
-              this.dialogVisible = false;
-            }
-          }
-        });
-      },
-      onSubmit2() {
-        // 数据处理
-        this.form2Arr.forEach((form2) => {
-          form2.userIdPeer = form2.userIdPeerArr.join(",");
-          form2.list.forEach(value => {
-            var arr = value.pictureArr.map(value => {
-              var total;
-              // 如果是上传返回的
-              total = value.response[0].ID;
-              return total;
-            });
-            value.picture = arr.join(",");
-          });
-        })
-        
-
-        util.ajax({
-          url: "/api/v1/law-enforce/pc/review/update",
-          type: "post",
-          processData: false,
-          contentType: "application/json;charset=UTF-8",
-          data: JSON.stringify(this.form2Arr),
-          success: resp => {
-            if (resp.message == "成功！") {
-              this.$message({ message: "保存成功", type: "success" });
-              this.dialogVisible = false;
-            }
-          }
-        });
-      },
-      handleClose(done) {
-        done();
-      },
-      selectionChange(val) {
-        console.log(val);
-        var ids = kit._.pluck(val, "id");
-        this.ids = ids;
-        // this.deles(ids)
-      },
-      callback(page, pageSize, searchObj) {
-        // 触发请求
-        this.$getData({
-          ...searchObj,
-          // beginTime// 时间戳开始
-          // endTime// 时间戳
-          offset: page - 1,
-          limit: pageSize
-        });
-      },
-      defaultGetData() {
-        // console.log(this.$refs.tab.page)
-        this.callback(
-          this.$refs.tab.nowPage,
-          this.$refs.tab.pageSize,
-          this.$refs.tab.searchObj
-        );
-      },
-
-      deles(ids) {
-        if (!this.ids.length) {
-          return;
-        }
-        // console.log(data.id);
-        util.ajax({
-          url: "/api/v1/law-enforce/pc/delete",
-          type: "post",
-          contentType: "application/json;charset=UTF-8",
-          processData: false,
-          data: JSON.stringify(this.ids),
-          success: () => {
-            this.defaultGetData();
-            Message({
-              message: "删除成功",
-              type: "success"
-            });
-          }
-        });
-      },
-      // ids = 12, ids= "1,23,45"
-      dele(id) {
-        // console.log(data.id);
-        util.ajax({
-          url: "/api/v1/law-enforce/pc/delete",
-          type: "post",
-          contentType: "application/json;charset=UTF-8",
-          processData: false,
-          data: JSON.stringify(id.split(",")),
-          success: () => {
-            this.defaultGetData();
-            Message({
-              message: "删除成功",
-              type: "success"
-            });
-          }
-        });
-      },
-
-      fpiExport: function(arr, fileName, tHeader) {
-        // kit.fpiExport(this.item.tableData,"执法记录管理",);
-
-        kit.fpiExport(this.item.tableData, "执法记录管理", this.item.tableItem);
-      },
-
-      edit(data) {
-       
-   
-        this.form = { ...defaults };
-
-        util
-          .ajax({
-            url: "/api/v1/law-enforce/info/" + data.id
-          })
-          .then(resp => {
-             this.dialogVisible = true;
-             
-            // 检查记录数据处理
-            $.extend(this.form, resp.data.main);
-            this.form.typeId = kit._.pluck(this.form.list, "typeId");
-            this.form.userIdPeerArr =
-              (this.form.userIdPeer && this.form.userIdPeer.split(",")) || [];
-            this.form.list.forEach(value => {
-              var arr = (value.picture.length && value.picture.split(",")) || [];
-
-              value.pictureArr =
-                arr.map(value => {
-                  // 442bde3a3a7546f5b5a57a5800908c97
-                  return {
-                    url: $$.ip + "file-base-server/api/v1/sys/download/" + value, // 用于显示远程图片
-                    response: [{ ID: value }] // 为了与后台保持一致,记录ID,方便提交.
-                  };
-                }) || [];
-            });
-
-            // 复查记录数据处理
-            // $.extend(true,this.form2Arr, resp.data.review);
-            resp.data.review.forEach((value,index) => {
-              $.extend(this.form2Arr[index],value)
-            })
-            // this.form2Arr.push();
-            this.form2Arr.forEach(form2 => {
-              form2.typeId = kit._.pluck(form2.list, "typeId");
-              form2.userIdPeerArr =
-                (form2.userIdPeer && form2.userIdPeer.split(",")) || [];
-              form2.list.forEach(value => {
-                var arr =
-                  (value.picture && value.picture.length && value.picture.split(",")) || [];
-
-                value.pictureArr =
-                  arr.map(value => {
-                    // 442bde3a3a7546f5b5a57a5800908c97
-                    return {
-                      url:
-                        $$.ip + "file-base-server/api/v1/sys/download/" + value, // 用于显示远程图片
-                      response: [{ ID: value }] // 为了与后台保持一致,记录ID,方便提交.
-                    };
-                  }) || [];
-              });
-            });
-          });
-      },
-      $getData(searchObj) {
-        util.ajax({
-          url: "api/v1/law-enforce/pc/list",
-          data: {
-            ...searchObj
-          },
-          success: resp => {
-            this.item.tableData = resp.data.entries;
-            this.item.total = resp.data.total;
-          }
-        });
-      }
+      immediate: !0
     }
-  };
+  },
+  destroyed() {
+    clearTimeout(this.time), (this.time = null), this.ctx.clearRect(
+      0,
+      0,
+      this.canvas.width,
+      this.canvas.height
+    ), console.log(
+      "destroyed...",
+      this.ctx
+    ), (this.canvas = null), (this.info = {}), (this.ctx = null), (M = 37), (N = 37), (A = 817), (h = 817), (H = 817), (O = 817), (j = 37), (W = 37), (q = 37), (B = 37), (k = 53), (G = 53);
+  },
+  mounted() {
+    (this.canvas = document.getElementById(
+      "myCanvas"
+    )), (this.ctx = this.canvas.getContext("2d"));
+    var e = this.$refs.canvas.offsetWidth;
+    (this.canvas.width = e), (this.ratio = 866 / e), (A =
+      817 / this.ratio), (h = 817 / this.ratio), (H = 817 / this.ratio), (O =
+        817 / this.ratio);
+
+    this.getInfo()
+  },
+  methods: {
+    async getInfo(e) {
+      // e = (await Object(b.Ab)({
+      //   siteId: e
+      // })).data;
+      e = {}
+      var {
+        pvCacp: a,
+        countOfInveter: t,
+        powerOfPV: m,
+        elecOfPVInveter: n,
+        elecOfPVMeter: o,
+        elecOfPVOnGrid: s,
+        elecOfPVOffGrid: S,
+        powerOfEs: r,
+        esCacp: i,
+        soc: x,
+        energyOfEsCharge: L,
+        energyOfEsRelease: l,
+        loadElec: p
+      } = e;
+      (this.info = {
+        ...e,
+        pvCacp: Number(Number(a).toFixed(2)) || "0",
+        countOfInveter: Number(Number(t).toFixed(2)) || "0",
+        powerOfPV: Number((Number(m) / 1e3).toFixed(2)) || "2",
+        powerOfEs: Number((Number(r) / 1e3).toFixed(2)) || "0",
+        elecOfPVInveter: Number(Number(n).toFixed(2)) || "0",
+        elecOfPVMeter: Number(Number(o).toFixed(2)) || "0",
+        elecOfPVOnGrid: Number(Number(s).toFixed(2)) || "0",
+        elecOfPVOffGrid: Number(Number(S).toFixed(2)) || "0",
+        esCacp: Number(Number(i).toFixed(2)) || "0",
+        soc: Number(Number(x).toFixed(2)) || "0",
+        energyOfEsCharge: Number(Number(L).toFixed(2)) || "0",
+        energyOfEsRelease: Number(Number(l).toFixed(2)) || "0",
+        loadElec: Number(Number(p).toFixed(2)) || "0"
+      }), this.setTimeoutFunc();
+    },
+    setTimeoutFunc() {
+      this.time = setTimeout(() => {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        var e,
+          {
+            projectType: a,
+            powerOfPV: t,
+            countOfGateMeter: m,
+            onGridType: n,
+            gridReal: o,
+            powerOfEs: s
+          } = this.info;
+        switch (a) {
+          case "01":
+            "02" === n &&
+              0.2 < Number(t) &&
+              (
+                N <= 817 / this.ratio && N++,
+                M <= 817 / this.ratio &&
+                (70 <= N - M || N >= 817 / this.ratio) &&
+                M++,
+                N >= 817 / this.ratio
+              ) &&
+              M >= 817 / this.ratio &&
+              ((N = 37), (M = 37)), "03" === n &&
+              (
+                0.2 < Number(t) &&
+                (
+                  (e = 683 / this.ratio + 157),
+                  W <= e && W++,
+                  j <= e && (70 <= W - j || W >= e) && j++,
+                  W >= e
+                ) &&
+                j >= e &&
+                ((W = 37), (j = 37)),
+                0 < Number(m)
+              ) &&
+              (
+                0 < Number(o) &&
+                (
+                  N <= 817 / this.ratio && N++,
+                  M <= 817 / this.ratio &&
+                  (70 <= N - M || N >= 817 / this.ratio) &&
+                  M++,
+                  N >= 817 / this.ratio
+                ) &&
+                M >= 817 / this.ratio &&
+                ((N = 37), (M = 37)),
+                Number(o) < 0
+              ) &&
+              (
+                (e = 576 / this.ratio * 2 - 137 - 703 / this.ratio),
+                h >= e && h--,
+                A >= e && (70 <= A - h || h <= e) && A--,
+                h <= e
+              ) &&
+              A <= e &&
+              ((h = 817 / this.ratio), (A = 817 / this.ratio));
+            break;
+          case "02":
+            2 < Number(s) &&
+              (
+                (e = 683 / this.ratio + 157),
+                W <= e && W++,
+                j <= e && (70 <= W - j || W >= e) && j++,
+                W >= e
+              ) &&
+              j >= e &&
+              ((W = 37), (j = 37)), Number(s) < -2 &&
+              (
+                58 <= O && O--,
+                58 <= H && (70 <= H - O || O <= 58) && H--,
+                O <= 58
+              ) &&
+              H <= 58 &&
+              ((O = 817 / this.ratio), (H = 817 / this.ratio)), (2 <
+                Number(s) ||
+                Number(s) < -2) &&
+              (
+                (e = 576 / this.ratio * 2 - 137 - 703 / this.ratio),
+                h >= e && h--,
+                A >= e && (70 <= A - h || h <= e) && A--,
+                h <= e
+              ) &&
+              A <= e &&
+              ((h = 817 / this.ratio), (A = 817 / this.ratio));
+            break;
+          default:
+            0.2 < Number(t) &&
+              (
+                (e = 683 / this.ratio + 157),
+                W <= e && W++,
+                j <= e && (70 <= W - j || W >= e) && j++,
+                W >= e
+              ) &&
+              j >= e &&
+              ((W = 37), (j = 37)), 0 < Number(m) &&
+              (
+                0 < Number(o) &&
+                (
+                  N <= 817 / this.ratio && N++,
+                  M <= 817 / this.ratio &&
+                  (70 <= N - M || N >= 817 / this.ratio) &&
+                  M++,
+                  N >= 817 / this.ratio
+                ) &&
+                M >= 817 / this.ratio &&
+                ((N = 37), (M = 37)),
+                Number(o) < 0
+              ) &&
+              (
+                (e = 576 / this.ratio * 2 - 137 - 703 / this.ratio),
+                h >= e && h--,
+                A >= e && (70 <= A - h || h <= e) && A--,
+                h <= e
+              ) &&
+              A <= e &&
+              ((h = 817 / this.ratio), (A = 817 / this.ratio)), 2 <
+              Number(s) &&
+              (
+                (e = 560 / this.ratio + 140),
+                q <= e && q++,
+                B <= e && (70 <= q - B || q >= e) && B++,
+                q >= e
+              ) &&
+              B >= e &&
+              ((q = 37), (B = 37)), Number(s) < -2 &&
+              (
+                (e = 123 + 560 / this.ratio),
+                k <= e && k++,
+                G <= e && (70 <= k - G || k >= e) && G++,
+                k >= e
+              ) &&
+              G >= e &&
+              ((k = 53), (G = 53));
+        }
+        "{}" !== JSON.stringify(this.info) && this.initDraw(), clearTimeout(
+          this.time
+        ), this.time && this.setTimeoutFunc();
+      }, 1);
+    },
+    initDraw() {
+      var {
+        projectType: e,
+        pvCacp: a,
+        onGridType: t,
+        countOfInveter: m,
+        powerOfPV: n,
+        elecOfPVInveter: o,
+        elecOfPVMeter: s,
+        countOfGridMeter: S,
+        countOfGateMeter: r,
+        elecOfPVOnGrid: b,
+        elecOfPVOffGrid: i,
+        gridReal: x,
+        loadElec: L,
+        soc: l,
+        esCacp: p,
+        countOfPcs: c,
+        countOfEsMeter: f,
+        powerOfEs: d,
+        energyOfEsCharge: T,
+        energyOfEsRelease: u
+      } = this.info;
+      switch (((this.canvas.height = 314), this.dashedStroke(), e)) {
+        case "01":
+          ("02" !== t && t) ||
+            (
+              (this.canvas.height = 150),
+              this.dashedStroke()
+            ), this.BMSToLoadDraw(), this.powerToLoadLineDraw(), this.lineTranslateDraw(), this.circleDraw(
+              70,
+              53,
+              "1"
+            ), this.circleDraw(201 / this.ratio, 53, "2"), this.textDraw(
+              "default.text.elecPower",
+              279 / this.ratio,
+              43,
+              !1
+            ), this.textDraw(o + "kWh", 279 / this.ratio, 73, !1), Number(S) &&
+            (
+              this.circleDraw(357 / this.ratio, 53, "3"),
+              this.textDraw(
+                "pvcp.param.gridConnectedTable",
+                357 / this.ratio,
+                104,
+                !0
+              ),
+              this.textDraw(
+                "default.text.elecPower",
+                468.5 / this.ratio,
+                43,
+                !1
+              ),
+              this.textDraw(s + "kWh", 468.5 / this.ratio, 73, !1)
+            ), this.circleDraw(817 / this.ratio, 53, "5"), "03" === t &&
+            (
+              this.dashedFH(),
+              this.circleDraw(703 / this.ratio, 190, "9"),
+              this.textDraw(
+                "pvcp.label.load",
+                703 / this.ratio,
+                241,
+                !0
+              ),
+              Number(r)
+            ) &&
+            (
+              this.circleDraw(703 / this.ratio, 53, "4"),
+              this.textDraw(
+                "pvcp.text.internetWatch",
+                703 / this.ratio,
+                104,
+                !0
+              ),
+              this.textDraw(
+                "pvcp.text.photovoltaicElectricityConsumption",
+                633 / this.ratio,
+                180,
+                !1
+              ),
+              this.textDraw(L + "kWh", 633 / this.ratio, 210, !1),
+              this.textDraw(
+                "pvcp.label.onGridElectricity",
+                633 / this.ratio,
+                23,
+                !1
+              ),
+              this.textDraw(b + "kWh", 633 / this.ratio, 43, !1),
+              this.textDraw(
+                "pvcp.field.off-ridEnergy",
+                633 / this.ratio,
+                78,
+                !1
+              ),
+              this.textDraw(i + "kWh", 633 / this.ratio, 98, !1)
+            ), this.textDraw(
+              "pvcp.param.PVModule",
+              70,
+              104,
+              !0
+            ), this.textDraw(
+              "pvcp.label.capacity" + `：${a}kWp`,
+              70,
+              124,
+              !1
+            ), this.textDraw(
+              "pvcp.label.invertor" + `(${m})`,
+              201 / this.ratio,
+              104,
+              !0
+            ), this.textDraw(
+              "pvcp.label.activePower" + `：${n}kW`,
+              201 / this.ratio,
+              124,
+              !1
+            ), this.textDraw(
+              "pvcp.label.powerGrid",
+              817 / this.ratio,
+              104,
+              !0
+            );
+          break;
+        case "02":
+          this.dashedFH(), 2 < Number(d) && this.BMSToLoadDraw(), Number(d) <
+            -2 && this.powerToBMSDraw(), (2 < Number(d) || Number(d) < -2) &&
+            this.powerToLoadLineDraw(), Number(f) &&
+            (
+              this.circleDraw(357 / this.ratio, 53, "8"),
+              this.textDraw(
+                "pvcp.text.energyStorageMeter",
+                357 / this.ratio,
+                104,
+                !0
+              ),
+              this.textDraw(
+                "default.text.chargePower",
+                465 / this.ratio,
+                33,
+                !1
+              ),
+              this.textDraw(T + "kWh", 465 / this.ratio, 48, !1),
+              this.textDraw(
+                "default.text.dischargePower",
+                465 / this.ratio,
+                68,
+                !1
+              ),
+              this.textDraw(u + "kWh", 465 / this.ratio, 83, !1)
+            ), this.circleDraw(817 / this.ratio, 53, "5"), this.textDraw(
+              "pvcp.label.powerGrid",
+              817 / this.ratio,
+              104,
+              !0
+            ), this.circleDraw(70, 53, "6"), this.circleDraw(
+              201 / this.ratio,
+              53,
+              "7"
+            ), this.circleDraw(703 / this.ratio, 190, "9"), this.textDraw(
+              "BMS",
+              70,
+              104,
+              !0
+            ), this.textDraw(
+              "pvcp.label.capacity" + `：${p}kWh`,
+              70,
+              124,
+              !1
+            ), this.textDraw(`SOC：${l}%`, 70, 144, !1), this.textDraw(
+              `PCS(${c})`,
+              201 / this.ratio,
+              104,
+              !0
+            ), this.textDraw(
+              "pvcp.label.energyStoragePower" + `：${d}kW`,
+              201 / this.ratio,
+              124,
+              !1
+            ), this.textDraw(
+              "pvcp.label.load",
+              703 / this.ratio,
+              241,
+              !0
+            );
+          break;
+        default:
+          this.dashedBMS(), this.dashedFH(), this.lineTranslateDraw(), this.BMSToLoadDraw(), this.powerToLoadLineDraw(), this.BMSToNodeDraw(), this.NodeToBMSDraw(), this.circleDraw(
+            70,
+            53,
+            "1"
+          ), this.circleDraw(201 / this.ratio, 53, "2"), this.textDraw(
+            "default.text.elecPower",
+            279 / this.ratio,
+            43,
+            !1
+          ), this.textDraw(o + "kWh", 279 / this.ratio, 573, !1), Number(S) &&
+            (
+              this.circleDraw(357 / this.ratio, 53, "3"),
+              this.textDraw(
+                "pvcp.param.gridConnectedTable",
+                357 / this.ratio,
+                104,
+                !0
+              ),
+              this.textDraw(
+                "default.text.elecPower",
+                468.5 / this.ratio,
+                43,
+                !1
+              ),
+              this.textDraw(s + "kWh", 468.5 / this.ratio, 73, !1)
+            ), Number(r) &&
+            (
+              this.circleDraw(703 / this.ratio, 53, "4"),
+              this.textDraw(
+                "pvcp.text.internetWatch",
+                703 / this.ratio,
+                104,
+                !0
+              ),
+              this.textDraw(
+                "pvcp.text.photovoltaicElectricityConsumption",
+                633 / this.ratio,
+                180,
+                !1
+              ),
+              this.textDraw(L + "kWh", 633 / this.ratio, 210, !1),
+              0 < Number(x) &&
+              (
+                this.textDraw(
+                  "pvcp.label.onGridElectricity",
+                  633 / this.ratio,
+                  43,
+                  !1
+                ),
+                this.textDraw(b + "kWh", 633 / this.ratio, 73, !1)
+              ),
+              Number(x) < 0
+            ) &&
+            (
+              this.textDraw(
+                "pvcp.field.off-ridEnergy",
+                633 / this.ratio,
+                43,
+                !1
+              ),
+              this.textDraw(i + "kWh", 633 / this.ratio, 73, !1)
+            ), this.circleDraw(817 / this.ratio, 53, "5"), this.circleDraw(
+              70,
+              193,
+              "6"
+            ), this.circleDraw(201 / this.ratio, 193, "7"), Number(f) &&
+            (
+              this.circleDraw(357 / this.ratio, 193, "8"),
+              this.textDraw(
+                "pvcp.text.energyStorageMeter",
+                357 / this.ratio,
+                244,
+                !0
+              ),
+              this.textDraw(
+                "default.text.chargePower",
+                465 / this.ratio,
+                163,
+                !1
+              ),
+              this.textDraw(T + "kWh", 465 / this.ratio, 183, !1),
+              this.textDraw(
+                "default.text.dischargePower",
+                465 / this.ratio,
+                213,
+                !1
+              ),
+              this.textDraw(u + "kWh", 465 / this.ratio, 233, !1)
+            ), this.circleDraw(703 / this.ratio, 190, "9"), this.textDraw(
+              "pvcp.param.PVModule",
+              70,
+              104,
+              !0
+            ), this.textDraw(
+              "pvcp.label.capacity" + `：${a}kWp`,
+              70,
+              124,
+              !1
+            ), this.textDraw(
+              "pvcp.label.invertor" + `(${m})`,
+              201 / this.ratio,
+              104,
+              !0
+            ), this.textDraw(
+              "pvcp.label.activePower" + `：${n}kW`,
+              201 / this.ratio,
+              124,
+              !1
+            ), this.textDraw(
+              "pvcp.label.powerGrid",
+              817 / this.ratio,
+              104,
+              !0
+            ), this.textDraw(
+              "pvcp.label.load",
+              703 / this.ratio,
+              241,
+              !0
+            ), this.textDraw("BMS", 70, 244, !0), this.textDraw(
+              "pvcp.label.capacity" + `：${p}kWh`,
+              70,
+              259,
+              !1
+            ), this.textDraw(`SOC:${l}%`, 70, 274, !1), this.textDraw(
+              `PCS(${c})`,
+              201 / this.ratio,
+              244,
+              !0
+            ), this.textDraw(
+              "pvcp.label.energyStoragePower" + `：${d}kW`,
+              201 / this.ratio,
+              259,
+              !1
+            );
+      }
+    },
+    dashedStroke() {
+      this.ctx.beginPath(), this.ctx.setLineDash([4, 2]), this.ctx.moveTo(
+        37,
+        53
+      ), this.ctx.lineTo(830 / this.ratio, 53), (this.ctx.strokeStyle =
+        "#c0c7d4"), this.ctx.stroke();
+    },
+    dashedBMS() {
+      this.ctx.beginPath(), this.ctx.setLineDash([4, 2]), this.ctx.moveTo(
+        37,
+        193
+      ), this.ctx.lineTo(560 / this.ratio, 193), this.ctx.lineTo(
+        560 / this.ratio,
+        53
+      ), (this.ctx.strokeStyle = "#c0c7d4"), this.ctx.stroke();
+    },
+    dashedFH() {
+      this.ctx.beginPath(), this.ctx.setLineDash([4, 2]), this.ctx.moveTo(
+        576 / this.ratio,
+        53
+      ), this.ctx.lineTo(576 / this.ratio, 190), this.ctx.lineTo(
+        703 / this.ratio,
+        190
+      ), (this.ctx.strokeStyle = "#c0c7d4"), this.ctx.stroke();
+    },
+    circleDraw(e, a, m) {
+      var n,
+        {
+          projectType: o,
+          onGridType: s,
+          powerOfPV: S,
+          countOfGateMeter: r,
+          gridReal: b,
+          soc: i,
+          powerOfEs: x
+        } = this.info;
+      this.ctx.beginPath(), (this.ctx.lineCap =
+        "none"), (this.ctx.shadowBlur = 0), (this.ctx.shadowOffsetY = 0), (this.ctx.lineWidth = 1), this.ctx.setLineDash(
+          [4, 2]
+        ), this.ctx.arc(
+          e,
+          a,
+          33,
+          0,
+          360,
+          !1
+        ), (this.ctx.fillStyle = this.themeChange() ? "#fff" : "#282F39");
+      let L = "#c0c7d4";
+      switch (o) {
+        case "01":
+          "02" === s &&
+            (
+              "1" === m &&
+              0.2 < Number(S) &&
+              (N <= 103 || M <= 103) &&
+              (L = "#FFD230"),
+              "2" === m &&
+              0.2 < Number(S) &&
+              ((N >= 201 / this.ratio - 33 && N <= 201 / this.ratio + 33) ||
+                (M >= 201 / this.ratio - 33 &&
+                  M <= 201 / this.ratio + 33)) &&
+              (L = "#FFD230"),
+              "3" === m &&
+              ((N >= 357 / this.ratio - 33 && N <= 357 / this.ratio + 33) ||
+                (M >= 357 / this.ratio - 33 &&
+                  M <= 357 / this.ratio + 33)) &&
+              (L = "#FFD230"),
+              "5" === m
+            ) &&
+            (N >= 784 / this.ratio || M >= 784 / this.ratio) &&
+            (L = "#FFD230"), "03" === s &&
+            (
+              0.2 < Number(S) &&
+              (
+                "1" === m && (W <= 103 || j <= 103) && (L = "#FFD230"),
+                "2" === m &&
+                ((W >= 201 / this.ratio - 33 &&
+                  W <= 201 / this.ratio + 33) ||
+                  (j >= 201 / this.ratio - 33 &&
+                    j <= 201 / this.ratio + 33)) &&
+                (L = "#FFD230"),
+                "3" === m &&
+                ((W >= 357 / this.ratio - 33 &&
+                  W <= 357 / this.ratio + 33) ||
+                  (j >= 357 / this.ratio - 33 &&
+                    j <= 357 / this.ratio + 33)) &&
+                (L = "#FFD230"),
+                (n = 683 / this.ratio + 157 - 33),
+                "9" === m
+              ) &&
+              (j >= n || W >= n) &&
+              (L = "#FFD230"),
+              0 < Number(r)
+            ) &&
+            (
+              0 < Number(b) &&
+              (
+                "1" === m && (N <= 103 || M <= 103) && (L = "#FFD230"),
+                "2" === m &&
+                ((N >= 201 / this.ratio - 33 &&
+                  N <= 201 / this.ratio + 33) ||
+                  (M >= 201 / this.ratio - 33 &&
+                    M <= 201 / this.ratio + 33)) &&
+                (L = "#FFD230"),
+                "3" === m &&
+                ((N >= 357 / this.ratio - 33 &&
+                  N <= 357 / this.ratio + 33) ||
+                  (M >= 357 / this.ratio - 33 &&
+                    M <= 357 / this.ratio + 33)) &&
+                (L = "#FFD230"),
+                "4" === m &&
+                ((N >= 703 / this.ratio - 33 &&
+                  N <= 703 / this.ratio + 33) ||
+                  (M >= 703 / this.ratio - 33 &&
+                    M <= 703 / this.ratio + 33)) &&
+                (L = "#FFD230"),
+                "5" === m
+              ) &&
+              (N >= 784 / this.ratio || M >= 784 / this.ratio) &&
+              (L = "#FFD230"),
+              Number(b) < 0
+            ) &&
+            (
+              "5" === m &&
+              (h >= 784 / this.ratio || A >= 784 / this.ratio) &&
+              (L = "#FFD230"),
+              "4" === m &&
+              ((h >= 703 / this.ratio - 33 && h <= 703 / this.ratio + 33) ||
+                (A >= 703 / this.ratio - 33 &&
+                  A <= 703 / this.ratio + 33)) &&
+              (L = "#FFD230"),
+              (n = 576 / this.ratio * 2 - 137 - 703 / this.ratio + 33),
+              "9" === m
+            ) &&
+            (h <= n || A <= n) &&
+            (L = "#FFD230");
+          break;
+        case "02":
+          2 < Number(x) &&
+            (
+              "6" === m && (W <= 103 || j <= 103) && (L = "#FFD230"),
+              "7" === m &&
+              ((W >= 201 / this.ratio - 33 && W <= 201 / this.ratio + 33) ||
+                (j >= 201 / this.ratio - 33 &&
+                  j <= 201 / this.ratio + 33)) &&
+              (L = "#FFD230"),
+              "8" === m &&
+              ((W >= 357 / this.ratio - 33 && W <= 357 / this.ratio + 33) ||
+                (j >= 357 / this.ratio - 33 &&
+                  j <= 357 / this.ratio + 33)) &&
+              (L = "#FFD230"),
+              (n = 683 / this.ratio + 157 - 33),
+              "9" === m
+            ) &&
+            (j >= n || W >= n) &&
+            (L = "#FFD230"), Number(x) < -2 &&
+            (
+              "6" === m && (O <= 103 || H <= 103) && (L = "#FFD230"),
+              "7" === m &&
+              ((O >= 201 / this.ratio - 33 && O <= 201 / this.ratio + 33) ||
+                (H >= 201 / this.ratio - 33 &&
+                  H <= 201 / this.ratio + 33)) &&
+              (L = "#FFD230"),
+              "8" === m &&
+              ((O >= 357 / this.ratio - 33 && O <= 357 / this.ratio + 33) ||
+                (H >= 357 / this.ratio - 33 &&
+                  H <= 357 / this.ratio + 33)) &&
+              (L = "#FFD230"),
+              "5" === m
+            ) &&
+            (O >= 784 / this.ratio || O >= 784 / this.ratio) &&
+            (L = "#FFD230"), (Number(x) < -2 || 2 < Number(x)) &&
+            (
+              "5" === m &&
+              (h >= 784 / this.ratio || A >= 784 / this.ratio) &&
+              (L = "#FFD230"),
+              "4" === m &&
+              ((h >= 703 / this.ratio - 33 && h <= 703 / this.ratio + 33) ||
+                (A >= 703 / this.ratio - 33 &&
+                  A <= 703 / this.ratio + 33)) &&
+              (L = "#FFD230"),
+              (n = 576 / this.ratio * 2 - 137 - 703 / this.ratio + 33),
+              "9" === m
+            ) &&
+            (h <= n || A <= n) &&
+            (L = "#FFD230");
+          break;
+        default:
+          0.2 < Number(S) &&
+            (
+              "1" === m && (W <= 103 || j <= 103) && (L = "#FFD230"),
+              "2" === m &&
+              ((W >= 201 / this.ratio - 33 && W <= 201 / this.ratio + 33) ||
+                (j >= 201 / this.ratio - 33 &&
+                  j <= 201 / this.ratio + 33)) &&
+              (L = "#FFD230"),
+              "3" === m &&
+              ((W >= 357 / this.ratio - 33 && W <= 357 / this.ratio + 33) ||
+                (j >= 357 / this.ratio - 33 &&
+                  j <= 357 / this.ratio + 33)) &&
+              (L = "#FFD230"),
+              (n = 683 / this.ratio + 157 - 33),
+              "9" === m
+            ) &&
+            (j >= n || W >= n) &&
+            (L = "#FFD230"), 0 < Number(r) &&
+            (
+              0 < Number(b) &&
+              (
+                "1" === m && (N <= 103 || M <= 103) && (L = "#FFD230"),
+                "2" === m &&
+                ((N >= 201 / this.ratio - 33 &&
+                  N <= 201 / this.ratio + 33) ||
+                  (M >= 201 / this.ratio - 33 &&
+                    M <= 201 / this.ratio + 33)) &&
+                (L = "#FFD230"),
+                "3" === m &&
+                ((N >= 357 / this.ratio - 33 &&
+                  N <= 357 / this.ratio + 33) ||
+                  (M >= 357 / this.ratio - 33 &&
+                    M <= 357 / this.ratio + 33)) &&
+                (L = "#FFD230"),
+                "4" === m &&
+                ((N >= 703 / this.ratio - 33 &&
+                  N <= 703 / this.ratio + 33) ||
+                  (M >= 703 / this.ratio - 33 &&
+                    M <= 703 / this.ratio + 33)) &&
+                (L = "#FFD230"),
+                "5" === m
+              ) &&
+              (N >= 784 / this.ratio || M >= 784 / this.ratio) &&
+              (L = "#FFD230"),
+              Number(b) < 0
+            ) &&
+            (
+              "5" === m &&
+              (h >= 784 / this.ratio || A >= 784 / this.ratio) &&
+              (L = "#FFD230"),
+              "4" === m &&
+              ((h >= 703 / this.ratio - 33 && h <= 703 / this.ratio + 33) ||
+                (A >= 703 / this.ratio - 33 &&
+                  A <= 703 / this.ratio + 33)) &&
+              (L = "#FFD230"),
+              (n = 576 / this.ratio * 2 - 137 - 703 / this.ratio + 33),
+              "9" === m
+            ) &&
+            (h <= n || A <= n) &&
+            (L = "#FFD230"), 2 < Number(x) &&
+            (
+              "6" === m && (q <= 103 || B <= 103) && (L = "#FFD230"),
+              "7" === m &&
+              ((q >= 201 / this.ratio - 33 && q <= 201 / this.ratio + 33) ||
+                (B >= 201 / this.ratio - 33 &&
+                  B <= 201 / this.ratio + 33)) &&
+              (L = "#FFD230"),
+              "8" === m
+            ) &&
+            ((q >= 357 / this.ratio - 33 && q <= 357 / this.ratio + 33) ||
+              (B >= 357 / this.ratio - 33 && B <= 357 / this.ratio + 33)) &&
+            (L = "#FFD230"), Number(x) < -2 &&
+            (
+              (n = 90 + 560 / this.ratio),
+              "6" === m && (k >= n || G >= n) && (L = "#FFD230"),
+              "7" === m &&
+              ((k >= 359 / this.ratio + 193 - 33 &&
+                k <= 359 / this.ratio + 193 + 33) ||
+                (G >= 359 / this.ratio + 193 - 33 &&
+                  G <= 359 / this.ratio + 193 + 33)) &&
+              (L = "#FFD230"),
+              "8" === m
+            ) &&
+            ((k >= 203 / this.ratio + 193 - 33 &&
+              k <= 203 / this.ratio + 193 + 33) ||
+              (G >= 203 / this.ratio + 193 - 33 &&
+                G <= 203 / this.ratio + 193 + 33)) &&
+            (L = "#FFD230");
+      }
+      (this.ctx.strokeStyle = L), this.ctx.fill(), this.ctx.stroke(), this.ctx.beginPath(), (this.ctx.lineCap =
+        "none"), (this.ctx.shadowBlur = 0), (this.ctx.shadowOffsetY = 0), (this.ctx.lineWidth = 1), this.ctx.setLineDash(
+          []
+        ), this.ctx.arc(e, a, 16, 0, 360, !1), (this.ctx.fillStyle =
+          "#DEF0FF"), (this.ctx.strokeStyle =
+            "#DEF0FF"), this.ctx.fill(), this.ctx.stroke(), ((o = document.createElement(
+              "img"
+            )).src = ''), this.ctx.drawImage(
+              o,
+              e - 12,
+              a - 12,
+              24,
+              24
+            ), this.ctx.stroke(), "6" === m &&
+        (
+          this.ctx.beginPath(),
+          (this.ctx.lineCap = "none"),
+          (this.ctx.lineWidth = 1),
+          this.ctx.setLineDash([1.5]),
+          this.ctx.moveTo(e - 6, a),
+          this.ctx.lineTo(e - 6 + 3 * Math.floor(Number(i) / 25), a),
+          (this.ctx.strokeStyle = "#1793FF"),
+          this.ctx.stroke()
+        );
+    },
+    lineUtilStyle() {
+      this.ctx.beginPath(), this.ctx.setLineDash([]), (this.ctx.lineCap =
+        "round"), (this.ctx.shadowBlur = 4), (this.ctx.shadowOffsetY = 2), (this.ctx.shadowColor =
+          "rgba(255,210,48,0.45)"), (this.ctx.lineWidth = 4);
+    },
+    lineTranslateDraw() {
+      this.ctx.beginPath(), this.ctx.setLineDash([]), (this.ctx.lineCap =
+        "round"), (this.ctx.shadowBlur = 4), (this.ctx.shadowOffsetY = 2), (this.ctx.shadowColor =
+          "rgba(255,210,48,0.45)");
+      var e = this.ctx.createLinearGradient(M, 53, N, 53);
+      e.addColorStop(0, "rgba(255,209,48,0)"), e.addColorStop(
+        0.5,
+        "rgba(255,209,48,0.5)"
+      ), e.addColorStop(
+        1,
+        "rgba(255,209,48,1)"
+      ), (this.ctx.lineWidth = 4), this.ctx.moveTo(M, 53), this.ctx.lineTo(
+        N,
+        53
+      ), (this.ctx.strokeStyle = e), this.ctx.stroke();
+    },
+    powerToLoadLineDraw() {
+      this.lineUtilStyle();
+      let e = null;
+      h >= 576 / this.ratio && A >= 576 / this.ratio
+        ? (e = this.ctx.createLinearGradient(h, 53, A, 53))
+        : h < 576 / this.ratio && A >= 576 / this.ratio
+          ? (e = this.ctx.createLinearGradient(
+            576 / this.ratio,
+            576 / this.ratio - h + 53,
+            A,
+            53
+          ))
+          : h < 576 / this.ratio &&
+            h >= 576 / this.ratio - 137 &&
+            A < 576 / this.ratio
+            ? (e = this.ctx.createLinearGradient(
+              576 / this.ratio,
+              576 / this.ratio - h + 53,
+              576 / this.ratio,
+              576 / this.ratio - A + 53
+            ))
+            : h < 576 / this.ratio - 137 && A >= 576 / this.ratio - 137
+              ? (e = this.ctx.createLinearGradient(
+                576 / this.ratio * 2 - 137 - h,
+                190,
+                576 / this.ratio,
+                576 / this.ratio - A + 53
+              ))
+              : h < 576 / this.ratio - 137 &&
+              A < 576 / this.ratio - 137 &&
+              (e = this.ctx.createLinearGradient(
+                576 / this.ratio * 2 - 137 - h,
+                190,
+                576 / this.ratio * 2 - 137 - A,
+                190
+              )), e.addColorStop(0, "rgba(255,209,48,1)"), e.addColorStop(
+                0.5,
+                "rgba(255,209,48,0.5)"
+              ), e.addColorStop(1, "rgba(255,209,48,0)"), h >= 576 / this.ratio &&
+                A >= 576 / this.ratio
+          ? (this.ctx.moveTo(A, 53), this.ctx.lineTo(h, 53))
+          : h < 576 / this.ratio && A >= 576 / this.ratio
+            ? (
+              this.ctx.moveTo(A, 53),
+              this.ctx.lineTo(576 / this.ratio, 53),
+              this.ctx.lineTo(576 / this.ratio, 576 / this.ratio - h + 53)
+            )
+            : h < 576 / this.ratio &&
+              h >= 576 / this.ratio - 137 &&
+              A < 576 / this.ratio
+              ? (
+                this.ctx.moveTo(576 / this.ratio, 576 / this.ratio - A + 53),
+                this.ctx.lineTo(576 / this.ratio, 576 / this.ratio - h + 53)
+              )
+              : h < 576 / this.ratio - 137 && A >= 576 / this.ratio - 137
+                ? (
+                  this.ctx.moveTo(
+                    576 / this.ratio,
+                    576 / this.ratio - A + 53
+                  ),
+                  this.ctx.lineTo(576 / this.ratio, 190),
+                  this.ctx.lineTo(576 / this.ratio * 2 - 137 - h, 190)
+                )
+                : h < 576 / this.ratio - 137 &&
+                A < 576 / this.ratio - 137 &&
+                (
+                  this.ctx.moveTo(576 / this.ratio * 2 - 137 - A, 190),
+                  this.ctx.lineTo(576 / this.ratio * 2 - 137 - h, 190)
+                ), (this.ctx.strokeStyle = e), this.ctx.stroke();
+    },
+    BMSToLoadDraw() {
+      this.lineUtilStyle();
+      let e = null;
+      var a = 576 / this.ratio + 137;
+      (e =
+        W <= 576 / this.ratio && j <= 576 / this.ratio
+          ? this.ctx.createLinearGradient(j, 53, W, 53)
+          : W > 576 / this.ratio && j <= 576 / this.ratio
+            ? this.ctx.createLinearGradient(
+              j,
+              53,
+              576 / this.ratio,
+              W - 576 / this.ratio + 53
+            )
+            : W <= a && j > 576 / this.ratio
+              ? this.ctx.createLinearGradient(
+                576 / this.ratio,
+                j - 576 / this.ratio + 53,
+                576 / this.ratio,
+                W - 576 / this.ratio + 53
+              )
+              : W > a && j <= a
+                ? this.ctx.createLinearGradient(
+                  576 / this.ratio,
+                  j - 576 / this.ratio + 53,
+                  W - 137,
+                  190
+                )
+                : this.ctx.createLinearGradient(
+                  j - 137,
+                  190,
+                  W - 137,
+                  190
+                )).addColorStop(0, "rgba(255,209,48,0)"), e.addColorStop(
+                  0.5,
+                  "rgba(255,209,48,0.5)"
+                ), e.addColorStop(1, "rgba(255,209,48,1)"), W <= 576 / this.ratio &&
+                  j <= 576 / this.ratio
+          ? (this.ctx.moveTo(j, 53), this.ctx.lineTo(W, 53))
+          : W > 576 / this.ratio && j <= 576 / this.ratio
+            ? (
+              this.ctx.moveTo(j, 53),
+              this.ctx.lineTo(576 / this.ratio, 53),
+              this.ctx.lineTo(576 / this.ratio, W - 576 / this.ratio + 53)
+            )
+            : W <= a && j > 576 / this.ratio
+              ? (
+                this.ctx.moveTo(576 / this.ratio, j - 576 / this.ratio + 53),
+                this.ctx.lineTo(576 / this.ratio, W - 576 / this.ratio + 53)
+              )
+              : (
+                W > a && j <= a
+                  ? (
+                    this.ctx.moveTo(
+                      576 / this.ratio,
+                      j - 576 / this.ratio + 53
+                    ),
+                    this.ctx.lineTo(576 / this.ratio, 190)
+                  )
+                  : this.ctx.moveTo(j - 137, 190),
+                this.ctx.lineTo(W - 137, 190)
+              ), (this.ctx.strokeStyle = e), this.ctx.stroke();
+    },
+    powerToBMSDraw() {
+      this.lineUtilStyle();
+      var e = this.ctx.createLinearGradient(O, 53, H, 53);
+      e.addColorStop(0, "rgba(255,209,48,1)"), e.addColorStop(
+        0.5,
+        "rgba(255,209,48,0.5)"
+      ), e.addColorStop(1, "rgba(255,209,48,0)"), this.ctx.moveTo(
+        H,
+        53
+      ), this.ctx.lineTo(
+        O,
+        53
+      ), (this.ctx.strokeStyle = e), this.ctx.stroke();
+    },
+    BMSToNodeDraw() {
+      this.lineUtilStyle();
+      let e = null;
+      (e =
+        q <= 560 / this.ratio && B <= 560 / this.ratio
+          ? this.ctx.createLinearGradient(B, 193, q, 193)
+          : q > 560 / this.ratio && B <= 560 / this.ratio
+            ? this.ctx.createLinearGradient(
+              B,
+              193,
+              560 / this.ratio,
+              193 - (q - 560 / this.ratio)
+            )
+            : this.ctx.createLinearGradient(
+              560 / this.ratio,
+              193 - (B - 560 / this.ratio),
+              560 / this.ratio,
+              193 - (q - 560 / this.ratio)
+            )).addColorStop(0, "rgba(255,209,48,0)"), e.addColorStop(
+              0.5,
+              "rgba(255,209,48,0.5)"
+            ), e.addColorStop(1, "rgba(255,209,48,1)"), q <= 560 / this.ratio &&
+              B <= 560 / this.ratio
+          ? (this.ctx.moveTo(B, 193), this.ctx.lineTo(q, 193))
+          : (
+            q > 560 / this.ratio && B <= 560 / this.ratio
+              ? (
+                this.ctx.moveTo(B, 193),
+                this.ctx.lineTo(560 / this.ratio, 193)
+              )
+              : this.ctx.moveTo(
+                560 / this.ratio,
+                193 - (B - 560 / this.ratio)
+              ),
+            this.ctx.lineTo(560 / this.ratio, 193 - (q - 560 / this.ratio))
+          ), (this.ctx.strokeStyle = e), this.ctx.stroke();
+    },
+    NodeToBMSDraw() {
+      this.lineUtilStyle();
+      let e = null;
+      (e =
+        k <= 193 && G <= 193
+          ? this.ctx.createLinearGradient(
+            560 / this.ratio,
+            G,
+            560 / this.ratio,
+            k
+          )
+          : 193 < k && G <= 193
+            ? this.ctx.createLinearGradient(
+              560 / this.ratio,
+              G,
+              560 / this.ratio - (k - 193),
+              193
+            )
+            : this.ctx.createLinearGradient(
+              560 / this.ratio - (G - 193),
+              193,
+              560 / this.ratio - (k - 193),
+              193
+            )).addColorStop(0, "rgba(255,209,48,0)"), e.addColorStop(
+              0.5,
+              "rgba(255,209,48,0.5)"
+            ), e.addColorStop(1, "rgba(255,209,48,1)"), k <= 193 && G <= 193
+          ? (
+            this.ctx.moveTo(560 / this.ratio, G),
+            this.ctx.lineTo(560 / this.ratio, k)
+          )
+          : (
+            193 < k && G <= 193
+              ? (
+                this.ctx.moveTo(560 / this.ratio, G),
+                this.ctx.lineTo(560 / this.ratio, 193)
+              )
+              : this.ctx.moveTo(560 / this.ratio - (G - 193), 193),
+            this.ctx.lineTo(560 / this.ratio - (k - 193), 193)
+          ), (this.ctx.strokeStyle = e), this.ctx.stroke();
+    },
+    textDraw(e, a, t, m) {
+      this.ctx.beginPath();
+      var n = m ? "bold 14px PingFang SC" : "normal 12px PingFang SC";
+      m =
+        m && this.themeChange()
+          ? "rgba(50,50,51,1)"
+          : !m && this.themeChange()
+            ? "rgba(0,0,0,0.65)"
+            : m && !this.themeChange() ? "#F5F5F5" : "#E6E6E6";
+      (this.ctx.font = n), (this.ctx.fillStyle = m), (this.ctx.textAlign =
+        "center"), this.ctx.fill(), this.ctx.fillText(e, a, t);
+    },
+    themeChange: () => { }
+  },
+}
 </script>
-
-<style lang="less" scoped>
-  .container {
-    padding: 15px;
-    box-sizing: border-box;
-  }
-  .el-input {
-    width: 200px;
-  }
-
-  .head-line {
-    background-color: #409eff;
-    width: 100px;
-    height: 30px;
-    border-radius: 30px;
-    text-align: center;
-    line-height: 30px;
-    color: #fff;
-    margin-bottom: 16px;
-    // margin-left: -40px;
-    position: relative;
-  }
-
-  .head-line:after {
-    content: "";
-    position: absolute;
-    top: 13px;
-    left: 100px;
-    background: #409eff;
-    width: 850px;
-    height: 2px;
-  }
-</style>
+<style lang="less" scoped></style>
