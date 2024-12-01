@@ -35,7 +35,7 @@
   "devDependencies": {
     "autoprefixer": "^6.6.0",
     "babel-core": "^6.24.1",
-    "babel-loader": "^6.4.0",
+    "babel-loader": "^9.1.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-vue-app": "^1.2.0",
     "coordtransform": "^2.1.2",
@@ -43,7 +43,7 @@
     "css-loader": "^0.27.0",
     "expose-loader": "^2.0.0",
     "file-loader": "^0.10.1",
-    "html-webpack-plugin": "^2.24.1",
+    "html-webpack-plugin": "^5.5.0",
     "klcs": "^3.1.4",
     "leaflet": "^1.7.1",
     "less": "3.9",
@@ -55,7 +55,7 @@
     "url-loader": "^0.5.8",
     "vue-loader": "^13.3.0",
     "vue-template-compiler": "^2.5.16",
-    "webpack": "^2.4.1",
+    "webpack": "^5.75.0",
     "webpack-dev-server": "^2.4.2"
   }
 }
